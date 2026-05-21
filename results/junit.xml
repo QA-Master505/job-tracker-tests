@@ -1,0 +1,122 @@
+<testsuites id="" name="" tests="47" failures="0" skipped="1" errors="0" time="15.535454000000001">
+<testsuite name="api/auth.api.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="6" failures="0" skipped="0" time="1.209" errors="0">
+<testcase name="Auth API › POST /auth/register — should register a new user" classname="api/auth.api.spec.ts" time="0.616">
+</testcase>
+<testcase name="Auth API › POST /auth/register — should return 400 for duplicate email" classname="api/auth.api.spec.ts" time="0.011">
+</testcase>
+<testcase name="Auth API › POST /auth/register — should return 422 for missing fields" classname="api/auth.api.spec.ts" time="0.004">
+</testcase>
+<testcase name="Auth API › POST /auth/login — should return access token with valid credentials" classname="api/auth.api.spec.ts" time="0.282">
+</testcase>
+<testcase name="Auth API › POST /auth/login — should return 401 for invalid credentials" classname="api/auth.api.spec.ts" time="0.285">
+</testcase>
+<testcase name="Auth API › POST /auth/login — should return 422 for missing password" classname="api/auth.api.spec.ts" time="0.011">
+</testcase>
+</testsuite>
+<testsuite name="api/interview-rounds.api.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="6" failures="0" skipped="0" time="0.055" errors="0">
+<testcase name="Interview Rounds API › POST /jobs/:id/interviews — should create a new interview round" classname="api/interview-rounds.api.spec.ts" time="0.014">
+</testcase>
+<testcase name="Interview Rounds API › POST /jobs/:id/interviews — should return 401 without auth token" classname="api/interview-rounds.api.spec.ts" time="0.006">
+</testcase>
+<testcase name="Interview Rounds API › POST /jobs/:id/interviews — should return 404 for non-existent job" classname="api/interview-rounds.api.spec.ts" time="0.006">
+</testcase>
+<testcase name="Interview Rounds API › GET /jobs/:id/interviews — should return interview rounds for a job" classname="api/interview-rounds.api.spec.ts" time="0.013">
+</testcase>
+<testcase name="Interview Rounds API › GET /jobs/:id/interviews — should return 401 without auth token" classname="api/interview-rounds.api.spec.ts" time="0.003">
+</testcase>
+<testcase name="Interview Rounds API › DELETE /jobs/:jobId/interviews/:roundId — should delete an interview round" classname="api/interview-rounds.api.spec.ts" time="0.013">
+</testcase>
+</testsuite>
+<testsuite name="api/jobs.api.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="9" failures="0" skipped="0" time="0.081" errors="0">
+<testcase name="Jobs API › POST /jobs — should create a new job application" classname="api/jobs.api.spec.ts" time="0.015">
+</testcase>
+<testcase name="Jobs API › POST /jobs — should return 401 without auth token" classname="api/jobs.api.spec.ts" time="0.007">
+</testcase>
+<testcase name="Jobs API › POST /jobs — should return 422 for missing required fields" classname="api/jobs.api.spec.ts" time="0.004">
+</testcase>
+<testcase name="Jobs API › GET /jobs — should return list of job applications" classname="api/jobs.api.spec.ts" time="0.015">
+</testcase>
+<testcase name="Jobs API › GET /jobs — should return 401 without auth token" classname="api/jobs.api.spec.ts" time="0.003">
+</testcase>
+<testcase name="Jobs API › PUT /jobs/:id — should update a job application" classname="api/jobs.api.spec.ts" time="0.016">
+</testcase>
+<testcase name="Jobs API › PUT /jobs/:id — should return 404 for non-existent job" classname="api/jobs.api.spec.ts" time="0.005">
+</testcase>
+<testcase name="Jobs API › DELETE /jobs/:id — should delete a job application" classname="api/jobs.api.spec.ts" time="0.011">
+</testcase>
+<testcase name="Jobs API › DELETE /jobs/:id — should return 404 for non-existent job" classname="api/jobs.api.spec.ts" time="0.005">
+</testcase>
+</testsuite>
+<testsuite name="ui/auth/login.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="6" failures="0" skipped="1" time="2.116" errors="0">
+<testcase name="Login › should display the login form" classname="ui/auth/login.spec.ts" time="0.203">
+</testcase>
+<testcase name="Login › should login with valid credentials" classname="ui/auth/login.spec.ts" time="1.058">
+</testcase>
+<testcase name="Login › should show error for invalid credentials" classname="ui/auth/login.spec.ts" time="0.315">
+</testcase>
+<testcase name="Login › should show error for empty email" classname="ui/auth/login.spec.ts" time="0.261">
+</testcase>
+<testcase name="Login › should show error for empty password" classname="ui/auth/login.spec.ts" time="0.279">
+</testcase>
+<testcase name="Login › should redirect to login when accessing protected route while logged out" classname="ui/auth/login.spec.ts">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="ui/auth/register.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="5" failures="0" skipped="0" time="1.848" errors="0">
+<testcase name="Registration › should display the registration form" classname="ui/auth/register.spec.ts" time="0.211">
+</testcase>
+<testcase name="Registration › should register a new user successfully" classname="ui/auth/register.spec.ts" time="0.555">
+</testcase>
+<testcase name="Registration › should show error for duplicate email" classname="ui/auth/register.spec.ts" time="0.569">
+</testcase>
+<testcase name="Registration › should show error for invalid email format" classname="ui/auth/register.spec.ts" time="0.268">
+</testcase>
+<testcase name="Registration › should show error when required fields are empty" classname="ui/auth/register.spec.ts" time="0.245">
+</testcase>
+</testsuite>
+<testsuite name="ui/interview-rounds/interview-rounds.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="3" failures="0" skipped="0" time="4.561" errors="0">
+<testcase name="Interview Rounds › should display the Interview Rounds section for non-applied jobs" classname="ui/interview-rounds/interview-rounds.spec.ts" time="1.405">
+</testcase>
+<testcase name="Interview Rounds › should add an interview round to a job" classname="ui/interview-rounds/interview-rounds.spec.ts" time="1.558">
+</testcase>
+<testcase name="Interview Rounds › should delete an interview round" classname="ui/interview-rounds/interview-rounds.spec.ts" time="1.598">
+</testcase>
+</testsuite>
+<testsuite name="ui/jobs/create-job.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="4" failures="0" skipped="0" time="5.671" errors="0">
+<testcase name="Create Job › should display the Add Application button on the dashboard" classname="ui/jobs/create-job.spec.ts" time="1.373">
+</testcase>
+<testcase name="Create Job › should open the add job modal" classname="ui/jobs/create-job.spec.ts" time="1.385">
+</testcase>
+<testcase name="Create Job › should create a new job application" classname="ui/jobs/create-job.spec.ts" time="1.448">
+</testcase>
+<testcase name="Create Job › should show error when required fields are missing" classname="ui/jobs/create-job.spec.ts" time="1.465">
+</testcase>
+</testsuite>
+<testsuite name="ui/jobs/delete-job.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="2" failures="0" skipped="0" time="2.822" errors="0">
+<testcase name="Delete Job › should delete a job application" classname="ui/jobs/delete-job.spec.ts" time="1.423">
+</testcase>
+<testcase name="Delete Job › should show confirmation dialog before deleting" classname="ui/jobs/delete-job.spec.ts" time="1.399">
+</testcase>
+</testsuite>
+<testsuite name="ui/jobs/update-job.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="2" failures="0" skipped="0" time="3.015" errors="0">
+<testcase name="Update Job › should update job status" classname="ui/jobs/update-job.spec.ts" time="1.513">
+</testcase>
+<testcase name="Update Job › should update job notes" classname="ui/jobs/update-job.spec.ts" time="1.502">
+</testcase>
+</testsuite>
+<testsuite name="ui/profile/profile.spec.ts" timestamp="2026-05-21T21:57:57.939Z" hostname="chromium" tests="4" failures="0" skipped="0" time="4.493" errors="0">
+<testcase name="Profile › should display the profile page" classname="ui/profile/profile.spec.ts" time="1.066">
+</testcase>
+<testcase name="Profile › should display current user information in Account Details" classname="ui/profile/profile.spec.ts" time="1.096">
+</testcase>
+<testcase name="Profile › should update username successfully" classname="ui/profile/profile.spec.ts" time="1.203">
+</testcase>
+<testcase name="Profile › should show browser validation for invalid email on profile update" classname="ui/profile/profile.spec.ts" time="1.128">
+</testcase>
+</testsuite>
+</testsuites>

@@ -1,0 +1,6 @@
+{
+  "browser": "chromium",
+  "headed": false,
+  "timeout": 30000,
+  "baseURL": "http://localhost:5173"
+}
