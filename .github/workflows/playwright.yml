@@ -12,9 +12,25 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  test:
+  test-api:
+    name: API Tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: job_tracker_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
       - uses: actions/checkout@v4
@@ -24,20 +40,55 @@ jobs:
           node-version: 24
           cache: npm
 
-      - name: Install dependencies
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        working-directory: ../
+        run: |
+          git clone https://github.com/QA-Master505/job-tracker-backend.git
+          cd job-tracker-backend
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run database migrations
+        working-directory: ../job-tracker-backend
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/job_tracker_db
+          SECRET_KEY: ci-secret-key-for-testing-only
+        run: |
+          source .venv/bin/activate
+          alembic upgrade head
+
+      - name: Start backend server
+        working-directory: ../job-tracker-backend
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/job_tracker_db
+          SECRET_KEY: ci-secret-key-for-testing-only
+        run: |
+          source .venv/bin/activate
+          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+
+      - name: Wait for backend to be ready
+        run: |
+          curl --retry 15 --retry-delay 2 --retry-connrefused --silent --fail \
+            http://localhost:8000/docs
+
+      - name: Install Playwright dependencies
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run API tests only
+        run: npx playwright test tests/api/
         env:
           CI: true
-          BASE_URL: ${{ vars.BASE_URL || 'http://localhost:5173' }}
-          API_URL: ${{ vars.API_URL || 'http://localhost:8000' }}
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+          API_URL: http://localhost:8000
+          BASE_URL: http://localhost:5173
 
       - uses: actions/upload-artifact@v4
         if: always()
