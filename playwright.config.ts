@@ -29,6 +29,7 @@ export default defineConfig({
     ['html', { outputFolder: 'playwright-report' }],
     ['list'],
     ['junit', { outputFile: 'results/junit.xml' }],
+    ['./reporters/slack-reporter.ts'],
   ],
 
   use: {
