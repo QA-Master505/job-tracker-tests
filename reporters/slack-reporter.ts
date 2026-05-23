@@ -8,13 +8,14 @@ import type {
 } from '@playwright/test/reporter';
 import { sendSlackNotification, sendCiCdNotification, sendBugsNotification } from '../helpers/slack-notifier';
 import type { FailureDetail } from '../helpers/slack-notifier';
-import { createJiraBug } from '../helpers/jira-notifier';
+import { createJiraBug, findOpenJiraBug, closeJiraBug } from '../helpers/jira-notifier';
 
 class SlackReporter implements Reporter {
   private passed = 0;
   private failed = 0;
   private skipped = 0;
   private failures: FailureDetail[] = [];
+  private passedTitles: string[] = [];
   private startTime = 0;
 
   onBegin(_config: FullConfig, _suite: Suite): void {
@@ -24,6 +25,7 @@ class SlackReporter implements Reporter {
   onTestEnd(test: TestCase, result: TestResult): void {
     if (result.status === 'passed') {
       this.passed++;
+      this.passedTitles.push(test.titlePath().join(' > '));
     } else if (result.status === 'skipped') {
       this.skipped++;
     } else if (result.retry === 0) {
@@ -90,6 +92,18 @@ class SlackReporter implements Reporter {
       runUrl,
       failures: this.failures,
     }, jiraKeys);
+
+    let closedCount = 0;
+    for (const title of this.passedTitles) {
+      const issueKey = await findOpenJiraBug(title);
+      if (issueKey) {
+        await closeJiraBug(issueKey);
+        closedCount++;
+      }
+    }
+    if (closedCount > 0) {
+      console.log(`[JiraReporter] Auto-closed ${closedCount} bug${closedCount !== 1 ? 's' : ''}`);
+    }
   }
 }
 

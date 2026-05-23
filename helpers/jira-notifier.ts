@@ -77,3 +77,62 @@ export async function createJiraBug(
     return null;
   }
 }
+
+export async function findOpenJiraBug(testTitle: string): Promise<string | null> {
+  const baseUrl = process.env.JIRA_BASE_URL;
+  const email = process.env.JIRA_EMAIL;
+  const apiToken = process.env.JIRA_API_TOKEN;
+  const projectKey = process.env.JIRA_PROJECT_KEY;
+
+  if (!baseUrl || !email || !apiToken || !projectKey) return null;
+
+  const branch = process.env.GITHUB_REF_NAME ?? 'local';
+  if (branch !== 'main') return null;
+
+  const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
+  const jql =
+    `project = ${projectKey} AND issuetype = Bug AND status != Done` +
+    ` AND summary ~ "[Auto] Failed test:"` +
+    ` AND summary ~ "${testTitle.replace(/"/g, '\\"')}"`;
+  const url = `${baseUrl}/rest/api/3/issue/search?jql=${encodeURIComponent(jql)}&maxResults=1&fields=summary`;
+
+  try {
+    const response = await fetch(url, {
+      headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' },
+    });
+    if (!response.ok) {
+      console.warn(`[JiraReporter] JQL search failed (${response.status}): ${await response.text()}`);
+      return null;
+    }
+    const data = (await response.json()) as { issues: { key: string }[] };
+    return data.issues[0]?.key ?? null;
+  } catch (err) {
+    console.warn('[JiraReporter] Error searching Jira:', err);
+    return null;
+  }
+}
+
+export async function closeJiraBug(issueKey: string): Promise<void> {
+  const baseUrl = process.env.JIRA_BASE_URL;
+  const email = process.env.JIRA_EMAIL;
+  const apiToken = process.env.JIRA_API_TOKEN;
+
+  if (!baseUrl || !email || !apiToken) return;
+
+  const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
+
+  try {
+    const response = await fetch(`${baseUrl}/rest/api/3/issue/${issueKey}/transitions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Basic ${auth}` },
+      body: JSON.stringify({ transition: { id: '41' } }),
+    });
+    if (!response.ok) {
+      console.warn(`[JiraReporter] Failed to close ${issueKey} (${response.status}): ${await response.text()}`);
+    } else {
+      console.log(`[JiraReporter] Closed: ${baseUrl}/browse/${issueKey}`);
+    }
+  } catch (err) {
+    console.warn(`[JiraReporter] Error closing ${issueKey}:`, err);
+  }
+}
