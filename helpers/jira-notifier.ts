@@ -79,7 +79,7 @@ export async function createJiraBug(
 }
 
 export async function findOpenJiraBug(testTitle: string): Promise<string | null> {
-  const baseUrl = process.env.JIRA_BASE_URL;
+  const baseUrl = (process.env.JIRA_BASE_URL ?? '').replace(/\/$/, '');
   const email = process.env.JIRA_EMAIL;
   const apiToken = process.env.JIRA_API_TOKEN;
   const projectKey = process.env.JIRA_PROJECT_KEY;
@@ -90,14 +90,14 @@ export async function findOpenJiraBug(testTitle: string): Promise<string | null>
   if (branch !== 'main') return null;
 
   const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
-  const jql =
-    `project = ${projectKey} AND issuetype = Bug AND status != Done` +
-    ` AND summary ~ "[Auto] Failed test:"` +
-    ` AND summary ~ "${testTitle.replace(/"/g, '\\"')}"`;
-  const url = `${baseUrl}/rest/api/3/issue/search?jql=${encodeURIComponent(jql)}&fields=summary,status&maxResults=1`;
+  const escapedTitle = testTitle.replace(/"/g, '\\"');
+  const jql = `project = "${projectKey}" AND issuetype = Bug AND status != Done AND summary ~ "\\"[Auto] Failed test:\\"" AND summary ~ "\\"${escapedTitle}\\""`;
+  const encodedJQL = encodeURIComponent(jql);
+  const searchUrl = `${baseUrl}/rest/api/3/issue/search?jql=${encodedJQL}&fields=summary,status&maxResults=1`;
+  console.log('[JiraReporter] Searching URL:', searchUrl);
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(searchUrl, {
       headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' },
     });
     if (!response.ok) {
