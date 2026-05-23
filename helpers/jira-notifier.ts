@@ -90,8 +90,8 @@ export async function findOpenJiraBug(testTitle: string): Promise<string | null>
   if (branch !== 'main') return null;
 
   const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
-  const escapedTitle = testTitle.replace(/"/g, '\\"');
-  const jql = `project = "${projectKey}" AND issuetype = Bug AND status != Done AND summary ~ "\\"[Auto] Failed test:\\"" AND summary ~ "\\"${escapedTitle}\\""`;
+  const safeTitle = testTitle.replace(/"/g, '');
+  const jql = `project = "${projectKey}" AND issuetype = Bug AND status != Done AND summary ~ "[Auto] Failed test:" AND summary ~ "${safeTitle}"`;
   const encodedJQL = encodeURIComponent(jql);
   const searchUrl = `${baseUrl}/rest/api/3/issue/search?jql=${encodedJQL}&fields=summary,status&maxResults=1`;
   console.log('[JiraReporter] Searching URL:', searchUrl);
@@ -109,6 +109,38 @@ export async function findOpenJiraBug(testTitle: string): Promise<string | null>
   } catch (err) {
     console.warn('[JiraReporter] Error searching Jira:', err);
     return null;
+  }
+}
+
+export async function findAllOpenJiraBugs(): Promise<string[]> {
+  const baseUrl = (process.env.JIRA_BASE_URL ?? '').replace(/\/$/, '');
+  const email = process.env.JIRA_EMAIL;
+  const apiToken = process.env.JIRA_API_TOKEN;
+  const projectKey = process.env.JIRA_PROJECT_KEY;
+
+  if (!baseUrl || !email || !apiToken || !projectKey) return [];
+
+  const branch = process.env.GITHUB_REF_NAME ?? 'local';
+  if (branch !== 'main') return [];
+
+  const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
+  const jql = `project = "${projectKey}" AND issuetype = Bug AND status != Done AND summary ~ "[Auto] Failed test:"`;
+  const searchUrl = `${baseUrl}/rest/api/3/issue/search?jql=${encodeURIComponent(jql)}&fields=summary,status&maxResults=50`;
+  console.log('[JiraReporter] Searching for open auto-bugs:', searchUrl);
+
+  try {
+    const response = await fetch(searchUrl, {
+      headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' },
+    });
+    if (!response.ok) {
+      console.warn(`[JiraReporter] JQL search failed (${response.status}): ${await response.text()}`);
+      return [];
+    }
+    const data = (await response.json()) as { issues: { key: string }[] };
+    return data.issues.map((i) => i.key);
+  } catch (err) {
+    console.warn('[JiraReporter] Error searching Jira:', err);
+    return [];
   }
 }
 
