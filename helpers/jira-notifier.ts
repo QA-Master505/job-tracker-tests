@@ -91,15 +91,17 @@ export async function findOpenJiraBug(testTitle: string): Promise<string | null>
 
   const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
   const safeTitle = testTitle.replace(/"/g, '');
-  const jql = `project = ${projectKey} AND issuetype = Bug AND status != Done AND summary ~ "[Auto] Failed test:" AND summary ~ ${safeTitle}`;
-  const searchUrl = `${baseUrl}/rest/api/3/issue/search`;
-  console.log('[JiraReporter] Searching JQL:', jql);
+  const params = new URLSearchParams({
+    jql: `project = ${projectKey} AND issuetype = Bug AND status != Done AND summary ~ "[Auto] Failed test:" AND summary ~ ${safeTitle}`,
+    fields: 'summary,status',
+    maxResults: '1',
+  });
+  const searchUrl = `${baseUrl}/rest/api/3/issue/search?${params.toString()}`;
+  console.log('[JiraReporter] Searching URL:', searchUrl);
 
   try {
     const response = await fetch(searchUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Basic ${auth}`, Accept: 'application/json' },
-      body: JSON.stringify({ jql, fields: ['summary', 'status'], maxResults: 1 }),
+      headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' },
     });
     if (!response.ok) {
       console.warn(`[JiraReporter] JQL search failed (${response.status}): ${await response.text()}`);
@@ -125,15 +127,17 @@ export async function findAllOpenJiraBugs(): Promise<string[]> {
   if (branch !== 'main') return [];
 
   const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
-  const jql = `project = ${projectKey} AND issuetype = Bug AND status != Done AND summary ~ "[Auto] Failed test:"`;
-  const searchUrl = `${baseUrl}/rest/api/3/issue/search`;
-  console.log('[JiraReporter] Searching for open auto-bugs JQL:', jql);
+  const params = new URLSearchParams({
+    jql: `project = ${projectKey} AND issuetype = Bug AND status != Done AND summary ~ "[Auto] Failed test:"`,
+    fields: 'summary,status',
+    maxResults: '50',
+  });
+  const searchUrl = `${baseUrl}/rest/api/3/issue/search?${params.toString()}`;
+  console.log('[JiraReporter] Searching for open auto-bugs URL:', searchUrl);
 
   try {
     const response = await fetch(searchUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Basic ${auth}`, Accept: 'application/json' },
-      body: JSON.stringify({ jql, fields: ['summary', 'status'], maxResults: 50 }),
+      headers: { Authorization: `Basic ${auth}`, Accept: 'application/json' },
     });
     if (!response.ok) {
       console.warn(`[JiraReporter] JQL search failed (${response.status}): ${await response.text()}`);
