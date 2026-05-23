@@ -26,15 +26,15 @@ class SlackReporter implements Reporter {
       this.passed++;
     } else if (result.status === 'skipped') {
       this.skipped++;
-    } else {
-      // failed | timedOut | interrupted
+    } else if (result.retry === 0) {
+      // failed | timedOut | interrupted — only record on first attempt to prevent retry duplicates
       this.failed++;
       const rawMessage =
         result.error?.message ?? result.errors[0]?.message ?? 'Unknown error';
       this.failures.push({
         testName: test.titlePath().join(' > '),
         // strip ANSI escape codes that appear in Playwright error output
-        errorMessage: rawMessage.replace(/\[[0-9;]*m/g, '').trim(),
+        errorMessage: rawMessage.replace(/\[[0-9;]*m/g, '').trim(),
       });
     }
   }
