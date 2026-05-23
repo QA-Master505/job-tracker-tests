@@ -24,7 +24,7 @@ export async function createJiraBug(
   const body = {
     fields: {
       project: { key: projectKey },
-      summary: `🐛 [Auto] Failed test: ${failure.testName}`,
+      summary: `[Auto] Failed test: ${failure.testName}`,
       description: {
         type: 'doc',
         version: 1,
