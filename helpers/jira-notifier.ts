@@ -94,7 +94,7 @@ export async function findOpenJiraBug(testTitle: string): Promise<string | null>
     `project = ${projectKey} AND issuetype = Bug AND status != Done` +
     ` AND summary ~ "[Auto] Failed test:"` +
     ` AND summary ~ "${testTitle.replace(/"/g, '\\"')}"`;
-  const url = `${baseUrl}/rest/api/3/issue/search?jql=${encodeURIComponent(jql)}&maxResults=1&fields=summary`;
+  const url = `${baseUrl}/rest/api/3/issue/search?jql=${encodeURIComponent(jql)}&fields=summary,status&maxResults=1`;
 
   try {
     const response = await fetch(url, {
