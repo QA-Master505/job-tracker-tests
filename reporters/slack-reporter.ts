@@ -6,7 +6,7 @@ import type {
   TestResult,
   FullResult,
 } from '@playwright/test/reporter';
-import { sendSlackNotification } from '../helpers/slack-notifier';
+import { sendSlackNotification, sendCiCdNotification } from '../helpers/slack-notifier';
 import type { FailureDetail } from '../helpers/slack-notifier';
 
 class SlackReporter implements Reporter {
@@ -61,6 +61,15 @@ class SlackReporter implements Reporter {
       actor,
       runUrl,
       failures: this.failures,
+    });
+
+    await sendCiCdNotification({
+      workflowName: process.env.GITHUB_WORKFLOW ?? 'Playwright Tests',
+      status: this.failed > 0 ? 'failure' : 'success',
+      branch,
+      actor,
+      durationMs,
+      runUrl,
     });
   }
 }

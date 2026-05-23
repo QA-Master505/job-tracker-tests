@@ -91,3 +91,57 @@ export async function sendSlackNotification(payload: SlackNotificationPayload): 
     console.warn('[SlackReporter] Failed to send Slack notification:', err);
   }
 }
+
+export interface CiCdNotificationPayload {
+  workflowName: string;
+  status: 'success' | 'failure';
+  branch: string;
+  actor: string;
+  durationMs: number;
+  runUrl: string;
+}
+
+export async function sendCiCdNotification(payload: CiCdNotificationPayload): Promise<void> {
+  const webhookUrl = process.env.SLACK_CICD_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.warn('[SlackReporter] SLACK_CICD_WEBHOOK_URL not set — skipping CI/CD notification');
+    return;
+  }
+
+  const isSuccess = payload.status === 'success';
+  const color = isSuccess ? '#2eb886' : '#e01e5a';
+  const statusEmoji = isSuccess ? '✅' : '❌';
+
+  const fields: object[] = [
+    { type: 'mrkdwn', text: `*Workflow:* ${payload.workflowName}` },
+    { type: 'mrkdwn', text: `*Status:* ${statusEmoji} ${payload.status}` },
+    { type: 'mrkdwn', text: `*Branch:* \`${payload.branch}\`` },
+    { type: 'mrkdwn', text: `*Triggered by:* ${payload.actor}` },
+    { type: 'mrkdwn', text: `*Duration:* ${formatDuration(payload.durationMs)}` },
+  ];
+
+  if (payload.runUrl) {
+    fields.push({ type: 'mrkdwn', text: `*Run:* <${payload.runUrl}|View on GitHub>` });
+  }
+
+  const blocks: object[] = [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: `${statusEmoji} CI/CD — ${payload.workflowName}`, emoji: true },
+    },
+    { type: 'section', fields },
+  ];
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ attachments: [{ color, blocks }] }),
+    });
+    if (!response.ok) {
+      console.warn(`[SlackReporter] CI/CD webhook returned ${response.status}: ${await response.text()}`);
+    }
+  } catch (err) {
+    console.warn('[SlackReporter] Failed to send CI/CD Slack notification:', err);
+  }
+}
