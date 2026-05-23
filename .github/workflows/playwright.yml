@@ -99,6 +99,10 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           SLACK_CICD_WEBHOOK_URL: ${{ secrets.SLACK_CICD_WEBHOOK_URL }}
           SLACK_BUGS_WEBHOOK_URL: ${{ secrets.SLACK_BUGS_WEBHOOK_URL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
 
       - uses: actions/upload-artifact@v4
         if: always()

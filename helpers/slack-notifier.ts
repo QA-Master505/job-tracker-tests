@@ -146,7 +146,10 @@ export async function sendCiCdNotification(payload: CiCdNotificationPayload): Pr
   }
 }
 
-export async function sendBugsNotification(payload: SlackNotificationPayload): Promise<void> {
+export async function sendBugsNotification(
+  payload: SlackNotificationPayload,
+  jiraKeys: string[] = [],
+): Promise<void> {
   const webhookUrl = process.env.SLACK_BUGS_WEBHOOK_URL;
   if (!webhookUrl) {
     console.warn('[SlackReporter] SLACK_BUGS_WEBHOOK_URL not set — skipping bugs notification');
@@ -157,11 +160,16 @@ export async function sendBugsNotification(payload: SlackNotificationPayload): P
   }
 
   const count = payload.failed;
+  const jiraBaseUrl = process.env.JIRA_BASE_URL;
   const failureLines = payload.failures
     .slice(0, 5)
-    .map(({ testName, errorMessage }) => {
+    .map(({ testName, errorMessage }, i) => {
       const truncated = errorMessage.length > 200 ? `${errorMessage.slice(0, 200)}…` : errorMessage;
-      return `• *${testName}*\n  \`${truncated}\``;
+      const key = jiraKeys[i];
+      const jiraTag = key
+        ? ` — ${jiraBaseUrl ? `<${jiraBaseUrl}/browse/${key}|${key}>` : key}`
+        : '';
+      return `• *${testName}*${jiraTag}\n  \`${truncated}\``;
     })
     .join('\n');
 

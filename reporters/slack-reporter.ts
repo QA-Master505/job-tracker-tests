@@ -8,6 +8,7 @@ import type {
 } from '@playwright/test/reporter';
 import { sendSlackNotification, sendCiCdNotification, sendBugsNotification } from '../helpers/slack-notifier';
 import type { FailureDetail } from '../helpers/slack-notifier';
+import { createJiraBug } from '../helpers/jira-notifier';
 
 class SlackReporter implements Reporter {
   private passed = 0;
@@ -72,6 +73,12 @@ class SlackReporter implements Reporter {
       runUrl,
     });
 
+    const jiraKeys: string[] = [];
+    for (const failure of this.failures.slice(0, 5)) {
+      const key = await createJiraBug(failure, runUrl);
+      if (key) jiraKeys.push(key);
+    }
+
     await sendBugsNotification({
       passed: this.passed,
       failed: this.failed,
@@ -82,7 +89,7 @@ class SlackReporter implements Reporter {
       actor,
       runUrl,
       failures: this.failures,
-    });
+    }, jiraKeys);
   }
 }
 
