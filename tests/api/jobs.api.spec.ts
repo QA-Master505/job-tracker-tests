@@ -67,7 +67,7 @@ test.describe('Jobs API', () => {
   });
 
   test('PUT /jobs/:id — should return 404 for non-existent job', async ({ request }) => {
-    const response = await updateJob(request, token, '1', { status: 'phone_interview' });
+    const response = await updateJob(request, token, '2', { status: 'phone_interview' });
     expect(response.status()).toBe(404);
   });
 
