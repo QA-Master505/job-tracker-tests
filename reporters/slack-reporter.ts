@@ -6,7 +6,7 @@ import type {
   TestResult,
   FullResult,
 } from '@playwright/test/reporter';
-import { sendSlackNotification, sendCiCdNotification } from '../helpers/slack-notifier';
+import { sendSlackNotification, sendCiCdNotification, sendBugsNotification } from '../helpers/slack-notifier';
 import type { FailureDetail } from '../helpers/slack-notifier';
 
 class SlackReporter implements Reporter {
@@ -70,6 +70,18 @@ class SlackReporter implements Reporter {
       actor,
       durationMs,
       runUrl,
+    });
+
+    await sendBugsNotification({
+      passed: this.passed,
+      failed: this.failed,
+      skipped: this.skipped,
+      total,
+      durationMs,
+      branch,
+      actor,
+      runUrl,
+      failures: this.failures,
     });
   }
 }

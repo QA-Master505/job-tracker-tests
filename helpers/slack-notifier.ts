@@ -145,3 +145,61 @@ export async function sendCiCdNotification(payload: CiCdNotificationPayload): Pr
     console.warn('[SlackReporter] Failed to send CI/CD Slack notification:', err);
   }
 }
+
+export async function sendBugsNotification(payload: SlackNotificationPayload): Promise<void> {
+  const webhookUrl = process.env.SLACK_BUGS_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.warn('[SlackReporter] SLACK_BUGS_WEBHOOK_URL not set — skipping bugs notification');
+    return;
+  }
+  if (payload.failed === 0) {
+    return;
+  }
+
+  const count = payload.failed;
+  const failureLines = payload.failures
+    .slice(0, 5)
+    .map(({ testName, errorMessage }) => {
+      const truncated = errorMessage.length > 200 ? `${errorMessage.slice(0, 200)}…` : errorMessage;
+      return `• *${testName}*\n  \`${truncated}\``;
+    })
+    .join('\n');
+
+  const metaFields: object[] = [
+    { type: 'mrkdwn', text: `*Branch:* \`${payload.branch}\`` },
+    { type: 'mrkdwn', text: `*Triggered by:* ${payload.actor}` },
+  ];
+  if (payload.runUrl) {
+    metaFields.push({ type: 'mrkdwn', text: `*Run:* <${payload.runUrl}|View on GitHub>` });
+  }
+
+  const blocks: object[] = [
+    {
+      type: 'header',
+      text: {
+        type: 'plain_text',
+        text: `🐛 ${count} Test${count !== 1 ? 's' : ''} Failed`,
+        emoji: true,
+      },
+    },
+    { type: 'section', fields: metaFields },
+    { type: 'divider' },
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: `*Failed Tests:*\n${failureLines}` },
+    },
+  ];
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ attachments: [{ color: '#e01e5a', blocks }] }),
+    });
+    if (!response.ok) {
+      console.warn(`[SlackReporter] Bugs webhook returned ${response.status}: ${await response.text()}`);
+    }
+  } catch (err) {
+    console.warn('[SlackReporter] Failed to send bugs Slack notification:', err);
+  }
+}
