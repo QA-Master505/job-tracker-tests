@@ -186,7 +186,49 @@ playwright-cli snapshot
 
 ## Future Integrations
 
-- **Slack notifications** — Post test results to a Slack channel on failure using the Slack API or `@slack/web-api`
 - **Jira integration** — Automatically create Jira tickets for failing tests using the Jira REST API
 - **Allure reporting** — Richer test reporting with `allure-playwright`
 - **Visual regression** — Screenshot diffing with `@playwright/experimental-ct-react` or Percy
+
+---
+
+## Slack Integration
+
+Playwright test results are automatically posted to three Slack channels via the **JobTracker QA Bot** after every CI run.
+
+### Channels
+
+| Channel | Webhook Secret | When it fires |
+|---|---|---|
+| `#qa-automation` | `SLACK_WEBHOOK_URL` | Every run (pass or fail) |
+| `#ci-cd-reports` | `SLACK_CICD_WEBHOOK_URL` | Every run (pass or fail) |
+| `#bugs` | `SLACK_BUGS_WEBHOOK_URL` | Failed runs only |
+
+### What each channel receives
+
+**#qa-automation** — Full test result summary:
+- Passed / failed / skipped / total counts
+- Run duration
+- Branch and triggered-by info
+- Link to the GitHub Actions run
+- List of up to 5 failed test names with truncated error messages (on failure)
+
+**#ci-cd-reports** — CI/CD pipeline summary:
+- Workflow name and overall status (success / failure)
+- Branch, triggered-by, and duration
+- Link to the GitHub Actions run
+
+**#bugs** — Failure alert (only sent when at least one test fails):
+- Number of failures
+- Failed test names and truncated error messages (up to 5)
+- Branch, triggered-by, and link to the GitHub Actions run
+
+### How it works
+
+Notifications are sent by a custom Playwright reporter (`reporters/slack-reporter.ts`) that calls three functions from `helpers/slack-notifier.ts` at the end of every test run:
+
+1. `sendSlackNotification()` → `#qa-automation`
+2. `sendCiCdNotification()` → `#ci-cd-reports`
+3. `sendBugsNotification()` → `#bugs` (skipped automatically when all tests pass)
+
+The three webhook URLs are stored as GitHub repository secrets and injected into the CI environment. Notifications are triggered on every push to `main`, pull request targeting `main`, and the nightly scheduled run.
