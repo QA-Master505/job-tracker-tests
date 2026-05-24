@@ -952,18 +952,16 @@
             {
               "listen": "test",
               "script": {
+                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
                   "pm.test(\"Job status updated\", function () {",
                   "    var jsonData = pm.response.json();",
-                  "    pm.expect(jsonData.status).to.eql(\"interviewing\");",
+                  "    pm.expect(jsonData.status).to.eql(\"phone_interview\");",
                   "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                ]
               }
             }
           ],
@@ -991,7 +989,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"status\": \"interview\",\n  \"notes\": \"Got interview scheduled for next week!\"\n}",
+              "raw": "{\n  \"status\": \"phone_interview\",\n  \"notes\": \"Got interview scheduled for next week!\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -1161,6 +1159,44 @@
               "body": "{}"
             }
           ]
+        },
+        {
+          "name": "Setup: Create Job for Interviews",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{authToken}}",
+                "disabled": false
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"company_name\": \"Interview Test Company\",\n  \"job_title\": \"QA Engineer\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2026-05-21\",\n  \"notes\": \"Setup job for interview round tests\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/jobs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "jobs"
+              ]
+            },
+            "description": "Creates a job specifically for Interview Rounds tests. Saves jobId to environment."
+          },
+          "response": []
         }
       ],
       "description": "CRUD operations for managing job applications.",
@@ -1705,7 +1741,7 @@
           "name": "Mobile Auth",
           "item": [
             {
-              "name": "Mobile Register",
+              "name": "{{baseUrl}}/mobile/v1/auth/register",
               "event": [
                 {
                   "listen": "test",
@@ -1737,7 +1773,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"mobileuser@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"full_name\": \"Mobile User\",\n  \"device_token\": \"fcm_token_here\"\n}",
+                  "raw": "{\"email\":\"mobileuser@example.com\",\"password\":\"SecurePass123!\",\"full_name\":\"Mobile User\",\"device_token\":\"fcm_token_here\"}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1756,7 +1792,7 @@
                     "register"
                   ]
                 },
-                "description": "Register a new user via the mobile app. Returns a mobile-optimized response with device token support."
+                "description": "Generated from cURL: curl -X POST \"{{baseUrl}}/mobile/v1/auth/register\" -H \"Content-Type: application/json\" -H \"X-Client-Type: mobile\" -d '{\"email\":\"mobileuser@example.com\",\"password\":\"SecurePass123!\",\"full_name\":\"Mobile User\",\"device_token\":\"fcm_token_here\"}' --disabled"
               },
               "response": [
                 {
@@ -1814,7 +1850,7 @@
               ]
             },
             {
-              "name": "Mobile Login",
+              "name": "{{baseUrl}}/mobile/v1/auth/login",
               "event": [
                 {
                   "listen": "test",
@@ -1847,7 +1883,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"mobileuser@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"device_token\": \"fcm_token_here\"\n}",
+                  "raw": "{\"email\":\"mobileuser@example.com\",\"password\":\"SecurePass123!\",\"device_token\":\"fcm_token_here\"}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1866,7 +1902,7 @@
                     "login"
                   ]
                 },
-                "description": "Authenticate a mobile user. Returns access token and refresh token for persistent sessions."
+                "description": "Generated from cURL: curl -X POST \"{{baseUrl}}/mobile/v1/auth/login\" -H \"Content-Type: application/json\" -H \"X-Client-Type: mobile\" -d '{\"email\":\"mobileuser@example.com\",\"password\":\"SecurePass123!\",\"device_token\":\"fcm_token_here\"}' --disabled"
               },
               "response": [
                 {
@@ -1930,7 +1966,7 @@
           "name": "Mobile Jobs",
           "item": [
             {
-              "name": "Get All Jobs",
+              "name": "{{baseUrl}}/mobile/v1/jobs",
               "event": [
                 {
                   "listen": "test",
@@ -1971,7 +2007,7 @@
                     "jobs"
                   ]
                 },
-                "description": "Retrieve job applications for mobile display. Returns a mobile-optimized payload with reduced fields."
+                "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/mobile/v1/jobs\" -H \"Authorization: Bearer {{authToken}}\" -H \"X-Client-Type: mobile\" --disabled"
               },
               "response": [
                 {
@@ -2023,7 +2059,7 @@
               ]
             },
             {
-              "name": "Create Job",
+              "name": "{{baseUrl}}/mobile/v1/jobs",
               "event": [
                 {
                   "listen": "test",
@@ -2059,7 +2095,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"company\": \"Mobile Corp\",\n  \"position\": \"iOS Developer\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2024-01-15\"\n}",
+                  "raw": "{\"company\":\"Mobile Corp\",\"position\":\"iOS Developer\",\"status\":\"applied\",\"applied_date\":\"2024-01-15\"}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2077,7 +2113,7 @@
                     "jobs"
                   ]
                 },
-                "description": "Create a new job application from the mobile app."
+                "description": "Generated from cURL: curl -X POST \"{{baseUrl}}/mobile/v1/jobs\" -H \"Authorization: Bearer {{authToken}}\" -H \"Content-Type: application/json\" -H \"X-Client-Type: mobile\" -d '{\"company\":\"Mobile Corp\",\"position\":\"iOS Developer\",\"status\":\"applied\",\"applied_date\":\"2024-01-15\"}' --disabled"
               },
               "response": [
                 {
@@ -2398,7 +2434,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"email\": \"happypath@example.com\", \"username\": \"happyuser\", \"password\": \"Test1234!\"}",
+                  "raw": "{\"email\": \"{{email}}\", \"username\": \"{{username}}\", \"password\": \"{{password}}\"}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2448,7 +2484,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"email\": \"happypath@example.com\", \"password\": \"Test1234!\"}",
+                  "raw": "{\"email\": \"{{email}}\", \"password\": \"{{password}}\"}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2766,12 +2802,11 @@
                 }
               ],
               "request": {
-                "method": "PUT",
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
                   {
                     "key": "Content-Type",
                     "value": "application/json"
@@ -2779,7 +2814,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"email\": \"existing@example.com\"}",
+                  "raw": "{\"email\": \"{{email}}\", \"username\": \"duplicate_user_{{$timestamp}}\", \"password\": \"{{password}}\"}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2787,16 +2822,16 @@
                   }
                 },
                 "url": {
-                  "raw": "{{baseUrl}}/users/me",
+                  "raw": "{{baseUrl}}/auth/register",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
-                    "users",
-                    "me"
+                    "auth",
+                    "register"
                   ]
                 },
-                "description": "Negative test: Verify that using an already-registered email returns 409."
+                "description": "Negative test: Attempt to register with an already-used email. Expects 409 Conflict."
               },
               "response": []
             },
@@ -2820,12 +2855,11 @@
                 }
               ],
               "request": {
-                "method": "PUT",
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
                   {
                     "key": "Content-Type",
                     "value": "application/json"
@@ -2833,7 +2867,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"username\": \"existinguser\"}",
+                  "raw": "{\"email\": \"duplicate_{{$timestamp}}@test.com\", \"username\": \"{{username}}\", \"password\": \"{{password}}\"}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2841,16 +2875,16 @@
                   }
                 },
                 "url": {
-                  "raw": "{{baseUrl}}/users/me",
+                  "raw": "{{baseUrl}}/auth/register",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
-                    "users",
-                    "me"
+                    "auth",
+                    "register"
                   ]
                 },
-                "description": "Negative test: Verify that using an already-taken username returns 409."
+                "description": "Negative test: Attempt to register with an already-used username. Expects 409 Conflict."
               },
               "response": []
             },
@@ -3577,7 +3611,7 @@
       "name": "📊 Admin (Future)",
       "item": [
         {
-          "name": "Get All Users",
+          "name": "{{baseUrl}}/admin/users",
           "event": [
             {
               "listen": "test",
@@ -3623,7 +3657,7 @@
                 "users"
               ]
             },
-            "description": "Admin only: Retrieve a list of all registered users. Requires admin role JWT token."
+            "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/admin/users\" -H \"Authorization: Bearer {{authToken}}\" --disabled"
           },
           "response": [
             {
@@ -3666,7 +3700,7 @@
           ]
         },
         {
-          "name": "Get All Applications",
+          "name": "{{baseUrl}}/admin/applications",
           "event": [
             {
               "listen": "test",
@@ -3712,7 +3746,7 @@
                 "applications"
               ]
             },
-            "description": "Admin only: Retrieve all job applications across all users. Requires admin role JWT token."
+            "description": "Generated from cURL: curl -X GET \"{{baseUrl}}/admin/applications\" -H \"Authorization: Bearer {{authToken}}\" --disabled"
           },
           "response": [
             {
@@ -3762,7 +3796,7 @@
       "item": []
     },
     {
-      "name": "🧹 CI Cleanup — Delete Test User",
+      "name": "🧹 CI Cleanup — Delete Test Job",
       "request": {
         "auth": {
           "type": "bearer",
@@ -3778,26 +3812,24 @@
         "header": [
           {
             "key": "Content-Type",
-            "value": "application/json",
-            "disabled": false
+            "value": "application/json"
           },
           {
             "key": "Authorization",
-            "value": "Bearer {{authToken}}",
-            "disabled": false
+            "value": "Bearer {{authToken}}"
           }
         ],
         "url": {
-          "raw": "{{baseUrl}}/users/me",
+          "raw": "{{baseUrl}}/jobs/{{jobId}}",
           "host": [
             "{{baseUrl}}"
           ],
           "path": [
-            "users",
-            "me"
+            "jobs",
+            "{{jobId}}"
           ]
         },
-        "description": "Deletes the test user created at the start of the CI run. Runs last to clean up ephemeral test data."
+        "description": "Deletes the test job created during the CI run. Runs last to clean up ephemeral test data."
       },
       "response": []
     },

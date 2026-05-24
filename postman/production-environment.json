@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:8000",
+			"value": "https://job-tracker-backend-production-7acf.up.railway.app",
 			"type": "default",
 			"enabled": true
 		},
