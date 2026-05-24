@@ -1,0 +1,28 @@
+{
+	"id": "d85aba56-ba68-406e-bead-424dfe3b8c99",
+	"name": "Production",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "https://job-tracker.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "secret",
+			"enabled": true
+		},
+		{
+			"key": "jobId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"color": null,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-05-24T12:50:34.964Z",
+	"_postman_exported_using": "Postman/12.11.4"
+}
