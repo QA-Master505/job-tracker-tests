@@ -4234,17 +4234,22 @@
       "script": {
         "type": "text/javascript",
         "exec": [
-          "// Generate unique credentials for each CI run",
-          "const timestamp = Date.now();",
-          "const email = `testuser_${timestamp}@test.com`;",
-          "const username = `testuser_${timestamp}`;",
-          "const password = \"Test123!\";",
-          "",
-          "pm.environment.set(\"email\", email);",
-          "pm.environment.set(\"username\", username);",
-          "pm.environment.set(\"password\", password);",
-          "",
-          "console.log(\"🔧 CI credentials set:\", email);"
+          "if (!pm.environment.get(\"email\") || ",
+          "    !pm.environment.get(\"email\").includes(\"testuser_\")) {",
+          "    ",
+          "    const timestamp = Date.now();",
+          "    const email = `testuser_${timestamp}@test.com`;",
+          "    const password = \"Test123!\";",
+          "    const username = `testuser_${timestamp}`;",
+          "    ",
+          "    pm.environment.set(\"email\", email);",
+          "    pm.environment.set(\"password\", password);",
+          "    pm.environment.set(\"username\", username);",
+          "    ",
+          "    console.log(\"Generated new test user:\", email);",
+          "} else {",
+          "    console.log(\"Reusing credentials:\", pm.environment.get(\"email\"));",
+          "}"
         ]
       }
     }
