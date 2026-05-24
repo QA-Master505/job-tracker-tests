@@ -211,3 +211,43 @@ export async function sendBugsNotification(
     console.warn('[SlackReporter] Failed to send bugs Slack notification:', err);
   }
 }
+
+export async function sendBugFixedNotification(closedKeys: string[]): Promise<void> {
+  const webhookUrl = process.env.SLACK_BUGS_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.warn('[SlackReporter] SLACK_BUGS_WEBHOOK_URL not set — skipping bug-fixed notification');
+    return;
+  }
+
+  const jiraBaseUrl = (process.env.JIRA_BASE_URL ?? '').replace(/\/$/, '');
+  const ticketLines = closedKeys
+    .map((key) => {
+      const link = jiraBaseUrl ? `<${jiraBaseUrl}/browse/${key}|${key}>` : key;
+      return `• ✅ ${link} has been automatically closed — tests are passing!`;
+    })
+    .join('\n');
+
+  const blocks: object[] = [
+    {
+      type: 'header',
+      text: { type: 'plain_text', text: '✅ Bugs Auto-Closed', emoji: true },
+    },
+    {
+      type: 'section',
+      text: { type: 'mrkdwn', text: ticketLines },
+    },
+  ];
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ attachments: [{ color: '#2eb886', blocks }] }),
+    });
+    if (!response.ok) {
+      console.warn(`[SlackReporter] Bug-fixed webhook returned ${response.status}: ${await response.text()}`);
+    }
+  } catch (err) {
+    console.warn('[SlackReporter] Failed to send bug-fixed notification:', err);
+  }
+}

@@ -6,9 +6,10 @@ import type {
   TestResult,
   FullResult,
 } from '@playwright/test/reporter';
-import { sendSlackNotification, sendCiCdNotification, sendBugsNotification } from '../helpers/slack-notifier';
+import { sendSlackNotification, sendCiCdNotification, sendBugsNotification, sendBugFixedNotification } from '../helpers/slack-notifier';
 import type { FailureDetail } from '../helpers/slack-notifier';
-import { createJiraBug, findAllOpenJiraBugs, closeJiraBug } from '../helpers/jira-notifier';
+import { createJiraBug, closeJiraBugByKey } from '../helpers/jira-notifier';
+import { loadAllTicketKeys, deleteTicketKey } from '../helpers/jira-ticket-tracker';
 
 class SlackReporter implements Reporter {
   private passed = 0;
@@ -92,14 +93,16 @@ class SlackReporter implements Reporter {
     }, jiraKeys);
 
     if (this.failed === 0) {
-      const openKeys = await findAllOpenJiraBugs();
-      let closedCount = 0;
-      for (const issueKey of openKeys) {
-        await closeJiraBug(issueKey);
-        closedCount++;
+      const ticketMap = loadAllTicketKeys();
+      const closedKeys: string[] = [];
+      for (const [testTitle, ticketKey] of Object.entries(ticketMap)) {
+        await closeJiraBugByKey(ticketKey);
+        deleteTicketKey(testTitle);
+        closedKeys.push(ticketKey);
       }
-      if (closedCount > 0) {
-        console.log(`[JiraReporter] Auto-closed ${closedCount} bug${closedCount !== 1 ? 's' : ''}`);
+      if (closedKeys.length > 0) {
+        await sendBugFixedNotification(closedKeys);
+        console.log(`[JiraReporter] Auto-closed ${closedKeys.length} bug${closedKeys.length !== 1 ? 's' : ''}`);
       }
     }
   }

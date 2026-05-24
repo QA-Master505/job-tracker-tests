@@ -1,4 +1,5 @@
 import type { FailureDetail } from './slack-notifier';
+import { saveTicketKey } from './jira-ticket-tracker';
 
 export async function createJiraBug(
   failure: FailureDetail,
@@ -71,6 +72,7 @@ export async function createJiraBug(
     }
     const data = (await response.json()) as { key: string };
     console.log(`[JiraReporter] Created: ${baseUrl}/browse/${data.key}`);
+    saveTicketKey(failure.testName, data.key);
     return data.key;
   } catch (err) {
     console.warn('[JiraReporter] Error creating Jira bug:', err);
@@ -148,6 +150,31 @@ export async function findAllOpenJiraBugs(): Promise<string[]> {
   } catch (err) {
     console.warn('[JiraReporter] Error searching Jira:', err);
     return [];
+  }
+}
+
+export async function closeJiraBugByKey(issueKey: string): Promise<void> {
+  const baseUrl = (process.env.JIRA_BASE_URL ?? '').replace(/\/$/, '');
+  const email = process.env.JIRA_EMAIL;
+  const apiToken = process.env.JIRA_API_TOKEN;
+
+  if (!baseUrl || !email || !apiToken) return;
+
+  const auth = Buffer.from(`${email}:${apiToken}`).toString('base64');
+
+  try {
+    const response = await fetch(`${baseUrl}/rest/api/3/issue/${issueKey}/transitions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Basic ${auth}` },
+      body: JSON.stringify({ transition: { id: '41' } }),
+    });
+    if (!response.ok) {
+      console.warn(`[JiraReporter] Failed to close ${issueKey} (${response.status}): ${await response.text()}`);
+    } else {
+      console.log(`[JiraReporter] Closed: ${baseUrl}/browse/${issueKey}`);
+    }
+  } catch (err) {
+    console.warn(`[JiraReporter] Error closing ${issueKey}:`, err);
   }
 }
 

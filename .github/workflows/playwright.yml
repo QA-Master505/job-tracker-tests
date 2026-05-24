@@ -86,6 +86,14 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Restore Jira ticket cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .jira-tickets.json
+          key: jira-tickets-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            jira-tickets-${{ github.ref_name }}-
+
       - name: Run API tests only
         run: npx playwright test tests/api/
         env:
@@ -103,6 +111,13 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
           JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+
+      - name: Save Jira ticket cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .jira-tickets.json
+          key: jira-tickets-${{ github.ref_name }}-${{ github.run_id }}
 
       - uses: actions/upload-artifact@v4
         if: always()
