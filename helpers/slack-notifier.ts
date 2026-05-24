@@ -51,6 +51,10 @@ export async function sendSlackNotification(payload: SlackNotificationPayload): 
   if (payload.runUrl) {
     metaFields.push({ type: 'mrkdwn', text: `*Run:* <${payload.runUrl}|View on GitHub>` });
   }
+  const allureUrl = process.env.ALLURE_REPORT_URL;
+  if (allureUrl) {
+    metaFields.push({ type: 'mrkdwn', text: `*Allure Report:* <${allureUrl}|View Report>` });
+  }
 
   const blocks: object[] = [
     {

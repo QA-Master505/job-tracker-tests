@@ -1,0 +1,140 @@
+name: Allure Report CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  test-and-report:
+    name: Test and Publish Allure Report
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+
+    env:
+      ACTIONS_RUNNER_NODE_VERSION: node24
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: job_tracker_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        working-directory: ../
+        run: |
+          git clone https://github.com/QA-Master505/job-tracker-backend.git
+          cd job-tracker-backend
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Run database migrations
+        working-directory: ../job-tracker-backend
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/job_tracker_db
+          SECRET_KEY: ci-secret-key-for-testing-only
+        run: |
+          source .venv/bin/activate
+          alembic upgrade head
+
+      - name: Start backend server
+        working-directory: ../job-tracker-backend
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/job_tracker_db
+          SECRET_KEY: ci-secret-key-for-testing-only
+        run: |
+          source .venv/bin/activate
+          uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+
+      - name: Wait for backend to be ready
+        run: |
+          curl --retry 15 --retry-delay 2 --retry-connrefused --silent --fail \
+            http://localhost:8000/docs
+
+      - name: Install Playwright dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Restore Jira ticket cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .jira-tickets.json
+          key: jira-tickets-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: |
+            jira-tickets-${{ github.ref_name }}-
+
+      - name: Run API tests
+        run: npx playwright test tests/api/
+        env:
+          CI: true
+          API_URL: http://localhost:8000
+          BASE_URL: http://localhost:5173
+          ALLURE_REPORT_URL: https://qa-master505.github.io/job-tracker-tests/
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_CICD_WEBHOOK_URL: ${{ secrets.SLACK_CICD_WEBHOOK_URL }}
+          SLACK_BUGS_WEBHOOK_URL: ${{ secrets.SLACK_BUGS_WEBHOOK_URL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+
+      - name: Save Jira ticket cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .jira-tickets.json
+          key: jira-tickets-${{ github.ref_name }}-${{ github.run_id }}
+
+      - name: Generate Allure report
+        if: always()
+        run: npx allure generate allure-results --clean -o allure-report
+
+      - name: Publish to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: allure-report/
+          retention-days: 30

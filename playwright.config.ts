@@ -30,6 +30,7 @@ export default defineConfig({
     ['list'],
     ['junit', { outputFile: 'results/junit.xml' }],
     ['./reporters/slack-reporter.ts'],
+    ['allure-playwright', { detail: true, outputFolder: 'allure-results', suiteTitle: true }],
   ],
 
   use: {
