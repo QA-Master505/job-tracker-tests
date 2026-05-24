@@ -1,15 +1,16 @@
-name: Playwright Tests
+name: Postman Tests
 
 on:
-  push:
-    branches: [main]
+  schedule:
+    - cron: '0 22 * * 0'  # Sunday midnight Vienna (UTC+2)
+  workflow_dispatch:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  test-api:
-    name: API Tests
+  postman-tests:
+    name: Postman / Newman Tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -37,7 +38,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -76,55 +76,31 @@ jobs:
           curl --retry 15 --retry-delay 2 --retry-connrefused --silent --fail \
             http://localhost:8000/docs
 
-      - name: Install Playwright dependencies
-        run: npm ci
+      - name: Install Newman and reporters
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
 
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
-
-      - name: Restore Jira ticket cache
-        uses: actions/cache/restore@v4
-        with:
-          path: .jira-tickets.json
-          key: jira-tickets-${{ github.ref_name }}-${{ github.run_id }}
-          restore-keys: |
-            jira-tickets-${{ github.ref_name }}-
-
-      - name: Run API tests only
-        run: npx playwright test tests/api/
+      - name: Run Postman collection
+        run: |
+          mkdir -p results
+          newman run postman/job-tracker-collection.json \
+            --environment postman/production-environment.json \
+            --reporters cli,htmlextra,junit \
+            --reporter-htmlextra-export results/postman-report.html \
+            --reporter-junit-export results/postman-junit.xml \
+            --bail
         env:
-          CI: true
-          API_URL: http://localhost:8000
-          BASE_URL: http://localhost:5173
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          GITHUB_RUN_ID: ${{ github.run_id }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          SLACK_CICD_WEBHOOK_URL: ${{ secrets.SLACK_CICD_WEBHOOK_URL }}
           SLACK_BUGS_WEBHOOK_URL: ${{ secrets.SLACK_BUGS_WEBHOOK_URL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
           JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
 
-      - name: Save Jira ticket cache
-        if: always()
-        uses: actions/cache/save@v4
-        with:
-          path: .jira-tickets.json
-          key: jira-tickets-${{ github.ref_name }}-${{ github.run_id }}
-
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
-
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: junit-results
-          path: results/junit.xml
+          name: postman-report
+          path: results/
           retention-days: 30

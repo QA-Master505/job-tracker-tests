@@ -1,8 +1,12 @@
-name: Playwright Tests
+name: API Tests
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '0 10 * * *'  # noon Vienna (UTC+2)
+    - cron: '0 22 * * *'  # midnight Vienna (UTC+2)
+  workflow_dispatch:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -90,7 +94,7 @@ jobs:
           restore-keys: |
             jira-tickets-${{ github.ref_name }}-
 
-      - name: Run API tests only
+      - name: Run API tests
         run: npx playwright test tests/api/
         env:
           CI: true
