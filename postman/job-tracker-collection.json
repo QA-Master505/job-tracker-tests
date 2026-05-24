@@ -106,7 +106,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"playwright@example.com\",\n  \"username\": \"playwrightuser\",\n  \"password\": \"Playwright@1234\"\n}",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"username\": \"{{username}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -176,25 +176,23 @@
             {
               "listen": "test",
               "script": {
+                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
                   "",
                   "pm.test(\"Response has access_token\", function () {",
-                  "    const response = pm.response.json();",
-                  "    pm.expect(response).to.have.property(\"access_token\");",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property(\"access_token\");",
                   "});",
                   "",
-                  "const response = pm.response.json();",
-                  "if (response.access_token) {",
-                  "    pm.environment.set(\"authToken\", response.access_token);",
-                  "    console.log(\"✅ Token saved to environment!\");",
+                  "const json = pm.response.json();",
+                  "if (json.access_token) {",
+                  "    pm.environment.set(\"authToken\", json.access_token);",
+                  "    console.log(\"✅ Token saved:\", json.access_token.substring(0, 20) + \"...\");",
                   "}"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
+                ]
               }
             }
           ],
@@ -208,7 +206,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"user7@example.com\",\n  \"password\": \"User7@1234\"\n}",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -292,6 +290,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -636,6 +644,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -737,6 +755,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -1059,6 +1087,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [
               {
@@ -1169,6 +1207,16 @@
         {
           "name": "Change Password",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -1206,6 +1254,16 @@
         {
           "name": "Update Email",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -1260,6 +1318,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -1313,6 +1381,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -1366,6 +1444,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -1512,6 +1600,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -2178,6 +2276,16 @@
                 }
               ],
               "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{authToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
                 "method": "POST",
                 "header": [
                   {
@@ -3488,6 +3596,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -3567,6 +3685,16 @@
             }
           ],
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -3632,6 +3760,46 @@
     {
       "name": "🔁 E2E Test Suite",
       "item": []
+    },
+    {
+      "name": "🧹 CI Cleanup — Delete Test User",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{authToken}}",
+            "disabled": false
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/me",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "me"
+          ]
+        },
+        "description": "Deletes the test user created at the start of the CI run. Runs last to clean up ephemeral test data."
+      },
+      "response": []
     },
     {
       "name": "E2E — Register User",
@@ -3742,6 +3910,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -3792,6 +3970,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "POST",
         "header": [
           {
@@ -3843,6 +4031,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "PUT",
         "header": [
           {
@@ -3894,6 +4092,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "GET",
         "header": [
           {
@@ -3930,6 +4138,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "PUT",
         "header": [
           {
@@ -3978,6 +4196,16 @@
         }
       ],
       "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{authToken}}",
+              "type": "string"
+            }
+          ]
+        },
         "method": "DELETE",
         "header": [
           {
@@ -4006,8 +4234,17 @@
       "script": {
         "type": "text/javascript",
         "exec": [
-          "// Collection-level pre-request script",
-          "pm.collectionVariables.set('note', 'Job Application Tracker API - Use {{baseUrl}} and {{authToken}} environment variables.');"
+          "// Generate unique credentials for each CI run",
+          "const timestamp = Date.now();",
+          "const email = `testuser_${timestamp}@test.com`;",
+          "const username = `testuser_${timestamp}`;",
+          "const password = \"Test123!\";",
+          "",
+          "pm.environment.set(\"email\", email);",
+          "pm.environment.set(\"username\", username);",
+          "pm.environment.set(\"password\", password);",
+          "",
+          "console.log(\"🔧 CI credentials set:\", email);"
         ]
       }
     }
