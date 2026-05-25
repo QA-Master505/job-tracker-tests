@@ -89,6 +89,11 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Install Newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+
       - name: Restore Jira ticket cache
         uses: actions/cache/restore@v4
         with:
@@ -122,6 +127,16 @@ jobs:
         with:
           path: .jira-tickets.json
           key: jira-tickets-${{ github.ref_name }}-${{ github.run_id }}
+
+      - name: Run Newman / Postman tests
+        if: always()
+        run: |
+          mkdir -p allure-results
+          newman run postman/job-tracker-collection.json \
+            --environment postman/production-environment.json \
+            --reporters cli,junit \
+            --reporter-junit-export allure-results/newman-junit.xml \
+            --suppress-exit-code
 
       - name: Generate Allure report
         if: always()
