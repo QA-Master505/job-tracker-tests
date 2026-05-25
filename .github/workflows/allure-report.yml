@@ -144,6 +144,22 @@ jobs:
           sed -i 's/name="Job Application Tracker"/name="Postman Tests"/g' \
             allure-results/newman-junit.xml
 
+      - name: Debug Newman XML
+        if: always()
+        run: |
+          echo "=== Newman XML first 10 lines ==="
+          head -10 allure-results/newman-junit.xml || echo "File not found"
+
+      - name: Notify Slack - Newman Results
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/notify-newman-slack.mjs
+
       - name: Add Postman suite label and categories
         if: always()
         run: |
@@ -152,8 +168,16 @@ jobs:
           EOF
           cat > allure-results/categories.json << 'EOF'
           [
-            {"name": "API Tests"},
-            {"name": "Postman Tests"}
+            {
+              "name": "Postman Tests",
+              "matchedStatuses": ["passed", "failed", "broken", "skipped"],
+              "messageRegex": ".*"
+            },
+            {
+              "name": "API Tests",
+              "matchedStatuses": ["passed", "failed", "broken", "skipped"],
+              "messageRegex": ".*"
+            }
           ]
           EOF
 
