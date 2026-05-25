@@ -4,8 +4,7 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 10 * * *'  # noon Vienna (UTC+2)
-    - cron: '0 22 * * *'  # midnight Vienna (UTC+2)
+    - cron: '0 22 * * 1-5'  # midnight Vienna, weekdays only (Mon-Fri)
   workflow_dispatch:
 
 env:
