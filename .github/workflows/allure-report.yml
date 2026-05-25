@@ -138,6 +138,20 @@ jobs:
             --reporter-junit-export allure-results/newman-junit.xml \
             --suppress-exit-code
 
+      - name: Add Postman suite label and categories
+        if: always()
+        run: |
+          cat > allure-results/newman-environment.properties << 'EOF'
+          parentSuite=Postman Tests
+          EOF
+          cat > allure-results/categories.json << 'EOF'
+          [
+            { "name": "API Tests",      "matchedStatuses": ["passed", "failed"] },
+            { "name": "Postman Tests",  "matchedStatuses": ["passed", "failed"] },
+            { "name": "UI Tests",       "matchedStatuses": ["passed", "failed"] }
+          ]
+          EOF
+
       - name: Generate Allure report
         if: always()
         run: npx allure generate allure-results --clean -o allure-report
