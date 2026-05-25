@@ -89,8 +89,7 @@ jobs:
             --reporters cli,htmlextra,junit \
             --reporter-htmlextra-export results/postman-report.html \
             --reporter-junit-export results/postman-junit.xml \
-            --suppress-exit-code \
-            --bail
+            --suppress-exit-code
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SLACK_BUGS_WEBHOOK_URL: ${{ secrets.SLACK_BUGS_WEBHOOK_URL }}
