@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const JUNIT_PATH = join(process.cwd(), 'results', 'postman-junit.xml');
+const JUNIT_PATH = join(process.cwd(), 'allure-results', 'newman-junit.xml');
 
 function parseJunit(xmlPath) {
   try {

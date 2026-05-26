@@ -157,8 +157,24 @@ jobs:
       - name: Add Postman suite label and categories
         if: always()
         run: |
-          sed -i 's/name="Job Application Tracker"/name="Postman Tests"/g' \
-            allure-results/newman-junit.xml || true
+          python3 -c "
+          import re
+          try:
+              with open('allure-results/newman-junit.xml', 'r') as f:
+                  content = f.read()
+              print('Original first 300 chars:', content[:300])
+              content = re.sub(
+                  r'(<testsuite\s[^>]*name=\")[^\"]*\"',
+                  r'\1Postman Tests\"',
+                  content
+              )
+              print('Patched first 300 chars:', content[:300])
+              with open('allure-results/newman-junit.xml', 'w') as f:
+                  f.write(content)
+              print('Patch successful')
+          except Exception as e:
+              print('Patch failed:', e)
+          "
           cat > allure-results/categories.json << 'EOF'
           [
             {
