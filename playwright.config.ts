@@ -71,7 +71,7 @@ export default defineConfig({
 
     /* Chromium — main browser */
     {
-      name: 'chromium',
+      name: 'API Tests',
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['setup'],
     },

@@ -33,8 +33,8 @@ export async function sendSlackNotification(payload: SlackNotificationPayload): 
   const color = hasFailed ? '#e01e5a' : '#2eb886';
   const statusEmoji = hasFailed ? '❌' : '✅';
   const statusText = hasFailed
-    ? `Playwright Tests Failed — ${payload.failed} failure${payload.failed !== 1 ? 's' : ''}`
-    : 'Playwright Tests Passed';
+    ? `API Tests Failed — ${payload.failed} failure${payload.failed !== 1 ? 's' : ''}`
+    : 'API Tests Passed';
 
   const statsFields = [
     { type: 'mrkdwn', text: `*Passed:* ${payload.passed}` },
