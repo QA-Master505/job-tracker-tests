@@ -138,12 +138,6 @@ jobs:
             --reporter-junit-export allure-results/newman-junit.xml \
             --suppress-exit-code
 
-      - name: Patch Newman suite name for Allure
-        if: always()
-        run: |
-          sed -i 's/name="Job Application Tracker"/name="Postman Tests"/g' \
-            allure-results/newman-junit.xml
-
       - name: Debug Newman XML
         if: always()
         run: |
@@ -163,20 +157,17 @@ jobs:
       - name: Add Postman suite label and categories
         if: always()
         run: |
-          cat > allure-results/newman-environment.properties << 'EOF'
-          parentSuite=Postman Tests
-          EOF
+          sed -i 's/name="Job Application Tracker"/name="Postman Tests"/g' \
+            allure-results/newman-junit.xml || true
           cat > allure-results/categories.json << 'EOF'
           [
             {
-              "name": "Postman Tests",
-              "matchedStatuses": ["passed", "failed", "broken", "skipped"],
-              "messageRegex": ".*"
+              "name": "Failed tests",
+              "matchedStatuses": ["failed"]
             },
             {
-              "name": "API Tests",
-              "matchedStatuses": ["passed", "failed", "broken", "skipped"],
-              "messageRegex": ".*"
+              "name": "Broken tests",
+              "matchedStatuses": ["broken"]
             }
           ]
           EOF
