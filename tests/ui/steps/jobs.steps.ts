@@ -59,12 +59,19 @@ When('I click on a job application', async function (this: CustomWorld) {
 
 Then('I should see the job details', async function (this: CustomWorld) {
   await this.page.waitForLoadState('networkidle');
-  await expect(this.page.getByTestId('job-submit-btn')).toBeVisible({ timeout: BDD_CONFIG.DEFAULT_TIMEOUT });
+  await expect(this.page.getByTestId('job-save-btn')).toBeVisible({
+    timeout: BDD_CONFIG.DEFAULT_TIMEOUT
+  });
 });
 
 When('I update the status to {string}', async function (this: CustomWorld, _status: string) {
+  await this.page.getByTestId('job-edit-btn').first().click();
+  await this.page.getByTestId('job-status-select').waitFor({
+    state: 'visible',
+    timeout: BDD_CONFIG.DEFAULT_TIMEOUT
+  });
   await this.page.getByTestId('job-status-select').selectOption('phone_interview');
-  await this.page.getByTestId('job-submit-btn').click();
+  await this.page.getByTestId('job-save-btn').click();
   await this.page.waitForLoadState('networkidle');
 });
 
