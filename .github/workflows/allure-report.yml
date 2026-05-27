@@ -154,6 +154,45 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node scripts/notify-newman-slack.mjs
 
+      - name: Run BDD UI Tests
+        if: always()
+        env:
+          BASE_URL: https://job-tracker-frontend-green-sigma.vercel.app
+          API_URL: https://job-tracker-backend-production-7acf.up.railway.app
+        run: npm run test:bdd
+
+      - name: Patch BDD suite name for Allure
+        if: always()
+        run: |
+          python3 -c "
+          import os, json, glob
+          for f in glob.glob('allure-results/*.json'):
+              try:
+                  with open(f) as fp:
+                      data = json.load(fp)
+                  if 'labels' in data:
+                      for label in data['labels']:
+                          if label.get('name') == 'suite':
+                              label['value'] = 'BDD UI Tests'
+                          if label.get('name') == 'parentSuite':
+                              label['value'] = 'BDD UI Tests'
+                  with open(f, 'w') as fp:
+                      json.dump(data, fp)
+              except:
+                  pass
+          print('BDD suite labels patched')
+          "
+
+      - name: Notify Slack - BDD Results
+        if: always()
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/notify-bdd-slack.mjs
+
       - name: Add Postman suite label and categories
         if: always()
         run: |

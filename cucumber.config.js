@@ -6,7 +6,11 @@ module.exports = {
     format: [
       'progress-bar',
       'json:results/cucumber-report.json',
+      'allure-cucumberjs/reporter'
     ],
+    formatOptions: {
+      resultsDir: 'allure-results'
+    },
     publishQuiet: true,
   },
 };
