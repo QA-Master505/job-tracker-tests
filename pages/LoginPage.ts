@@ -7,6 +7,22 @@ export class LoginPage {
     await this.page.goto('/login');
   }
 
+  async navigate() {
+    await this.page.goto(`${process.env.BASE_URL || 'https://job-tracker-frontend-green-sigma.vercel.app'}/login`);
+  }
+
+  async fillEmail(email: string) {
+    await this.page.fill('input[type="email"]', email);
+  }
+
+  async fillPassword(password: string) {
+    await this.page.fill('input[type="password"]', password);
+  }
+
+  async clickLogin() {
+    await this.page.click('button[type="submit"]');
+  }
+
   async login(email: string, password: string) {
     await this.page.fill('input[type="email"]', email);
     await this.page.fill('input[type="password"]', password);

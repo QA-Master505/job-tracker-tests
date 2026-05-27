@@ -1,4 +1,4 @@
-.PHONY: test test-api test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
+.PHONY: test test-api test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs bdd bdd-headed report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
 
 # ============================================================
 # TESTING
@@ -47,6 +47,14 @@ test-auth:
 # Run jobs tests only
 test-jobs:
 	npx playwright test tests/ui/jobs/ tests/api/jobs.api.spec.ts
+
+# Run BDD/Cucumber UI tests
+bdd:
+	npm run test:bdd
+
+# Run BDD/Cucumber UI tests with visible browser
+bdd-headed:
+	npm run test:bdd:headed
 
 # ============================================================
 # REPORTS
