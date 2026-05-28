@@ -1,234 +1,243 @@
-# Job Tracker — Playwright Test Automation Framework
+# Job Tracker — QA Automation Platform
 
-End-to-end and API test suite for the [Job Application Tracker](https://github.com/QA-Master505/job-tracker-frontend) web app, built with Playwright and TypeScript.
-
----
-
-## Project Overview
-
-This framework covers:
-
-- **UI tests** — Full browser automation using the Page Object Model pattern (Chromium + Firefox)
-- **API tests** — Direct API validation against the FastAPI backend
-- **CI/CD** — GitHub Actions pipeline with HTML + JUnit reports and artifact upload
-
-**Frontend:** http://localhost:5173 (React + Tailwind)  
-**Backend API:** http://localhost:8000 (FastAPI)
+A full-stack QA automation platform for the [Job Tracker](https://job-tracker-frontend-green-sigma.vercel.app) application, built with Playwright, Cucumber BDD, Newman/Postman, GitHub Actions CI/CD, Slack notifications, Jira integration, and unified Allure reporting.
 
 ---
 
-## Setup Instructions
+## 🚀 Overview
 
-### Prerequisites
+This repository contains a multi-layered test automation suite covering API, UI (BDD), End-to-End, and contract-level Postman tests — all integrated into a scheduled CI/CD pipeline with real-time Slack alerts, automatic Jira bug management, and a live Allure report.
 
-- Node.js 18+
-- npm 9+
-- Both the frontend and backend servers running locally
+---
 
-### Install dependencies
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                   Application Under Test                │
+│                                                         │
+│   Frontend (React + Vercel)  ←→  Backend (FastAPI +     │
+│   job-tracker-frontend-           Railway)              │
+│   green-sigma.vercel.app          job-tracker-backend-  │
+│                                   production.railway.app│
+└─────────────────────────────────────────────────────────┘
+                          │
+┌─────────────────────────▼───────────────────────────────┐
+│                    Test Suites                          │
+│                                                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
+│  │  API Tests   │  │  BDD UI Tests│  │  E2E Tests   │  │
+│  │  Playwright  │  │  Cucumber +  │  │  Playwright  │  │
+│  │  21 tests    │  │  Playwright  │  │  3 tests     │  │
+│  │  tests/api/  │  │  9 scenarios │  │  tests/e2e/  │  │
+│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│                                                         │
+│  ┌──────────────────────────────────┐                   │
+│  │       Postman / Newman Tests     │                   │
+│  │       52 requests · postman/     │                   │
+│  └──────────────────────────────────┘                   │
+└─────────────────────────────────────────────────────────┘
+                          │
+┌─────────────────────────▼───────────────────────────────┐
+│                  CI/CD Pipeline                         │
+│                                                         │
+│  GitHub Actions                                         │
+│  ├── api-tests.yml       (push to main + nightly)       │
+│  ├── ui-tests.yml        (Sun + Wed scheduled)          │
+│  ├── postman-tests.yml   (Sunday scheduled)             │
+│  ├── full-suite.yml      (manual, 15 combinations)      │
+│  └── allure-report.yml   (auto after API/Full Suite)    │
+└─────────────────────────────────────────────────────────┘
+                          │
+┌─────────────────────────▼───────────────────────────────┐
+│                   Integrations                          │
+│                                                         │
+│  Slack (#qa-automation, #ci-cd-reports, #bugs)          │
+│  Jira (auto-create / auto-close bug tickets)            │
+│  Allure (unified report → GitHub Pages)                 │
+└─────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🧪 Test Suites
+
+| Suite | Framework | Tests | Location |
+|-------|-----------|-------|----------|
+| API Tests | Playwright | 21 | `tests/api/` |
+| BDD UI Tests | Cucumber + Playwright | 9 | `tests/ui/features/` |
+| E2E Tests | Playwright | 3 | `tests/e2e/` |
+| Postman Tests | Newman | 52 | `postman/` |
+| **Total** | | **85** | |
+
+---
+
+## 📋 Prerequisites
+
+- Node.js 24+
+- npm
+- Playwright browsers (`make install-browsers`)
+
+---
+
+## 🛠️ Installation
 
 ```bash
 npm install
-npx playwright install
+make install-browsers
 ```
-
-### Configure environment
-
-Copy `.env.test` and update values if needed:
-
-```bash
-BASE_URL=http://localhost:5173
-API_URL=http://localhost:8000
-TEST_USER_EMAIL=playwright@example.com
-TEST_USER_PASSWORD=Playwright@1234
-```
-
-> The test user must already be registered in the backend before running UI login/auth tests.
 
 ---
 
-## How to Run Tests
+## 🏃 Running Tests
 
 | Command | Description |
-|---|---|
-| `npm test` | Run all tests (headless) |
-| `npm run test:ui` | Run only UI tests |
-| `npm run test:api` | Run only API tests |
-| `npm run test:headed` | Run with visible browser |
-| `npm run test:debug` | Run in Playwright debug mode |
-| `npm run report` | Open the HTML test report |
+|---------|-------------|
+| `make test` | Run all Playwright tests |
+| `make test-api` | Run API tests only |
+| `make test-ui` | Run UI Playwright tests |
+| `make test-e2e` | Run E2E tests (production URLs) |
+| `make test-e2e-headed` | Run E2E with visible browser |
+| `make test-e2e-debug` | Run E2E in debug mode |
+| `make bdd` | Run BDD Cucumber tests |
+| `make bdd-headed` | Run BDD with visible browser |
+| `make test-headed` | Run all tests with visible browser |
+| `make test-debug` | Run all tests in debug mode |
+| `make test-auth` | Run auth tests only |
+| `make test-jobs` | Run jobs tests only |
 
-### Run a specific spec file
-
-```bash
-npx playwright test tests/ui/auth/login.spec.ts
-```
-
-### Run on a specific browser
-
-```bash
-npx playwright test --project=chromium
-npx playwright test --project=firefox
-```
+> Run `make help` to see all available commands.
 
 ---
 
-## Folder Structure
+## 🔄 CI/CD Pipeline
+
+### Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| **API Tests** | Push to `main` + nightly weekdays 22:00 | Playwright API test suite against local backend |
+| **UI Tests (BDD)** | Scheduled Sun + Wed 22:00 | Cucumber BDD scenarios against production |
+| **Postman Tests** | Scheduled Sunday 22:00 | Newman collection against production API |
+| **Full Test Suite** | Manual (`workflow_dispatch`) | Any combination of all 4 suites |
+| **Allure Report CI** | Auto after API Tests or Full Suite | Generates and publishes unified Allure report |
+
+### Full Suite Combinations
+
+The Full Test Suite workflow supports 15 selectable combinations:
+
+`api` · `ui` · `postman` · `bdd` · `api+ui` · `api+postman` · `api+bdd` · `ui+postman` · `ui+bdd` · `postman+bdd` · `api+ui+postman` · `api+postman+bdd` · `api+ui+bdd` · `ui+postman+bdd` · `api+ui+postman+bdd`
+
+---
+
+## 📊 Allure Report
+
+Live unified report covering all test suites:
+
+**[https://qa-master505.github.io/job-tracker-tests/](https://qa-master505.github.io/job-tracker-tests/)**
+
+The report is automatically regenerated after every successful API Tests or Full Suite run and organises results into three suite sections:
+
+- **API Tests** — Playwright API results
+- **Postman Tests** — Newman JUnit results
+- **BDD UI Tests** — Cucumber JSON results
+
+---
+
+## 🔔 Integrations
+
+### Slack
+Real-time notifications posted to three channels on every CI run:
+
+| Channel | Purpose |
+|---------|---------|
+| `#qa-automation` | Test pass/fail results (API, BDD, Postman) |
+| `#ci-cd-reports` | Pipeline status and deployment events |
+| `#bugs` | New bug alerts when tests fail |
+
+### Jira
+Automatic bug lifecycle management:
+- **Creates** a Jira ticket when a test fails for the first time
+- **Closes** the ticket automatically when the test passes again
+- Prevents duplicate tickets across runs using a local cache
+
+### Allure
+- Unified report across all four test types
+- Published to GitHub Pages after every CI run
+- Separate suite sections for API, Postman, and BDD results
+
+---
+
+## 🌐 Live URLs
+
+| Resource | URL |
+|----------|-----|
+| Frontend | [job-tracker-frontend-green-sigma.vercel.app](https://job-tracker-frontend-green-sigma.vercel.app) |
+| API Docs | [job-tracker-backend-production-7acf.up.railway.app/docs](https://job-tracker-backend-production-7acf.up.railway.app/docs) |
+| Allure Report | [qa-master505.github.io/job-tracker-tests](https://qa-master505.github.io/job-tracker-tests/) |
+
+---
+
+## 📁 Project Structure
 
 ```
 job-tracker-tests/
-├── tests/
-│   ├── ui/                        # Browser-based end-to-end tests
-│   │   ├── auth/
-│   │   │   ├── register.spec.ts   # Registration flow tests
-│   │   │   └── login.spec.ts      # Login / auth redirect tests
-│   │   ├── jobs/
-│   │   │   ├── create-job.spec.ts
-│   │   │   ├── update-job.spec.ts
-│   │   │   └── delete-job.spec.ts
-│   │   ├── interview-rounds/
-│   │   │   └── interview-rounds.spec.ts
-│   │   └── profile/
-│   │       └── profile.spec.ts
-│   └── api/                       # API-level tests (no browser)
-│       ├── auth.api.spec.ts
-│       ├── jobs.api.spec.ts
-│       └── interview-rounds.api.spec.ts
+├── .github/
+│   └── workflows/
+│       ├── api-tests.yml          # API test pipeline
+│       ├── ui-tests.yml           # BDD UI test pipeline
+│       ├── postman-tests.yml      # Newman pipeline
+│       ├── full-suite.yml         # Manual full suite
+│       └── allure-report.yml      # Allure generation + publish
+├── fixtures/                      # Shared test data
+├── helpers/                       # API helpers, Slack/Jira notifiers
 ├── pages/                         # Page Object Models
 │   ├── LoginPage.ts
 │   ├── RegisterPage.ts
 │   ├── DashboardPage.ts
 │   └── ProfilePage.ts
-├── fixtures/
-│   └── test-data.ts               # Shared test data constants
-├── helpers/
-│   └── api-helpers.ts             # Reusable API request functions
-├── .env.test                      # Local environment variables (not committed)
-├── playwright.config.ts           # Playwright configuration
-├── tsconfig.json                  # TypeScript configuration
+├── postman/                       # Postman collection + environment
+├── reporters/                     # Custom reporters
+├── scripts/                       # Slack notification scripts (.mjs)
+├── tests/
+│   ├── api/                       # Playwright API tests
+│   │   ├── auth.api.spec.ts
+│   │   ├── jobs.api.spec.ts
+│   │   └── interview-rounds.api.spec.ts
+│   ├── e2e/                       # End-to-end UI + API tests
+│   │   └── job-journey.spec.ts
+│   └── ui/
+│       ├── auth/                  # UI auth tests
+│       ├── jobs/                  # UI job CRUD tests
+│       ├── profile/               # UI profile tests
+│       ├── interview-rounds/      # UI interview round tests
+│       ├── features/              # Cucumber feature files
+│       │   ├── auth.feature
+│       │   ├── jobs.feature
+│       │   └── profile.feature
+│       ├── steps/                 # Cucumber step definitions
+│       └── support/               # World, hooks, config
+├── cucumber.config.js
+├── playwright.config.ts
+├── Makefile
 └── package.json
 ```
 
 ---
 
-## Design Principles
+## 🛠️ Tech Stack
 
-- **Page Object Model** — All UI interactions are encapsulated in `pages/`. Tests never access selectors directly.
-- **Independent tests** — Each test sets up and tears down its own data. No shared state between tests.
-- **API-first setup** — UI tests that need pre-existing data use API helpers in `beforeEach` to create it, and clean up in `afterEach`.
-- **Environment variables** — All URLs, credentials, and sensitive config are read from `.env.test` (local) or GitHub Secrets (CI).
-
----
-
-## CI/CD
-
-The `.github/workflows/playwright.yml` pipeline runs on:
-
-- Every push to `main`
-- Every pull request targeting `main`
-- Daily at midnight UTC (scheduled)
-
-### Artifacts uploaded after each run
-
-- `playwright-report/` — Interactive HTML report (30-day retention)
-- `results/junit.xml` — JUnit XML for integration with reporting tools
-
-### Required GitHub Secrets / Variables
-
-| Name | Type | Description |
-|---|---|---|
-| `TEST_USER_EMAIL` | Secret | Test account email |
-| `TEST_USER_PASSWORD` | Secret | Test account password |
-| `BASE_URL` | Variable | Frontend URL (defaults to `http://localhost:5173`) |
-| `API_URL` | Variable | Backend URL (defaults to `http://localhost:8000`) |
-
----
-
-## Playwright CLI
-
-The `@playwright/cli` package is installed both globally and as a dev dependency, enabling browser automation from the command line.
-
-### CLI Commands
-
-| Command | Description |
-|---|---|
-| `make cli-open` | Open the app in a headed browser via CLI |
-| `make cli-snapshot` | Capture an accessibility snapshot of the current page |
-| `make cli-screenshot` | Take a screenshot of the current page |
-| `make cli-show` | Open the visual Playwright dashboard |
-| `make install-skills` | Install CLI skills to `.claude/skills/playwright-cli` |
-
-### CLI Config
-
-The CLI is configured via [`.playwright/cli.config.json`](.playwright/cli.config.json):
-
-```json
-{
-  "browser": "chromium",
-  "headed": false,
-  "timeout": 30000,
-  "baseURL": "http://localhost:5173"
-}
-```
-
-### Self-Healing Snapshots
-
-After each test run, the CLI can capture accessibility snapshots to track UI state. These snapshots are stored locally and can be used to detect unintended visual or structural changes between runs.
-
-```bash
-# After running tests, capture a snapshot for later comparison
-playwright-cli snapshot
-```
-
-> **Note:** `@healenium/playwright` (AI-based self-healing selectors) is not currently available on npm and is not included in this project. The timestamp-based unique company names and `fullyParallel: false` config are the current strategy for test isolation and stability.
-
----
-
-## Future Integrations
-
-- **Jira integration** — Automatically create Jira tickets for failing tests using the Jira REST API
-- **Allure reporting** — Richer test reporting with `allure-playwright`
-- **Visual regression** — Screenshot diffing with `@playwright/experimental-ct-react` or Percy
-
----
-
-## Slack Integration
-
-Playwright test results are automatically posted to three Slack channels via the **JobTracker QA Bot** after every CI run.
-
-### Channels
-
-| Channel | Webhook Secret | When it fires |
-|---|---|---|
-| `#qa-automation` | `SLACK_WEBHOOK_URL` | Every run (pass or fail) |
-| `#ci-cd-reports` | `SLACK_CICD_WEBHOOK_URL` | Every run (pass or fail) |
-| `#bugs` | `SLACK_BUGS_WEBHOOK_URL` | Failed runs only |
-
-### What each channel receives
-
-**#qa-automation** — Full test result summary:
-- Passed / failed / skipped / total counts
-- Run duration
-- Branch and triggered-by info
-- Link to the GitHub Actions run
-- List of up to 5 failed test names with truncated error messages (on failure)
-
-**#ci-cd-reports** — CI/CD pipeline summary:
-- Workflow name and overall status (success / failure)
-- Branch, triggered-by, and duration
-- Link to the GitHub Actions run
-
-**#bugs** — Failure alert (only sent when at least one test fails):
-- Number of failures
-- Failed test names and truncated error messages (up to 5)
-- Branch, triggered-by, and link to the GitHub Actions run
-
-### How it works
-
-Notifications are sent by a custom Playwright reporter (`reporters/slack-reporter.ts`) that calls three functions from `helpers/slack-notifier.ts` at the end of every test run:
-
-1. `sendSlackNotification()` → `#qa-automation`
-2. `sendCiCdNotification()` → `#ci-cd-reports`
-3. `sendBugsNotification()` → `#bugs` (skipped automatically when all tests pass)
-
-The three webhook URLs are stored as GitHub repository secrets and injected into the CI environment. Notifications are triggered on every push to `main`, pull request targeting `main`, and the nightly scheduled run.
+| Category | Technology |
+|----------|-----------|
+| Test framework | [Playwright](https://playwright.dev/) |
+| BDD framework | [Cucumber.js](https://cucumber.io/) |
+| API testing | Playwright `request` fixture |
+| Contract testing | [Newman](https://www.npmjs.com/package/newman) + Postman |
+| Language | TypeScript |
+| CI/CD | GitHub Actions |
+| Reporting | [Allure](https://allurereport.org/) → GitHub Pages |
+| Notifications | Slack Incoming Webhooks |
+| Bug tracking | Jira REST API |
+| Frontend hosting | Vercel |
+| Backend hosting | Railway |
+| Runtime | Node.js 24 |
