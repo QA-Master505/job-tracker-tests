@@ -66,10 +66,10 @@ This repository contains a multi-layered test automation suite covering API, UI 
 |-------|-----------|-------|----------|
 | API Tests | Playwright | 21 | `tests/api/` |
 | BDD UI Tests | Cucumber + Playwright | 9 | `tests/bdd/` |
-| E2E Tests | Playwright | 3 | `tests/e2e/` |
+| E2E Tests | Playwright | 6 | `tests/e2e/` |
 | UI Spec Tests | Playwright | 17 | `tests/ui/` |
 | Postman Tests | Newman | 52 | `postman/` |
-| **Total** | | **102** | |
+| **Total** | | **105** | |
 
 ---
 
@@ -183,53 +183,85 @@ Automatic bug lifecycle management:
 
 ```
 job-tracker-tests/
-├── .github/
-│   └── workflows/
-│       ├── api-tests.yml          # API test pipeline
-│       ├── ui-tests.yml           # BDD UI test pipeline
-│       ├── postman-tests.yml      # Newman pipeline
-│       ├── full-suite.yml         # Manual full suite
-│       └── allure-report.yml      # Allure generation + publish
-├── fixtures/                      # Shared test data
-├── helpers/                       # API helpers, Slack/Jira notifiers
+│
+├── .github/workflows/
+│   ├── allure-report.yml          # Unified Allure report + GitHub Pages
+│   ├── api-tests.yml              # API tests — push to main + nightly
+│   ├── full-suite.yml             # Manual — 15 test suite combinations
+│   ├── playwright.yml             # Legacy Playwright workflow
+│   ├── postman-tests.yml          # Newman — scheduled Sunday
+│   └── ui-tests.yml               # BDD — scheduled Sun + Wed
+│
+├── fixtures/
+│   └── test-data.ts               # Shared test constants
+│
+├── helpers/
+│   ├── api-helpers.ts             # API request functions
+│   ├── jira-notifier.ts           # Jira ticket creation/closure
+│   ├── jira-ticket-tracker.ts     # Jira dedup cache
+│   ├── newman-slack-notifier.ts   # Newman Slack types
+│   └── slack-notifier.ts          # Slack notification functions
+│
 ├── pages/                         # Page Object Models
-│   ├── LoginPage.ts
-│   ├── RegisterPage.ts
 │   ├── DashboardPage.ts
-│   └── ProfilePage.ts
-├── postman/                       # Postman collection + environment
-├── reporters/                     # Custom reporters
-├── scripts/                       # Slack notification scripts (.mjs)
+│   ├── LoginPage.ts
+│   ├── ProfilePage.ts
+│   └── RegisterPage.ts
+│
+├── postman/
+│   ├── job-tracker-collection.json
+│   └── production-environment.json
+│
+├── reporters/
+│   └── slack-reporter.ts          # Custom Playwright reporter
+│
+├── scripts/
+│   ├── notify-bdd-slack.mjs       # BDD Slack notifications
+│   └── notify-newman-slack.mjs    # Newman Slack notifications
+│
 ├── tests/
 │   ├── api/                       # Playwright API tests (21 tests)
 │   │   ├── auth.api.spec.ts
-│   │   ├── jobs.api.spec.ts
-│   │   └── interview-rounds.api.spec.ts
+│   │   ├── interview-rounds.api.spec.ts
+│   │   └── jobs.api.spec.ts
+│   │
 │   ├── bdd/                       # Cucumber BDD tests (9 scenarios)
-│   │   ├── features/              # Gherkin feature files
+│   │   ├── features/
 │   │   │   ├── auth.feature
 │   │   │   ├── jobs.feature
 │   │   │   └── profile.feature
-│   │   ├── steps/                 # Step definitions
+│   │   ├── steps/
 │   │   │   ├── auth.steps.ts
 │   │   │   ├── jobs.steps.ts
 │   │   │   └── profile.steps.ts
-│   │   └── support/               # Hooks, world, config
+│   │   └── support/
 │   │       ├── config.ts
 │   │       ├── hooks.ts
 │   │       └── world.ts
-│   ├── e2e/                       # E2E combined UI + API tests (3 tests)
-│   │   ├── job-journey.spec.ts
-│   │   └── user-journey.spec.ts
+│   │
+│   ├── e2e/                       # E2E combined UI + API tests (6 tests)
+│   │   ├── job-journey.spec.ts    # Job CRUD e2e (3 tests)
+│   │   └── user-journey.spec.ts   # User auth/profile e2e (3 tests)
+│   │
 │   └── ui/                        # Playwright UI spec tests (17 tests)
 │       ├── auth/
-│       ├── jobs/
+│       │   ├── login.spec.ts
+│       │   └── register.spec.ts
 │       ├── interview-rounds/
+│       │   └── interview-rounds.spec.ts
+│       ├── jobs/
+│       │   ├── create-job.spec.ts
+│       │   ├── delete-job.spec.ts
+│       │   └── update-job.spec.ts
 │       └── profile/
+│           └── profile.spec.ts
+│
 ├── cucumber.config.js
-├── playwright.config.ts
 ├── Makefile
-└── package.json
+├── package.json
+├── playwright.config.ts
+├── README.md
+└── tsconfig.json
 ```
 
 ---
