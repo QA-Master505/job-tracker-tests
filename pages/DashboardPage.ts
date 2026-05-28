@@ -21,8 +21,7 @@ export class DashboardPage {
   }
 
   async openAddJobModal() {
-    // Button text is "+ Add Application"
-    await this.page.click('button:has-text("Add Application")');
+    await this.page.getByTestId('add-application-btn').click();
   }
 
   // JobForm has no name attrs — identify inputs by placeholder
@@ -34,13 +33,13 @@ export class DashboardPage {
     applied_date?: string;
     notes?: string;
   }) {
-    await this.page.fill('input[placeholder="e.g. Google"]', data.company_name);
-    await this.page.fill('input[placeholder="e.g. Frontend Engineer"]', data.job_title);
+    await this.page.getByTestId('job-company-input').fill(data.company_name);
+    await this.page.getByTestId('job-position-input').fill(data.job_title);
     if (data.job_url) {
       await this.page.fill('input[placeholder="e.g. linkedin.com/jobs/123"]', data.job_url);
     }
     if (data.status) {
-      await this.page.selectOption('select', data.status);
+      await this.page.getByTestId('job-status-select').selectOption(data.status);
     }
     if (data.applied_date) {
       await this.page.fill('input[type="date"]', data.applied_date);
@@ -51,34 +50,23 @@ export class DashboardPage {
   }
 
   async submitJobForm() {
-    // Only the modal form's submit button has type="submit"; the header button does not
-    await this.page.click('button[type="submit"]');
+    await this.page.getByTestId('job-submit-btn').click();
   }
 
   async jobExists(companyName: string) {
     return await this.page.isVisible(`text=${companyName}`);
   }
 
-  // Clicks the Edit button on the card matching companyName → opens JobForm modal
   async clickJobCard(companyName: string) {
-    const card = this.page
-      .locator('div.bg-white.rounded-xl')
-      .filter({ hasText: companyName })
-      .last();
-    await card.waitFor({ state: 'visible', timeout: 15000 });
-    await card.locator('button:has-text("Edit")').click();
+    await this.page.getByTestId('job-edit-btn').first().click();
   }
 
   async deleteJob(companyName: string) {
-    const card = this.page
-      .locator('div:has(button:has-text("Delete"))')
-      .filter({ hasText: companyName })
-      .last();
     this.page.once('dialog', dialog => dialog.accept());
-    await card.locator('button:has-text("Delete")').click();
+    await this.page.getByTestId('job-delete-btn').first().click();
   }
 
   async logout() {
-    await this.page.click('button:has-text("Logout"), [data-testid="logout"]');
+    await this.page.getByTestId('logout-btn').click();
   }
 }

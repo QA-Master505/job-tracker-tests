@@ -1,4 +1,4 @@
-.PHONY: test test-api test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs bdd bdd-headed report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
+.PHONY: test test-api test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs bdd bdd-headed test-e2e test-e2e-headed test-e2e-debug report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
 
 # ============================================================
 # TESTING
@@ -55,6 +55,27 @@ bdd:
 # Run BDD/Cucumber UI tests with visible browser
 bdd-headed:
 	npm run test:bdd:headed
+
+# Run E2E tests
+test-e2e:
+	rm -rf test-results/
+	API_URL=https://job-tracker-backend-production-7acf.up.railway.app \
+	BASE_URL=https://job-tracker-frontend-green-sigma.vercel.app \
+	npx playwright test tests/e2e/
+
+# Run E2E tests with visible browser
+test-e2e-headed:
+	rm -rf test-results/
+	API_URL=https://job-tracker-backend-production-7acf.up.railway.app \
+	BASE_URL=https://job-tracker-frontend-green-sigma.vercel.app \
+	npx playwright test tests/e2e/ --headed
+
+# Run E2E tests in debug mode
+test-e2e-debug:
+	rm -rf test-results/
+	API_URL=https://job-tracker-backend-production-7acf.up.railway.app \
+	BASE_URL=https://job-tracker-frontend-green-sigma.vercel.app \
+	npx playwright test tests/e2e/ --debug
 
 # ============================================================
 # REPORTS
@@ -158,6 +179,9 @@ help:
 	@echo "  make test-jobs         - Run jobs tests only"
 	@echo "  make test-fast         - Run with 1 worker"
 	@echo "  make test-file FILE=p  - Run specific test file"
+	@echo "  make test-e2e          - Run E2E tests (UI + API combined)"
+	@echo "  make test-e2e-headed   - Run E2E tests with visible browser"
+	@echo "  make test-e2e-debug    - Run E2E tests in debug mode"
 	@echo ""
 	@echo "  REPORTS:"
 	@echo "  make report            - Open HTML report"
