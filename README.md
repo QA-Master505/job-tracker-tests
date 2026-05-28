@@ -65,10 +65,11 @@ This repository contains a multi-layered test automation suite covering API, UI 
 | Suite | Framework | Tests | Location |
 |-------|-----------|-------|----------|
 | API Tests | Playwright | 21 | `tests/api/` |
-| BDD UI Tests | Cucumber + Playwright | 9 | `tests/ui/features/` |
+| BDD UI Tests | Cucumber + Playwright | 9 | `tests/bdd/` |
 | E2E Tests | Playwright | 3 | `tests/e2e/` |
+| UI Spec Tests | Playwright | 17 | `tests/ui/` |
 | Postman Tests | Newman | 52 | `postman/` |
-| **Total** | | **85** | |
+| **Total** | | **102** | |
 
 ---
 
@@ -200,23 +201,31 @@ job-tracker-tests/
 ├── reporters/                     # Custom reporters
 ├── scripts/                       # Slack notification scripts (.mjs)
 ├── tests/
-│   ├── api/                       # Playwright API tests
+│   ├── api/                       # Playwright API tests (21 tests)
 │   │   ├── auth.api.spec.ts
 │   │   ├── jobs.api.spec.ts
 │   │   └── interview-rounds.api.spec.ts
-│   ├── e2e/                       # End-to-end UI + API tests
-│   │   └── job-journey.spec.ts
-│   └── ui/
-│       ├── auth/                  # UI auth tests
-│       ├── jobs/                  # UI job CRUD tests
-│       ├── profile/               # UI profile tests
-│       ├── interview-rounds/      # UI interview round tests
-│       ├── features/              # Cucumber feature files
-│       │   ├── auth.feature
-│       │   ├── jobs.feature
-│       │   └── profile.feature
-│       ├── steps/                 # Cucumber step definitions
-│       └── support/               # World, hooks, config
+│   ├── bdd/                       # Cucumber BDD tests (9 scenarios)
+│   │   ├── features/              # Gherkin feature files
+│   │   │   ├── auth.feature
+│   │   │   ├── jobs.feature
+│   │   │   └── profile.feature
+│   │   ├── steps/                 # Step definitions
+│   │   │   ├── auth.steps.ts
+│   │   │   ├── jobs.steps.ts
+│   │   │   └── profile.steps.ts
+│   │   └── support/               # Hooks, world, config
+│   │       ├── config.ts
+│   │       ├── hooks.ts
+│   │       └── world.ts
+│   ├── e2e/                       # E2E combined UI + API tests (3 tests)
+│   │   ├── job-journey.spec.ts
+│   │   └── user-journey.spec.ts
+│   └── ui/                        # Playwright UI spec tests (17 tests)
+│       ├── auth/
+│       ├── jobs/
+│       ├── interview-rounds/
+│       └── profile/
 ├── cucumber.config.js
 ├── playwright.config.ts
 ├── Makefile

@@ -1,10 +1,18 @@
-<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="15.510687">
-<testsuite name="e2e/job-journey.spec.ts" timestamp="2026-05-28T11:43:12.328Z" hostname="API Tests" tests="3" failures="0" skipped="0" time="14.044" errors="0">
-<testcase name="Job Journey E2E › should create a job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="4.121">
+<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="15.452656000000001">
+<testsuite name="e2e/job-journey.spec.ts" timestamp="2026-05-28T11:56:10.607Z" hostname="API Tests" tests="3" failures="0" skipped="0" time="13.845" errors="0">
+<testcase name="Job Journey E2E › should create a job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="3.95">
 </testcase>
-<testcase name="Job Journey E2E › should update job status via UI and verify via API" classname="e2e/job-journey.spec.ts" time="5.116">
+<testcase name="Job Journey E2E › should update job status via UI and verify via API" classname="e2e/job-journey.spec.ts" time="5.023">
 </testcase>
-<testcase name="Job Journey E2E › should delete job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="4.807">
+<testcase name="Job Journey E2E › should delete job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="4.872">
+</testcase>
+</testsuite>
+<testsuite name="e2e/user-journey.spec.ts" timestamp="2026-05-28T11:56:10.607Z" hostname="API Tests" tests="3" failures="0" skipped="0" time="10.37" errors="0">
+<testcase name="User Journey E2E › should register a new user and login successfully" classname="e2e/user-journey.spec.ts" time="3.968">
+</testcase>
+<testcase name="User Journey E2E › should update user profile and verify via API" classname="e2e/user-journey.spec.ts" time="3.772">
+</testcase>
+<testcase name="User Journey E2E › should logout successfully and return to login page" classname="e2e/user-journey.spec.ts" time="2.63">
 </testcase>
 </testsuite>
 </testsuites>
