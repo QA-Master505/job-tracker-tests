@@ -2,7 +2,7 @@ name: Allure Report CI
 
 on:
   workflow_run:
-    workflows: ["API Tests"]
+    workflows: ["API Tests", "Full Test Suite"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
@@ -13,7 +13,11 @@ env:
 jobs:
   test-and-report:
     name: Test and Publish Allure Report
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: >
+      (github.event.workflow_run.conclusion == 'success' &&
+       (github.event.workflow_run.name == 'API Tests' ||
+        github.event.workflow_run.name == 'Full Test Suite')) ||
+      github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
