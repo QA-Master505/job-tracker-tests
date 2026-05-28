@@ -1,7 +1,7 @@
 module.exports = {
   default: {
-    paths: ['tests/ui/features/**/*.feature'],
-    require: ['tests/ui/steps/**/*.ts', 'tests/ui/support/**/*.ts'],
+    paths: ['tests/bdd/features/**/*.feature'],
+    require: ['tests/bdd/steps/**/*.ts', 'tests/bdd/support/**/*.ts'],
     requireModule: ['ts-node/register'],
     format: [
       'progress-bar',

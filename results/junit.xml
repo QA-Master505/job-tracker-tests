@@ -1,10 +1,10 @@
-<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="18.760611">
-<testsuite name="e2e/job-journey.spec.ts" timestamp="2026-05-28T11:27:08.707Z" hostname="API Tests" tests="3" failures="0" skipped="0" time="16.69" errors="0">
-<testcase name="Job Journey E2E › should create a job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="5.796">
+<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="15.510687">
+<testsuite name="e2e/job-journey.spec.ts" timestamp="2026-05-28T11:43:12.328Z" hostname="API Tests" tests="3" failures="0" skipped="0" time="14.044" errors="0">
+<testcase name="Job Journey E2E › should create a job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="4.121">
 </testcase>
-<testcase name="Job Journey E2E › should update job status via UI and verify via API" classname="e2e/job-journey.spec.ts" time="5.5">
+<testcase name="Job Journey E2E › should update job status via UI and verify via API" classname="e2e/job-journey.spec.ts" time="5.116">
 </testcase>
-<testcase name="Job Journey E2E › should delete job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="5.394">
+<testcase name="Job Journey E2E › should delete job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="4.807">
 </testcase>
 </testsuite>
 </testsuites>

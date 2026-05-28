@@ -5,6 +5,7 @@ dotenv.config({ path: '.env.test' });
 
 export default defineConfig({
   testDir: './tests',
+  testIgnore: ['**/bdd/**'],
 
   /* Run tests sequentially to avoid conflicts */
   fullyParallel: false,

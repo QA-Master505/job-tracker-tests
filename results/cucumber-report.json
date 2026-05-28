@@ -14,7 +14,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 1065080583
+              "duration": 1830252333
             }
           },
           {
@@ -23,11 +23,11 @@
             "line": 7,
             "name": "I am on the login page",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:8"
+              "location": "tests/bdd/steps/auth.steps.ts:8"
             },
             "result": {
               "status": "passed",
-              "duration": 1872460374
+              "duration": 250280040
             }
           },
           {
@@ -36,11 +36,11 @@
             "line": 10,
             "name": "I enter email \"testuser@test.com\" and password \"Test123!\"",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:25"
+              "location": "tests/bdd/steps/auth.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 1699557707
+              "duration": 83706791
             }
           },
           {
@@ -49,11 +49,11 @@
             "line": 11,
             "name": "I click the login button",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:33"
+              "location": "tests/bdd/steps/auth.steps.ts:33"
             },
             "result": {
               "status": "passed",
-              "duration": 858242459
+              "duration": 30926833
             }
           },
           {
@@ -62,11 +62,11 @@
             "line": 12,
             "name": "I should be redirected to the dashboard",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:38"
+              "location": "tests/bdd/steps/auth.steps.ts:38"
             },
             "result": {
               "status": "passed",
-              "duration": 1637280040
+              "duration": 1343845416
             }
           },
           {
@@ -75,11 +75,11 @@
             "line": 13,
             "name": "I should see my job applications",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:45"
+              "location": "tests/bdd/steps/auth.steps.ts:45"
             },
             "result": {
               "status": "passed",
-              "duration": 9711542
+              "duration": 924990124
             }
           },
           {
@@ -87,7 +87,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 62817915
+              "duration": 20365082
             }
           }
         ],
@@ -106,7 +106,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 575421333
+              "duration": 124815790
             }
           },
           {
@@ -115,11 +115,11 @@
             "line": 7,
             "name": "I am on the login page",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:8"
+              "location": "tests/bdd/steps/auth.steps.ts:8"
             },
             "result": {
               "status": "passed",
-              "duration": 1047045915
+              "duration": 183370875
             }
           },
           {
@@ -128,11 +128,11 @@
             "line": 16,
             "name": "I enter email \"wrong@test.com\" and password \"wrongpass\"",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:25"
+              "location": "tests/bdd/steps/auth.steps.ts:25"
             },
             "result": {
               "status": "passed",
-              "duration": 1681401584
+              "duration": 68320999
             }
           },
           {
@@ -141,11 +141,11 @@
             "line": 17,
             "name": "I click the login button",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:33"
+              "location": "tests/bdd/steps/auth.steps.ts:33"
             },
             "result": {
               "status": "passed",
-              "duration": 839983374
+              "duration": 31025916
             }
           },
           {
@@ -154,11 +154,11 @@
             "line": 18,
             "name": "I should see an error message",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:50"
+              "location": "tests/bdd/steps/auth.steps.ts:50"
             },
             "result": {
               "status": "passed",
-              "duration": 8044583
+              "duration": 792761500
             }
           },
           {
@@ -166,7 +166,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 87451958
+              "duration": 28333208
             }
           }
         ],
@@ -185,7 +185,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 584558082
+              "duration": 139338124
             }
           },
           {
@@ -194,11 +194,11 @@
             "line": 7,
             "name": "I am on the login page",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:8"
+              "location": "tests/bdd/steps/auth.steps.ts:8"
             },
             "result": {
               "status": "passed",
-              "duration": 1108839167
+              "duration": 268423457
             }
           },
           {
@@ -207,11 +207,11 @@
             "line": 21,
             "name": "I am logged in",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:13"
+              "location": "tests/bdd/steps/auth.steps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 5001955665
+              "duration": 2088137542
             }
           },
           {
@@ -220,11 +220,11 @@
             "line": 22,
             "name": "I click the logout button",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:56"
+              "location": "tests/bdd/steps/auth.steps.ts:56"
             },
             "result": {
               "status": "passed",
-              "duration": 892092915
+              "duration": 32592916
             }
           },
           {
@@ -233,11 +233,11 @@
             "line": 23,
             "name": "I should be redirected to the login page",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:60"
+              "location": "tests/bdd/steps/auth.steps.ts:60"
             },
             "result": {
               "status": "passed",
-              "duration": 3507584
+              "duration": 737833
             }
           },
           {
@@ -245,7 +245,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 77864042
+              "duration": 20567750
             }
           }
         ],
@@ -258,7 +258,7 @@
     "keyword": "Feature",
     "name": "Authentication",
     "tags": [],
-    "uri": "tests/ui/features/auth.feature"
+    "uri": "tests/bdd/features/auth.feature"
   },
   {
     "description": "  As a logged in user\n  I want to manage my job applications\n  So that I can track my job search",
@@ -275,7 +275,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 594758999
+              "duration": 128781290
             }
           },
           {
@@ -284,11 +284,11 @@
             "line": 7,
             "name": "I am logged in",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:13"
+              "location": "tests/bdd/steps/auth.steps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 4533898749
+              "duration": 1906783832
             }
           },
           {
@@ -297,11 +297,11 @@
             "line": 10,
             "name": "I click add new job button",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:22"
+              "location": "tests/bdd/steps/jobs.steps.ts:22"
             },
             "result": {
               "status": "passed",
-              "duration": 840636791
+              "duration": 865475875
             }
           },
           {
@@ -310,11 +310,11 @@
             "line": 11,
             "name": "I fill in company name \"Google\"",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:27"
+              "location": "tests/bdd/steps/jobs.steps.ts:27"
             },
             "result": {
               "status": "passed",
-              "duration": 813399124
+              "duration": 5273499
             }
           },
           {
@@ -323,11 +323,11 @@
             "line": 12,
             "name": "I fill in position \"QA Engineer\"",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:31"
+              "location": "tests/bdd/steps/jobs.steps.ts:31"
             },
             "result": {
               "status": "passed",
-              "duration": 814280416
+              "duration": 3046000
             }
           },
           {
@@ -336,11 +336,11 @@
             "line": 13,
             "name": "I select status \"Applied\"",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:35"
+              "location": "tests/bdd/steps/jobs.steps.ts:35"
             },
             "result": {
               "status": "passed",
-              "duration": 815341208
+              "duration": 3255624
             }
           },
           {
@@ -349,11 +349,11 @@
             "line": 14,
             "name": "I submit the form",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:47"
+              "location": "tests/bdd/steps/jobs.steps.ts:47"
             },
             "result": {
               "status": "passed",
-              "duration": 837085834
+              "duration": 23986290
             }
           },
           {
@@ -362,11 +362,11 @@
             "line": 15,
             "name": "I should see \"Google\" in my job list",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:52"
+              "location": "tests/bdd/steps/jobs.steps.ts:52"
             },
             "result": {
               "status": "passed",
-              "duration": 816719124
+              "duration": 796401249
             }
           },
           {
@@ -374,7 +374,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 90997166
+              "duration": 21321916
             }
           }
         ],
@@ -393,7 +393,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 577041750
+              "duration": 129583291
             }
           },
           {
@@ -402,11 +402,11 @@
             "line": 7,
             "name": "I am logged in",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:13"
+              "location": "tests/bdd/steps/auth.steps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 5165218625
+              "duration": 1761161666
             }
           },
           {
@@ -415,11 +415,11 @@
             "line": 18,
             "name": "I have at least one job application",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:7"
+              "location": "tests/bdd/steps/jobs.steps.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 1743045375
+              "duration": 1546149707
             }
           },
           {
@@ -428,11 +428,11 @@
             "line": 19,
             "name": "I click on a job application",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:56"
+              "location": "tests/bdd/steps/jobs.steps.ts:56"
             },
             "result": {
               "status": "passed",
-              "duration": 861373833
+              "duration": 48301708
             }
           },
           {
@@ -441,11 +441,11 @@
             "line": 20,
             "name": "I should see the job details",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:60"
+              "location": "tests/bdd/steps/jobs.steps.ts:60"
             },
             "result": {
               "status": "passed",
-              "duration": 12892958
+              "duration": 5764707
             }
           },
           {
@@ -453,7 +453,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 76288457
+              "duration": 27745332
             }
           }
         ],
@@ -472,7 +472,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 578904416
+              "duration": 158906332
             }
           },
           {
@@ -481,11 +481,11 @@
             "line": 7,
             "name": "I am logged in",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:13"
+              "location": "tests/bdd/steps/auth.steps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 5114050208
+              "duration": 1927388999
             }
           },
           {
@@ -494,11 +494,11 @@
             "line": 23,
             "name": "I have at least one job application",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:7"
+              "location": "tests/bdd/steps/jobs.steps.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 1714697958
+              "duration": 1497968625
             }
           },
           {
@@ -507,11 +507,11 @@
             "line": 24,
             "name": "I update the status to \"Interview\"",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:67"
+              "location": "tests/bdd/steps/jobs.steps.ts:67"
             },
             "result": {
               "status": "passed",
-              "duration": 2524076499
+              "duration": 76890625
             }
           },
           {
@@ -520,11 +520,11 @@
             "line": 25,
             "name": "the status should show \"Interview\"",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:78"
+              "location": "tests/bdd/steps/jobs.steps.ts:78"
             },
             "result": {
               "status": "passed",
-              "duration": 206220417
+              "duration": 803569959
             }
           },
           {
@@ -532,7 +532,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 89314334
+              "duration": 26504166
             }
           }
         ],
@@ -551,7 +551,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 567147750
+              "duration": 137239707
             }
           },
           {
@@ -560,11 +560,11 @@
             "line": 7,
             "name": "I am logged in",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:13"
+              "location": "tests/bdd/steps/auth.steps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 4812109792
+              "duration": 1757478250
             }
           },
           {
@@ -573,11 +573,11 @@
             "line": 28,
             "name": "I have at least one job application",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:7"
+              "location": "tests/bdd/steps/jobs.steps.ts:7"
             },
             "result": {
               "status": "passed",
-              "duration": 3324304917
+              "duration": 1673975582
             }
           },
           {
@@ -586,11 +586,11 @@
             "line": 29,
             "name": "I delete the job application",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:82"
+              "location": "tests/bdd/steps/jobs.steps.ts:82"
             },
             "result": {
               "status": "passed",
-              "duration": 895742375
+              "duration": 34508416
             }
           },
           {
@@ -599,11 +599,11 @@
             "line": 30,
             "name": "the job should be removed from the list",
             "match": {
-              "location": "tests/ui/steps/jobs.steps.ts:90"
+              "location": "tests/bdd/steps/jobs.steps.ts:90"
             },
             "result": {
               "status": "passed",
-              "duration": 811847084
+              "duration": 811195165
             }
           },
           {
@@ -611,7 +611,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 86645750
+              "duration": 29765458
             }
           }
         ],
@@ -624,7 +624,7 @@
     "keyword": "Feature",
     "name": "Job Applications Management",
     "tags": [],
-    "uri": "tests/ui/features/jobs.feature"
+    "uri": "tests/bdd/features/jobs.feature"
   },
   {
     "description": "  As a logged in user\n  I want to manage my profile\n  So that I can keep my information updated",
@@ -641,7 +641,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 569511792
+              "duration": 131333542
             }
           },
           {
@@ -650,11 +650,11 @@
             "line": 7,
             "name": "I am logged in",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:13"
+              "location": "tests/bdd/steps/auth.steps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 6601659417
+              "duration": 1949899750
             }
           },
           {
@@ -663,11 +663,11 @@
             "line": 10,
             "name": "I navigate to profile settings",
             "match": {
-              "location": "tests/ui/steps/profile.steps.ts:6"
+              "location": "tests/bdd/steps/profile.steps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 902226041
+              "duration": 951419208
             }
           },
           {
@@ -676,11 +676,11 @@
             "line": 11,
             "name": "I update my username to \"newusername\"",
             "match": {
-              "location": "tests/ui/steps/profile.steps.ts:11"
+              "location": "tests/bdd/steps/profile.steps.ts:11"
             },
             "result": {
               "status": "passed",
-              "duration": 1627529541
+              "duration": 9897542
             }
           },
           {
@@ -689,11 +689,11 @@
             "line": 12,
             "name": "my username should be updated successfully",
             "match": {
-              "location": "tests/ui/steps/profile.steps.ts:18"
+              "location": "tests/bdd/steps/profile.steps.ts:18"
             },
             "result": {
               "status": "passed",
-              "duration": 1650756708
+              "duration": 818145541
             }
           },
           {
@@ -701,7 +701,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 96022250
+              "duration": 27004249
             }
           }
         ],
@@ -720,7 +720,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 566623374
+              "duration": 130698167
             }
           },
           {
@@ -729,11 +729,11 @@
             "line": 7,
             "name": "I am logged in",
             "match": {
-              "location": "tests/ui/steps/auth.steps.ts:13"
+              "location": "tests/bdd/steps/auth.steps.ts:13"
             },
             "result": {
               "status": "passed",
-              "duration": 4931738500
+              "duration": 1660506041
             }
           },
           {
@@ -742,11 +742,11 @@
             "line": 15,
             "name": "I navigate to profile settings",
             "match": {
-              "location": "tests/ui/steps/profile.steps.ts:6"
+              "location": "tests/bdd/steps/profile.steps.ts:6"
             },
             "result": {
               "status": "passed",
-              "duration": 891100166
+              "duration": 872561250
             }
           },
           {
@@ -755,11 +755,11 @@
             "line": 16,
             "name": "I update my email to \"newemail@test.com\"",
             "match": {
-              "location": "tests/ui/steps/profile.steps.ts:23"
+              "location": "tests/bdd/steps/profile.steps.ts:23"
             },
             "result": {
               "status": "passed",
-              "duration": 1628807000
+              "duration": 8188042
             }
           },
           {
@@ -768,11 +768,11 @@
             "line": 17,
             "name": "my email should be updated successfully",
             "match": {
-              "location": "tests/ui/steps/profile.steps.ts:30"
+              "location": "tests/bdd/steps/profile.steps.ts:30"
             },
             "result": {
               "status": "passed",
-              "duration": 846754790
+              "duration": 816805583
             }
           },
           {
@@ -780,7 +780,7 @@
             "hidden": true,
             "result": {
               "status": "passed",
-              "duration": 67799707
+              "duration": 27794333
             }
           }
         ],
@@ -793,6 +793,6 @@
     "keyword": "Feature",
     "name": "User Profile Management",
     "tags": [],
-    "uri": "tests/ui/features/profile.feature"
+    "uri": "tests/bdd/features/profile.feature"
   }
 ]
