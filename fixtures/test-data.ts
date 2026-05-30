@@ -1,9 +1,3 @@
-export const testUser = {
-  email: 'playwright@example.com',
-  username: 'playwrightuser',
-  password: 'Playwright@1234',
-};
-
 export const testJob = {
   company_name: 'Playwright Test Company',
   job_title: 'Senior QA Engineer',

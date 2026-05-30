@@ -4,7 +4,8 @@ export class LoginPage {
   constructor(private page: Page) {}
 
   async goto() {
-    await this.page.goto('/login');
+    const base = process.env.BASE_URL || 'http://localhost:5173';
+    await this.page.goto(`${base}/login`);
   }
 
   async navigate() {

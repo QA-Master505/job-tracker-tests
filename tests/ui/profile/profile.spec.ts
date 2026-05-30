@@ -1,10 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
 import { ProfilePage } from '../../../pages/ProfilePage';
-import { testUser } from '../../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../../fixtures/auth';
 
 test.describe('Profile', () => {
   let profilePage: ProfilePage;
+  let testUser: TestUser;
+
+  test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
+  });
 
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -28,8 +33,7 @@ test.describe('Profile', () => {
     const newUsername = `playwright_${Date.now()}`;
     await profilePage.updateUsername(newUsername);
     await profilePage.saveProfile(); // submits the Change Username form
-    // StatusMessage: <p class="... text-green-700">Saved successfully.</p>
-    await expect(page.locator('p.text-green-700').first()).toBeVisible({ timeout: 10000 });
+    await expect(page.getByTestId('profile-success-msg')).toBeVisible({ timeout: 10000 });
     const msg = await profilePage.getSuccessMessage();
     expect(msg).toBeTruthy();
   });

@@ -6,15 +6,18 @@ import {
   createInterviewRound,
   getInterviewRounds,
 } from '../../helpers/api-helpers';
-import { testUser, testJob, testInterviewRound } from '../../fixtures/test-data';
+import { testJob, testInterviewRound } from '../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../fixtures/auth';
 
-const API_URL = process.env.API_URL || 'http://localhost:8000';
+const API_URL = process.env.API_URL || 'https://job-tracker-backend-production-7acf.up.railway.app';
 
 test.describe('Interview Rounds API', () => {
   let token: string;
   let jobId: string;
+  let testUser: TestUser;
 
   test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
     token = await getAuthToken(request, testUser.email, testUser.password);
     // Use a distinct name so create-job.spec.ts afterEach cleanup never touches this job
     const response = await createJob(request, token, { ...testJob, company_name: 'API Interview Test Job' });

@@ -1,12 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { getAuthToken, createJob, getJobs, updateJob, deleteJob } from '../../helpers/api-helpers';
-import { testUser, testJob } from '../../fixtures/test-data';
+import { testJob } from '../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../fixtures/auth';
+
+const API_URL = process.env.API_URL || 'https://job-tracker-backend-production-7acf.up.railway.app';
 
 test.describe('Jobs API', () => {
   let token: string;
   let createdJobId: string;
+  let testUser: TestUser;
 
   test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
     token = await getAuthToken(request, testUser.email, testUser.password);
   });
 
@@ -28,7 +33,7 @@ test.describe('Jobs API', () => {
   });
 
   test('POST /jobs — should return 401 without auth token', async ({ request }) => {
-    const response = await request.post(`${process.env.API_URL || 'http://localhost:8000'}/jobs`, {
+    const response = await request.post(`${API_URL}/jobs`, {
       data: testJob,
     });
     expect(response.status()).toBe(401);
@@ -51,7 +56,7 @@ test.describe('Jobs API', () => {
   });
 
   test('GET /jobs — should return 401 without auth token', async ({ request }) => {
-    const response = await request.get(`${process.env.API_URL || 'http://localhost:8000'}/jobs`);
+    const response = await request.get(`${API_URL}/jobs`);
     expect(response.status()).toBe(401);
   });
 

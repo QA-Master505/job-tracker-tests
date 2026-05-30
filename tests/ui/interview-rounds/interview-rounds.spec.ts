@@ -1,12 +1,18 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
-import { testUser, testJob } from '../../../fixtures/test-data';
+import { testJob } from '../../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../../fixtures/auth';
 import { getAuthToken, createJob, deleteJob } from '../../../helpers/api-helpers';
 
 test.describe('Interview Rounds', () => {
   let jobId: string;
   let token: string;
   let jobCompanyName: string; // unique per test run to avoid parallel-worker interference
+  let testUser: TestUser;
+
+  test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
+  });
 
   test.beforeEach(async ({ page, request }) => {
     token = await getAuthToken(request, testUser.email, testUser.password);

@@ -1,9 +1,14 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
-import { testUser } from '../../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../../fixtures/auth';
 
 test.describe('Login', () => {
   let loginPage: LoginPage;
+  let testUser: TestUser;
+
+  test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
+  });
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);

@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
 import { DashboardPage } from '../../../pages/DashboardPage';
-import { testUser, testJob } from '../../../fixtures/test-data';
+import { testJob } from '../../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../../fixtures/auth';
 import { getAuthToken, createJob, deleteJob } from '../../../helpers/api-helpers';
 
 test.describe('Delete Job', () => {
@@ -9,6 +10,11 @@ test.describe('Delete Job', () => {
   let token: string;
   let jobId: string;
   let jobCompanyName: string; // unique per test run to avoid parallel-worker interference
+  let testUser: TestUser;
+
+  test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
+  });
 
   test.beforeEach(async ({ page, request }) => {
     token = await getAuthToken(request, testUser.email, testUser.password);
@@ -41,10 +47,8 @@ test.describe('Delete Job', () => {
   });
 
   test('should show confirmation dialog before deleting', async ({ page }) => {
-    const card = page
-      .locator('div.bg-white.rounded-xl')
-      .filter({ hasText: jobCompanyName })
-      .last();
+    const card = page.locator('[data-testid="job-card"]')
+      .filter({ hasText: jobCompanyName });
     await card.waitFor({ state: 'visible', timeout: 15000 });
 
     let dialogMessage = '';
@@ -52,7 +56,7 @@ test.describe('Delete Job', () => {
       dialogMessage = dialog.message();
       await dialog.dismiss();
     });
-    await card.locator('button:has-text("Delete")').click();
+    await card.getByTestId('job-delete-btn').click();
 
     expect(dialogMessage).toBeTruthy();
   });

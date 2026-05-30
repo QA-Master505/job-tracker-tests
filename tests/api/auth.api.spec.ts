@@ -1,8 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { registerUser, loginUser } from '../../helpers/api-helpers';
-import { testUser } from '../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../fixtures/auth';
+
+const API_URL = process.env.API_URL || 'https://job-tracker-backend-production-7acf.up.railway.app';
 
 test.describe('Auth API', () => {
+  let testUser: TestUser;
+
+  test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
+  });
+
   test('POST /auth/register — should register a new user', async ({ request }) => {
     const uniqueEmail = `playwright_api_${Date.now()}@example.com`;
     const uniqueUsername = `playwright_api_${Date.now()}`;
@@ -18,6 +26,7 @@ test.describe('Auth API', () => {
   });
 
   test('POST /auth/register — should return 400 for duplicate email', async ({ request }) => {
+    // testUser already exists (created in beforeAll) — first call returns 409, second also must fail
     await registerUser(request, {
       email: testUser.email,
       username: testUser.username,
@@ -50,7 +59,7 @@ test.describe('Auth API', () => {
   });
 
   test('POST /auth/login — should return 422 for missing password', async ({ request }) => {
-    const response = await request.post(`${process.env.API_URL || 'http://localhost:8000'}/auth/login`, {
+    const response = await request.post(`${API_URL}/auth/login`, {
       data: { email: testUser.email },
     });
     expect([400, 422]).toContain(response.status());

@@ -4,7 +4,8 @@ export class RegisterPage {
   constructor(private page: Page) {}
 
   async goto() {
-    await this.page.goto('/register');
+    const base = process.env.BASE_URL || 'http://localhost:5173';
+    await this.page.goto(`${base}/register`);
   }
 
   // Inputs have no name/id — ordered as: username (text), email, password

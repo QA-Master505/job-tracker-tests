@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
 import { DashboardPage } from '../../../pages/DashboardPage';
-import { testUser, testJob } from '../../../fixtures/test-data';
+import { testJob } from '../../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../../fixtures/auth';
 import { getAuthToken, createJob, deleteJob } from '../../../helpers/api-helpers';
 
 test.describe('Update Job', () => {
@@ -9,6 +10,11 @@ test.describe('Update Job', () => {
   let jobId: string;
   let token: string;
   let jobCompanyName: string; // unique per test run to avoid parallel-worker interference
+  let testUser: TestUser;
+
+  test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
+  });
 
   test.beforeEach(async ({ page, request }) => {
     token = await getAuthToken(request, testUser.email, testUser.password);
@@ -34,9 +40,8 @@ test.describe('Update Job', () => {
 
   test('should update job status', async ({ page }) => {
     await dashboardPage.clickJobCard(jobCompanyName);
-    // Status select has no name attr — target the <select> inside the modal
-    await page.selectOption('select', 'phone_interview');
-    await page.click('button:has-text("Save Changes")');
+    await page.getByTestId('job-status-select').selectOption('phone_interview');
+    await page.getByTestId('job-save-btn').click();
     // Status badge is a <span class="... rounded-full ..."> — avoids matching the modal's <option>
     await expect(page.locator('span.rounded-full:has-text("Phone Interview")')).toBeVisible({ timeout: 10000 });
   });
@@ -47,7 +52,7 @@ test.describe('Update Job', () => {
     const notes = page.locator('textarea');
     await notes.clear();
     await notes.fill('Updated notes via Playwright test');
-    await page.click('button:has-text("Save Changes")');
+    await page.getByTestId('job-save-btn').click();
     await expect(page.locator('text=Updated notes via Playwright test')).toBeVisible({ timeout: 10000 });
   });
 });

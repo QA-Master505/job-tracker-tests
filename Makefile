@@ -10,11 +10,14 @@ test:
 
 # Run API tests only (no frontend needed)
 test-api:
+	API_URL=https://job-tracker-backend-production-7acf.up.railway.app \
 	npx playwright test tests/api/
 
 # Run UI tests only
 test-ui:
-	npx playwright test tests/ui/
+	BASE_URL=https://job-tracker-frontend-green-sigma.vercel.app \
+	API_URL=https://job-tracker-backend-production-7acf.up.railway.app \
+	npx playwright test tests/ui/ --headed
 
 # Run tests with visible browser
 test-headed:

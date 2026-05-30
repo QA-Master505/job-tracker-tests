@@ -4,7 +4,8 @@ export class ProfilePage {
   constructor(private page: Page) {}
 
   async goto() {
-    await this.page.goto('/profile');
+    const base = process.env.BASE_URL || 'http://localhost:5173';
+    await this.page.goto(`${base}/profile`);
   }
 
   async expectVisible() {

@@ -1,11 +1,17 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
 import { DashboardPage } from '../../../pages/DashboardPage';
-import { testUser, testJob } from '../../../fixtures/test-data';
+import { testJob } from '../../../fixtures/test-data';
+import { createTestUser, TestUser } from '../../../fixtures/auth';
 import { getAuthToken, getJobs, deleteJob } from '../../../helpers/api-helpers';
 
 test.describe('Create Job', () => {
   let dashboardPage: DashboardPage;
+  let testUser: TestUser;
+
+  test.beforeAll(async ({ request }) => {
+    testUser = await createTestUser(request);
+  });
 
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
@@ -33,13 +39,13 @@ test.describe('Create Job', () => {
     await page.waitForLoadState('networkidle');
 
     // Wait for the Add Application button to be visible
-    await expect(page.getByText('+ Add Application')).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTestId('add-application-btn')).toBeVisible({ timeout: 15000 });
   });
 
   test('should open the add job modal', async ({ page }) => {
     await dashboardPage.openAddJobModal();
-    // JobForm modal shows Company Name input with placeholder "e.g. Google"
-    await expect(page.locator('input[placeholder="e.g. Google"]')).toBeVisible();
+    // JobForm modal shows Company Name input
+    await expect(page.getByTestId('job-company-input')).toBeVisible();
   });
 
   test('should create a new job application', async ({ page }) => {
@@ -52,8 +58,7 @@ test.describe('Create Job', () => {
 
   test('should show error when required fields are missing', async ({ page }) => {
     await dashboardPage.openAddJobModal();
-    // Use type="submit" to target the modal form button (not the backdrop-blocked header button)
-    await page.click('button[type="submit"]');
+    await page.getByTestId('job-submit-btn').click();
     const nativeInvalid = await page.locator('input:invalid').count();
     const serverError = await page.locator('p.bg-red-50').count();
     expect(nativeInvalid > 0 || serverError > 0).toBeTruthy();
