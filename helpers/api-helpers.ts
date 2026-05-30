@@ -1,6 +1,13 @@
 import { APIRequestContext } from '@playwright/test';
 
-const API_URL = process.env.API_URL || 'http://localhost:8000';
+if (!process.env.API_URL) {
+  throw new Error(
+    'API_URL environment variable is not set. ' +
+    'Run with API_URL=https://... or add it to your .env.test file.'
+  );
+}
+
+const API_URL = process.env.API_URL;
 
 export async function registerUser(request: APIRequestContext, userData: object) {
   return await request.post(`${API_URL}/auth/register`, {
@@ -29,6 +36,12 @@ export async function createJob(request: APIRequestContext, token: string, jobDa
 
 export async function getJobs(request: APIRequestContext, token: string) {
   return await request.get(`${API_URL}/jobs`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+export async function getJobById(request: APIRequestContext, token: string, jobId: string) {
+  return await request.get(`${API_URL}/jobs/${jobId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 }
