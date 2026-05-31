@@ -61,7 +61,7 @@ test.describe('Job Journey E2E', () => {
       headers: { Authorization: `Bearer ${authToken}` }
     });
     const data = await res.json();
-    const jobs = data.items || data;
+    const jobs = data.items;
     const created = jobs.find((j: any) => j.company_name === companyName);
     expect(created).toBeDefined();
     expect(created.company_name).toBe(companyName);
@@ -105,7 +105,7 @@ test.describe('Job Journey E2E', () => {
       headers: { Authorization: `Bearer ${authToken}` }
     });
     const listData = await listRes.json();
-    const updatedJob = (listData.items || listData).find((j: any) => j.company_name === companyName);
+    const updatedJob = listData.items.find((j: any) => j.company_name === companyName);
     expect(updatedJob).toBeDefined();
     expect(updatedJob.status).toBe('phone_interview');
 
@@ -135,7 +135,7 @@ test.describe('Job Journey E2E', () => {
       headers: { Authorization: `Bearer ${authToken}` }
     });
     const listData = await listRes.json();
-    const job = (listData.items || listData).find((j: any) => j.company_name === companyName);
+    const job = listData.items.find((j: any) => j.company_name === companyName);
 
     // Set dialog handler BEFORE clicking
     page.once('dialog', async dialog => {

@@ -34,9 +34,18 @@ export async function createJob(request: APIRequestContext, token: string, jobDa
   });
 }
 
-export async function getJobs(request: APIRequestContext, token: string) {
+export async function getJobs(
+  request: APIRequestContext,
+  token: string,
+  page?: number,
+  page_size?: number,
+) {
+  const params: Record<string, string> = {};
+  if (page !== undefined) params['page'] = String(page);
+  if (page_size !== undefined) params['page_size'] = String(page_size);
   return await request.get(`${API_URL}/jobs`, {
     headers: { Authorization: `Bearer ${token}` },
+    params,
   });
 }
 

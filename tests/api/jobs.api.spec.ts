@@ -56,7 +56,11 @@ test.describe('Jobs API', () => {
     const response = await getJobs(request, token);
     expect(response.status()).toBe(200);
     const body = await response.json();
-    expect(Array.isArray(body)).toBeTruthy();
+    expect(Array.isArray(body.items)).toBeTruthy();
+    expect(body).toHaveProperty('total');
+    expect(body).toHaveProperty('page');
+    expect(body).toHaveProperty('page_size');
+    expect(body).toHaveProperty('total_pages');
   });
 
   test('GET /jobs — should return 401 without auth token', async ({ request }) => {
