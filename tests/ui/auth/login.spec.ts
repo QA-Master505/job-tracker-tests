@@ -50,9 +50,9 @@ test.describe('Login', () => {
     expect(nativeInvalid > 0 || serverError > 0).toBeTruthy();
   });
 
-  // App currently has no route guard — /dashboard is accessible without login
-  test.skip('should redirect to login when accessing protected route while logged out', async ({ page }) => {
-    await page.goto('/dashboard');
+  test('should redirect to login when accessing protected route while logged out', async ({ page }) => {
+    const baseUrl = process.env.BASE_URL || 'http://localhost:5173';
+    await page.goto(`${baseUrl}/dashboard`);
     await expect(page).toHaveURL(/\/login/, { timeout: 20000 });
   });
 });
