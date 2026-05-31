@@ -45,3 +45,22 @@ export async function createTestUser(request: APIRequestContext): Promise<TestUs
     `createTestUser failed after ${MAX_ATTEMPTS} attempts — last error:\n${lastBody}`
   );
 }
+
+export async function deleteTestUser(
+  request: APIRequestContext,
+  email: string,
+  password: string,
+): Promise<void> {
+  try {
+    const loginRes = await request.post(`${API_URL}/auth/login`, {
+      data: { email, password },
+    });
+    if (!loginRes.ok()) return;
+    const { access_token } = await loginRes.json();
+    await request.delete(`${API_URL}/users/me`, {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+  } catch {
+    // silently ignore — user may not exist or test failed before creation
+  }
+}

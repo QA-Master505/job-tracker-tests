@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { registerUser, loginUser } from '../../helpers/api-helpers';
-import { createTestUser, TestUser } from '../../fixtures/auth';
+import { createTestUser, deleteTestUser, TestUser } from '../../fixtures/auth';
 
 const API_URL = process.env.API_URL || 'https://job-tracker-backend-production-7acf.up.railway.app';
 
@@ -9,6 +9,10 @@ test.describe('Auth API', () => {
 
   test.beforeAll(async ({ request }) => {
     testUser = await createTestUser(request);
+  });
+
+  test.afterAll(async ({ request }) => {
+    await deleteTestUser(request, testUser.email, testUser.password);
   });
 
   test('POST /auth/register — should register a new user', async ({ request }) => {

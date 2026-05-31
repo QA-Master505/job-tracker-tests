@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
+import { deleteTestUser } from '../../fixtures/auth';
 
 const BASE_URL = process.env.BASE_URL || 'https://job-tracker-frontend-green-sigma.vercel.app';
 const API_URL = process.env.API_URL || 'https://job-tracker-backend-production-7acf.up.railway.app';
@@ -24,6 +25,10 @@ test.describe('Job Journey E2E', () => {
     });
     const { access_token } = await res.json();
     authToken = access_token;
+  });
+
+  test.afterAll(async ({ request }) => {
+    await deleteTestUser(request, SHARED_USER.email, SHARED_USER.password);
   });
 
   test.beforeEach(async ({ page }) => {
