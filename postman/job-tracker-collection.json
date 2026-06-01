@@ -9,7 +9,7 @@
   },
   "item": [
     {
-      "name": "\ud83c\udfe5 Health & Status",
+      "name": "🏥 Health & Status",
       "item": [
         {
           "name": "Health Check",
@@ -35,12 +35,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/health",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "health"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
             },
             "description": "Check if the API server is running and healthy."
           },
@@ -50,18 +46,11 @@
               "originalRequest": {
                 "method": "GET",
                 "header": [],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
+                "body": { "mode": "raw", "raw": "" },
                 "url": {
                   "raw": "{{baseUrl}}/health",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "health"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["health"]
                 }
               },
               "status": "OK",
@@ -77,7 +66,7 @@
       "description": "Endpoints to verify API health and service status."
     },
     {
-      "name": "\ud83d\udd10 Authentication",
+      "name": "🔐 Authentication",
       "item": [
         {
           "name": "Register",
@@ -100,30 +89,16 @@
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"username\": \"{{username}}\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
             },
             "description": "Register a new user account."
           },
@@ -132,41 +107,22 @@
               "name": "201 Created - User Registered",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"full_name\": \"John Doe\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/register",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "register"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
                 }
               },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
               "cookie": [],
               "body": "{\"id\": 1, \"email\": \"user@example.com\", \"full_name\": \"John Doe\", \"created_at\": \"2024-01-01T00:00:00Z\"}"
             }
@@ -192,7 +148,7 @@
                   "const json = pm.response.json();",
                   "if (json.access_token) {",
                   "    pm.environment.set(\"authToken\", json.access_token);",
-                  "    console.log(\"\u2705 Token saved:\", json.access_token.substring(0, 20) + \"...\");",
+                  "    console.log(\"✅ Token saved:\", json.access_token.substring(0, 20) + \"...\");",
                   "}"
                 ]
               }
@@ -200,30 +156,16 @@
           ],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/auth/login",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "login"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
             },
             "description": "Authenticate a user and receive a JWT access token."
           },
@@ -232,41 +174,22 @@
               "name": "200 OK - Login Successful",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"SecurePass123!\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/login",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "login"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
                 }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
               "cookie": [],
               "body": "{\"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\", \"token_type\": \"bearer\", \"expires_in\": 3600}"
             }
@@ -294,30 +217,14 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "POST",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
             "url": {
               "raw": "{{baseUrl}}/auth/logout",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "logout"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "logout"]
             },
             "description": "Invalidate the current user session and token."
           },
@@ -326,36 +233,18 @@
               "name": "200 OK - Logged Out",
               "originalRequest": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
+                "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+                "body": { "mode": "raw", "raw": "" },
                 "url": {
                   "raw": "{{baseUrl}}/auth/logout",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "logout"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "logout"]
                 }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                }
-              ],
+              "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
               "cookie": [],
               "body": "{\"message\": \"Successfully logged out\"}"
             }
@@ -381,30 +270,14 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
             "url": {
               "raw": "{{baseUrl}}/auth/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "auth",
-                "me"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "me"]
             },
             "description": "Generated from cURL: curl -X GET \"{{base_url}}/auth/me\" -H \"Authorization: Bearer {{authToken}}\""
           },
@@ -414,10 +287,10 @@
       "description": "User registration, login, and logout endpoints."
     },
     {
-      "name": "\ud83d\udcbc Job Applications",
+      "name": "💼 Job Applications",
       "item": [
         {
-          "name": "\ud83d\udccb Interview Rounds",
+          "name": "📋 Interview Rounds",
           "item": [
             {
               "name": "Setup: Create Job for Interviews",
@@ -445,32 +318,18 @@
               "request": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
                 ],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"company_name\": \"Interview Test Company\", \"job_title\": \"QA Engineer\", \"status\": \"applied\", \"applied_date\": \"2026-05-21\", \"notes\": \"Setup job for interview round tests\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"]
                 },
                 "description": "Creates a job specifically for Interview Rounds tests. Saves jobId to environment."
               },
@@ -499,35 +358,19 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "POST",
                 "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"interview_type\": \"virtual\",\n  \"interview_date\": \"2026-05-25\",\n  \"notes\": \"Technical interview - prepare coding challenges\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/{{jobId}}/interviews",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "{{jobId}}",
-                    "interviews"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "{{jobId}}", "interviews"]
                 }
               },
               "response": []
@@ -555,26 +398,14 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "GET",
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/jobs/{{jobId}}/interviews",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "{{jobId}}",
-                    "interviews"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "{{jobId}}", "interviews"]
                 }
               },
               "response": []
@@ -604,36 +435,19 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "PUT",
                 "header": [],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"notes\": \"Rescheduled to May 23rd at 10am - bring CV and cover letter\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/{{jobId}}/interviews/{{interviewId}}",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "{{jobId}}",
-                    "interviews",
-                    "{{interviewId}}"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "{{jobId}}", "interviews", "{{interviewId}}"]
                 }
               },
               "response": []
@@ -643,27 +457,14 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "DELETE",
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/jobs/{{jobId}}/interviews/{{interviewId}}",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "{{jobId}}",
-                    "interviews",
-                    "{{interviewId}}"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "{{jobId}}", "interviews", "{{interviewId}}"]
                 }
               },
               "response": []
@@ -681,9 +482,14 @@
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
                   "});",
-                  "pm.test(\"Response is an array\", () => {",
+                  "pm.test(\"Response has paginated shape\", () => {",
                   "  const json = pm.response.json();",
-                  "  pm.expect(json.items || json).to.satisfy((v) => Array.isArray(v) || typeof v === 'object');",
+                  "  pm.expect(json).to.have.property('items');",
+                  "  pm.expect(json).to.have.property('total');",
+                  "  pm.expect(json).to.have.property('page');",
+                  "  pm.expect(json).to.have.property('page_size');",
+                  "  pm.expect(json).to.have.property('total_pages');",
+                  "  pm.expect(json.items).to.be.an('array');",
                   "});"
                 ]
               }
@@ -692,38 +498,17 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
             "url": {
-              "raw": "{{baseUrl}}/jobs?page=1&limit=10",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "jobs"
-              ],
+              "raw": "{{baseUrl}}/jobs?page=1&page_size=10",
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs"],
               "query": [
-                {
-                  "key": "page",
-                  "value": "1"
-                },
-                {
-                  "key": "limit",
-                  "value": "10"
-                }
+                { "key": "page", "value": "1" },
+                { "key": "page_size", "value": "10" }
               ]
             },
             "description": "Retrieve a paginated list of all job applications for the authenticated user."
@@ -733,49 +518,24 @@
               "name": "200 OK - Jobs List",
               "originalRequest": {
                 "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
+                "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+                "body": { "mode": "raw", "raw": "" },
                 "url": {
-                  "raw": "{{baseUrl}}/jobs?page=1&limit=10",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ],
+                  "raw": "{{baseUrl}}/jobs?page=1&page_size=10",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"],
                   "query": [
-                    {
-                      "key": "page",
-                      "value": "1",
-                      "type": "text"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "10",
-                      "type": "text"
-                    }
+                    { "key": "page", "value": "1", "type": "text" },
+                    { "key": "page_size", "value": "10", "type": "text" }
                   ]
                 }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                }
-              ],
+              "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
               "cookie": [],
-              "body": "{\"jobs\": [{\"id\": 1, \"company\": \"Acme Corp\", \"position\": \"Software Engineer\", \"status\": \"applied\", \"applied_date\": \"2024-01-15\", \"notes\": \"Referral from John\"}], \"total\": 1, \"page\": 1, \"limit\": 10}"
+              "body": "{\"items\": [{\"id\": 1, \"company_name\": \"Acme Corp\", \"job_title\": \"Software Engineer\", \"status\": \"applied\", \"applied_date\": \"2024-01-15\", \"notes\": \"Referral from John\"}], \"total\": 1, \"page\": 1, \"page_size\": 10, \"total_pages\": 1}"
             }
           ]
         },
@@ -803,30 +563,14 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
             "url": {
               "raw": "{{baseUrl}}/jobs/{{jobId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "jobs",
-                "{{jobId}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "{{jobId}}"]
             },
             "description": "Retrieve a single job application by its unique ID."
           },
@@ -835,44 +579,21 @@
               "name": "200 OK - Job Found",
               "originalRequest": {
                 "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
+                "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+                "body": { "mode": "raw", "raw": "" },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", ":id"],
+                  "variable": [{ "key": "id", "value": "1" }]
                 }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                }
-              ],
+              "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
               "cookie": [],
-              "body": "{\"id\": 1, \"company\": \"Acme Corp\", \"position\": \"Software Engineer\", \"status\": \"applied\", \"applied_date\": \"2024-01-15\", \"notes\": \"Referral from John\", \"created_at\": \"2024-01-15T10:00:00Z\"}"
+              "body": "{\"id\": 1, \"company_name\": \"Acme Corp\", \"job_title\": \"Software Engineer\", \"status\": \"applied\", \"applied_date\": \"2024-01-15\", \"notes\": \"Referral from John\", \"created_at\": \"2024-01-15T10:00:00Z\"}"
             }
           ]
         },
@@ -901,42 +622,22 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "POST",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"company_name\": \"Microsoft\",\n  \"job_title\": \"Senior QA Engineer\",\n  \"job_url\": \"https://careers.microsoft.com/jobs/123\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2026-05-21\",\n  \"notes\": \"Applied via LinkedIn\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/jobs",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "jobs"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs"]
             },
             "description": "Create a new job application entry."
           },
@@ -946,49 +647,29 @@
               "originalRequest": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"company\": \"Acme Corp\",\n  \"position\": \"Software Engineer\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2024-01-15\",\n  \"job_url\": \"https://acme.com/careers/123\",\n  \"notes\": \"Referral from John\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "raw": "{\n  \"company_name\": \"Acme Corp\",\n  \"job_title\": \"Software Engineer\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2024-01-15\",\n  \"job_url\": \"https://acme.com/careers/123\",\n  \"notes\": \"Referral from John\"\n}",
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"]
                 }
               },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
+                { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                { "key": "Content-Type", "value": "application/json" }
               ],
               "cookie": [],
-              "body": "{\"id\": 1, \"company\": \"Acme Corp\", \"position\": \"Software Engineer\", \"status\": \"applied\", \"applied_date\": \"2024-01-15\", \"created_at\": \"2024-01-15T10:00:00Z\"}"
+              "body": "{\"id\": 1, \"company_name\": \"Acme Corp\", \"job_title\": \"Software Engineer\", \"status\": \"applied\", \"applied_date\": \"2024-01-15\", \"created_at\": \"2024-01-15T10:00:00Z\"}"
             }
           ]
         },
@@ -1014,43 +695,22 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "PUT",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"status\": \"phone_interview\",\n  \"notes\": \"Got interview scheduled for next week!\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/jobs/{{jobId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "jobs",
-                "{{jobId}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "{{jobId}}"]
             },
             "description": "Update an existing job application by ID."
           },
@@ -1060,56 +720,30 @@
               "originalRequest": {
                 "method": "PUT",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
                 ],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"status\": \"interviewing\",\n  \"notes\": \"Phone screen scheduled for Jan 20\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", ":id"],
+                  "variable": [{ "key": "id", "value": "1" }]
                 }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
               "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
+                { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                { "key": "Content-Type", "value": "application/json" }
               ],
               "cookie": [],
-              "body": "{\"id\": 1, \"company\": \"Acme Corp\", \"position\": \"Software Engineer\", \"status\": \"interviewing\", \"notes\": \"Phone screen scheduled for Jan 20\", \"updated_at\": \"2024-01-16T09:00:00Z\"}"
+              "body": "{\"id\": 1, \"company_name\": \"Acme Corp\", \"job_title\": \"Software Engineer\", \"status\": \"interviewing\", \"notes\": \"Phone screen scheduled for Jan 20\", \"updated_at\": \"2024-01-16T09:00:00Z\"}"
             }
           ]
         },
@@ -1118,30 +752,14 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "DELETE",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
             "url": {
               "raw": "{{baseUrl}}/jobs/{{jobId}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "jobs",
-                "{{jobId}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["jobs", "{{jobId}}"]
             },
             "description": "Permanently delete a job application by ID."
           },
@@ -1150,42 +768,19 @@
               "name": "204 No Content - Job Deleted",
               "originalRequest": {
                 "method": "DELETE",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
+                "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+                "body": { "mode": "raw", "raw": "" },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/:id",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    ":id"
-                  ],
-                  "variable": [
-                    {
-                      "key": "id",
-                      "value": "1"
-                    }
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", ":id"],
+                  "variable": [{ "key": "id", "value": "1" }]
                 }
               },
               "status": "No Content",
               "code": 204,
               "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                }
-              ],
+              "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
               "cookie": [],
               "body": "{}"
             }
@@ -1200,9 +795,7 @@
             "type": "text/javascript",
             "packages": {},
             "requests": {},
-            "exec": [
-              ""
-            ]
+            "exec": [""]
           }
         },
         {
@@ -1214,16 +807,14 @@
             "exec": [
               "const response = pm.response.json();",
               "",
-              "// Only save jobId if response has user_id (job application response)",
               "if (response.id && response.user_id) {",
               "    pm.environment.set(\"jobId\", response.id);",
-              "    console.log(\"\u2705 Job ID saved: \" + response.id);",
+              "    console.log(\"✅ Job ID saved: \" + response.id);",
               "}",
               "",
-              "// Save auth token if response contains access_token",
               "if (response.access_token) {",
               "    pm.environment.set(\"authToken\", response.access_token);",
-              "    console.log(\"\u2705 Token saved!\");",
+              "    console.log(\"✅ Token saved!\");",
               "}"
             ]
           }
@@ -1231,19 +822,89 @@
       ]
     },
     {
-      "name": "\ud83d\udc64 User Profile",
+      "name": "👤 User Profile",
       "item": [
         {
-          "name": "Change Password",
+          "name": "Get Current User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Response has email\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.have.property(\"email\");",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
+            },
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
+            },
+            "description": "Retrieve the profile of the currently authenticated user."
+          },
+          "response": [
+            {
+              "name": "200 OK - User Profile",
+              "originalRequest": {
+                "method": "GET",
+                "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+                "body": { "mode": "raw", "raw": "" },
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "me"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+              "cookie": [],
+              "body": "{\"id\": 1, \"email\": \"user@example.com\", \"username\": \"testuser\", \"created_at\": \"2024-01-01T00:00:00Z\"}"
+            }
+          ]
+        },
+        {
+          "name": "Update Profile",
           "event": [
             {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Password changed successfully\", () => {",
-                  "  pm.response.to.have.status(200);",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "pm.test(\"Profile updated\", () => {",
+                  "    const json = pm.response.json();",
+                  "    pm.expect(json).to.have.property('username');",
                   "});"
+                ]
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.environment.set(\"newProfileUsername\", `profile_${Date.now()}`);"
                 ]
               }
             }
@@ -1251,46 +912,56 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "PUT",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"current_password\": \"Test123!\",\n  \"new_password\": \"NewTest123!\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "raw": "{\n  \"username\": \"{{newProfileUsername}}\"\n}",
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
-            }
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
+            },
+            "description": "Update the authenticated user's profile information."
           },
-          "response": []
+          "response": [
+            {
+              "name": "200 OK - Profile Updated",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"updateduser\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/users/me",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "me"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "cookie": [],
+              "body": "{\"id\": 1, \"email\": \"user@example.com\", \"username\": \"updateduser\", \"updated_at\": \"2024-01-20T12:00:00Z\"}"
+            }
+          ]
         },
         {
           "name": "Update Email",
@@ -1323,43 +994,22 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "PUT",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"email\": \"{{newTestEmail}}\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
             }
           },
           "response": []
@@ -1395,162 +1045,37 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "PUT",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\"username\": \"{{newTestUsername}}\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
             }
           },
           "response": []
         },
         {
-          "name": "Get Current User",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "pm.test(\"Response has email\", function () {",
-                  "    var jsonData = pm.response.json();",
-                  "    pm.expect(jsonData).to.have.property(\"email\");",
-                  "});"
-                ],
-                "type": "text/javascript",
-                "packages": {},
-                "requests": {}
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
-            },
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
-            },
-            "description": "Retrieve the profile of the currently authenticated user."
-          },
-          "response": [
-            {
-              "name": "200 OK - User Profile",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": ""
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/users/me",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "me"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                }
-              ],
-              "cookie": [],
-              "body": "{\"id\": 1, \"email\": \"user@example.com\", \"full_name\": \"John Doe\", \"created_at\": \"2024-01-01T00:00:00Z\"}"
-            }
-          ]
-        },
-        {
-          "name": "Update Profile",
+          "name": "Change Password",
           "event": [
             {
               "listen": "test",
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "pm.test(\"Profile updated\", () => {",
-                  "    const json = pm.response.json();",
-                  "    pm.expect(json).to.have.property('username');",
+                  "pm.test(\"Password changed successfully\", () => {",
+                  "  pm.response.to.have.status(200);",
                   "});"
-                ]
-              }
-            },
-            {
-              "listen": "prerequest",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.environment.set(\"newProfileUsername\", `profile_${Date.now()}`);"
                 ]
               }
             }
@@ -1558,107 +1083,65 @@
           "request": {
             "auth": {
               "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{authToken}}",
-                  "type": "string"
-                }
-              ]
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
             },
             "method": "PUT",
             "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"{{newProfileUsername}}\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
+              "raw": "{\n  \"current_password\": \"Test123!\",\n  \"new_password\": \"NewTest123!\"\n}",
+              "options": { "raw": { "language": "json" } }
             },
             "url": {
               "raw": "{{baseUrl}}/users/me",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "users",
-                "me"
-              ]
-            },
-            "description": "Update the authenticated user's profile information."
-          },
-          "response": [
-            {
-              "name": "200 OK - Profile Updated",
-              "originalRequest": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"full_name\": \"John Updated Doe\",\n  \"bio\": \"Software Engineer with 5 years experience\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/users/me",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "me"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "json",
-              "header": [
-                {
-                  "key": "Authorization",
-                  "value": "Bearer {{authToken}}"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "cookie": [],
-              "body": "{\"id\": 1, \"email\": \"user@example.com\", \"full_name\": \"John Updated Doe\", \"bio\": \"Software Engineer with 5 years experience\", \"updated_at\": \"2024-01-20T12:00:00Z\"}"
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
             }
-          ]
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Account",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code is 200 or 204\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
+            },
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": ["{{baseUrl}}"],
+              "path": ["users", "me"]
+            },
+            "description": "Delete the authenticated user's account and all associated data."
+          },
+          "response": []
         }
       ],
       "description": "Endpoints for viewing and updating the authenticated user's profile."
     },
     {
-      "name": "\ud83e\uddea Test Scenarios",
+      "name": "🧪 Test Scenarios",
       "item": [
         {
-          "name": "\u2705 Happy Path",
+          "name": "✅ Happy Path",
           "item": [
             {
               "name": "Valid Login",
@@ -1695,77 +1178,20 @@
               ],
               "request": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"email\": \"{{happyEmail}}\", \"password\": \"{{happyPassword}}\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/login",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "login"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
                 },
                 "description": "Happy path: Verify that a valid user can log in successfully and receive a JWT token."
               },
-              "response": [
-                {
-                  "name": "200 OK - Valid Login",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"ValidPass123!\"\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/auth/login",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "auth",
-                        "login"
-                      ]
-                    }
-                  },
-                  "status": "OK",
-                  "code": 200,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\"access_token\": \"eyJ...\", \"token_type\": \"bearer\", \"expires_in\": 3600}"
-                }
-              ]
+              "response": []
             },
             {
               "name": "Valid Job Creation",
@@ -1793,99 +1219,29 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\"company_name\":\"Test Company\",\"position\":\"QA Engineer\",\"status\":\"applied\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "raw": "{\"company_name\":\"Test Company\",\"job_title\":\"QA Engineer\",\"status\":\"applied\"}",
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"]
                 },
                 "description": "Happy path: Verify that an authenticated user can create a job application with all required fields."
               },
-              "response": [
-                {
-                  "name": "201 Created - Valid Job",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Authorization",
-                        "value": "Bearer {{authToken}}"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"company\": \"Test Company\",\n  \"position\": \"QA Engineer\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2024-01-15\"\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/jobs",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "jobs"
-                      ]
-                    }
-                  },
-                  "status": "Created",
-                  "code": 201,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Authorization",
-                      "value": "Bearer {{authToken}}"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\"id\": 10, \"company\": \"Test Company\", \"position\": \"QA Engineer\", \"status\": \"applied\", \"applied_date\": \"2024-01-15\", \"created_at\": \"2024-01-15T10:00:00Z\"}"
-                }
-              ]
+              "response": []
             },
             {
-              "name": "Happy Path \u2014 Valid Register",
+              "name": "Happy Path — Valid Register",
               "event": [
                 {
                   "listen": "test",
@@ -1916,37 +1272,22 @@
               ],
               "request": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"email\": \"{{happyEmail}}\", \"username\": \"{{happyUsername}}\", \"password\": \"{{happyPassword}}\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/register",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "register"
-                  ]
-                },
-                "description": "Generated from cURL: curl -X POST {{base_url}}/auth/register -H \"Content-Type: application/json\" -d '{\"email\": \"happypath@example.com\", \"username\": \"happyuser\", \"password\": \"Test1234!\"}'"
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                }
               },
               "response": []
             },
             {
-              "name": "Happy Path \u2014 Valid Login",
+              "name": "Happy Path — Valid Login",
               "event": [
                 {
                   "listen": "test",
@@ -1976,32 +1317,17 @@
               ],
               "request": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"email\": \"{{loginEmail}}\", \"password\": \"{{loginPassword}}\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/login",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "login"
-                  ]
-                },
-                "description": "Generated from cURL: curl -X POST {{base_url}}/auth/login -H \"Content-Type: application/json\" -d '{\"email\": \"happypath@example.com\", \"password\": \"Test1234!\"}'"
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                }
               },
               "response": []
             }
@@ -2009,7 +1335,7 @@
           "description": "Tests that verify the system works correctly under normal, expected conditions."
         },
         {
-          "name": "\u274c Negative Tests",
+          "name": "❌ Negative Tests",
           "item": [
             {
               "name": "Access Other User Job - Interview",
@@ -2029,40 +1355,19 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"interview_type\": \"virtual\",\n  \"interview_date\": \"2026-05-25\",\n  \"notes\": \"Test\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/3/interviews",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "3",
-                    "interviews"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "3", "interviews"]
                 }
               },
               "response": []
@@ -2085,40 +1390,19 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"interview_type\": \"invalid\",\n  \"interview_date\": \"2026-05-25\",\n  \"notes\": \"Test\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/{{jobId}}/interviews",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "{{jobId}}",
-                    "interviews"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "{{jobId}}", "interviews"]
                 }
               },
               "response": []
@@ -2139,35 +1423,18 @@
                 }
               ],
               "request": {
-                "auth": {
-                  "type": "noauth"
-                },
+                "auth": { "type": "noauth" },
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"interview_type\": \"virtual\",\n  \"interview_date\": \"2026-05-25\",\n  \"notes\": \"Test\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/{{jobId}}/interviews",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "{{jobId}}",
-                    "interviews"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "{{jobId}}", "interviews"]
                 }
               },
               "response": []
@@ -2190,64 +1457,39 @@
               "request": {
                 "auth": {
                   "type": "bearer",
-                  "bearer": [
-                    {
-                      "key": "token",
-                      "value": "{{authToken}}",
-                      "type": "string"
-                    }
-                  ]
+                  "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
                 },
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"interview_type\": \"virtual\",\n  \"interview_date\": \"2026-05-25\",\n  \"notes\": \"Test\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs/99999/interviews",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "99999",
-                    "interviews"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "99999", "interviews"]
                 }
               },
               "response": []
             },
             {
-              "name": "No Auth Token \u2014 Get Jobs",
+              "name": "No Auth Token — Get Jobs",
               "request": {
                 "method": "GET",
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/jobs",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"]
                 },
                 "description": "Negative test: Verify that accessing jobs list without a token returns 401."
               },
               "response": []
             },
             {
-              "name": "No Auth Token \u2014 Get Profile",
+              "name": "No Auth Token — Get Profile",
               "event": [
                 {
                   "listen": "test",
@@ -2270,13 +1512,8 @@
                 "header": [],
                 "url": {
                   "raw": "{{baseUrl}}/users/me",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "me"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "me"]
                 },
                 "description": "Negative test: Verify that accessing user profile without a token returns 401."
               },
@@ -2305,34 +1542,18 @@
                 }
               ],
               "request": {
-                "auth": {
-                  "type": "noauth"
-                },
+                "auth": { "type": "noauth" },
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"email\":\"{{originalRegisteredEmail}}\",\"password\":\"Test123!\",\"username\":\"dupuser_{{$timestamp}}\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/register",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "register"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
                 },
                 "description": "Negative test: Attempt to register with an already-used email. Expects 409 Conflict."
               },
@@ -2359,34 +1580,18 @@
                 }
               ],
               "request": {
-                "auth": {
-                  "type": "noauth"
-                },
+                "auth": { "type": "noauth" },
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"email\":\"dupemail_{{$timestamp}}@test.com\",\"password\":\"Test123!\",\"username\":\"{{originalRegisteredUsername}}\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/register",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "register"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
                 },
                 "description": "Negative test: Attempt to register with an already-used username. Expects 409 Conflict."
               },
@@ -2414,33 +1619,18 @@
               "request": {
                 "method": "PUT",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
                 ],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"current_password\": \"WrongPass@999\", \"new_password\": \"NewPass@1234\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/users/me",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "users",
-                    "me"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "me"]
                 },
                 "description": "returns 400"
               },
@@ -2467,20 +1657,11 @@
               ],
               "request": {
                 "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer invalid_token_here"
-                  }
-                ],
+                "header": [{ "key": "Authorization", "value": "Bearer invalid_token_here" }],
                 "url": {
                   "raw": "{{baseUrl}}/jobs",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"]
                 },
                 "description": "Negative test: Verify that requests with an invalid or expired token are rejected with 401."
               },
@@ -2489,35 +1670,18 @@
                   "name": "401 Unauthorized - Invalid Token",
                   "originalRequest": {
                     "method": "GET",
-                    "header": [
-                      {
-                        "key": "Authorization",
-                        "value": "Bearer invalid_token_here"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": ""
-                    },
+                    "header": [{ "key": "Authorization", "value": "Bearer invalid_token_here" }],
+                    "body": { "mode": "raw", "raw": "" },
                     "url": {
                       "raw": "{{baseUrl}}/jobs",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "jobs"
-                      ]
+                      "host": ["{{baseUrl}}"],
+                      "path": ["jobs"]
                     }
                   },
                   "status": "Unauthorized",
                   "code": 401,
                   "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Authorization",
-                      "value": "Bearer invalid_token_here"
-                    }
-                  ],
+                  "header": [{ "key": "Authorization", "value": "Bearer invalid_token_here" }],
                   "cookie": [],
                   "body": "{\"detail\": \"Could not validate credentials\"}"
                 }
@@ -2545,32 +1709,18 @@
               "request": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
                 ],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"company\": \"Incomplete Corp\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"]
                 },
                 "description": "Negative test: Verify that creating a job with missing required fields returns a 422 validation error."
               },
@@ -2580,46 +1730,26 @@
                   "originalRequest": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "Authorization",
-                        "value": "Bearer {{authToken}}"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
+                      { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                      { "key": "Content-Type", "value": "application/json" }
                     ],
                     "body": {
                       "mode": "raw",
                       "raw": "{\n  \"company\": \"Incomplete Corp\"\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
+                      "options": { "raw": { "language": "json" } }
                     },
                     "url": {
                       "raw": "{{baseUrl}}/jobs",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "jobs"
-                      ]
+                      "host": ["{{baseUrl}}"],
+                      "path": ["jobs"]
                     }
                   },
                   "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
                   "code": 422,
                   "_postman_previewlanguage": "json",
                   "header": [
-                    {
-                      "key": "Authorization",
-                      "value": "Bearer {{authToken}}"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
+                    { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                    { "key": "Content-Type", "value": "application/json" }
                   ],
                   "cookie": [],
                   "body": "{\"detail\": [{\"loc\": [\"body\", \"position\"], \"msg\": \"field required\", \"type\": \"value_error.missing\"}]}"
@@ -2647,21 +1777,11 @@
               ],
               "request": {
                 "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  }
-                ],
+                "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
                 "url": {
                   "raw": "{{baseUrl}}/jobs/99999",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs",
-                    "99999"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs", "99999"]
                 },
                 "description": "Negative test: Verify that requesting a non-existent job returns a 404 error."
               },
@@ -2670,43 +1790,25 @@
                   "name": "404 Not Found - Job Not Found",
                   "originalRequest": {
                     "method": "GET",
-                    "header": [
-                      {
-                        "key": "Authorization",
-                        "value": "Bearer {{authToken}}"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": ""
-                    },
+                    "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+                    "body": { "mode": "raw", "raw": "" },
                     "url": {
                       "raw": "{{baseUrl}}/jobs/99999",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "jobs",
-                        "99999"
-                      ]
+                      "host": ["{{baseUrl}}"],
+                      "path": ["jobs", "99999"]
                     }
                   },
                   "status": "Not Found",
                   "code": 404,
                   "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Authorization",
-                      "value": "Bearer {{authToken}}"
-                    }
-                  ],
+                  "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
                   "cookie": [],
                   "body": "{\"detail\": \"Job application not found\"}"
                 }
               ]
             },
             {
-              "name": "Negative \u2014 Wrong Password",
+              "name": "Negative — Wrong Password",
               "event": [
                 {
                   "listen": "test",
@@ -2726,37 +1828,22 @@
               ],
               "request": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"email\": \"test@example.com\", \"password\": \"WrongPassword!\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/login",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "login"
-                  ]
-                },
-                "description": "Generated from cURL: curl -X POST {{base_url}}/auth/login -H \"Content-Type: application/json\" -d '{\"email\": \"test@example.com\", \"password\": \"WrongPassword!\"}'"
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "login"]
+                }
               },
               "response": []
             },
             {
-              "name": "Negative \u2014 Duplicate Email",
+              "name": "Negative — Duplicate Email",
               "event": [
                 {
                   "listen": "test",
@@ -2776,37 +1863,22 @@
               ],
               "request": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{\"email\": \"test@example.com\", \"username\": \"duplicateuser\", \"password\": \"Test1234!\"}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/register",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "register"
-                  ]
-                },
-                "description": "Generated from cURL: curl -X POST {{base_url}}/auth/register -H \"Content-Type: application/json\" -d '{\"email\": \"test@example.com\", \"username\": \"duplicateuser\", \"password\": \"Test1234!\"}'"
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                }
               },
               "response": []
             },
             {
-              "name": "Negative \u2014 Invalid Token",
+              "name": "Negative — Invalid Token",
               "event": [
                 {
                   "listen": "test",
@@ -2826,56 +1898,30 @@
               ],
               "request": {
                 "method": "GET",
-                "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer invalid_token_12345"
-                  }
-                ],
+                "header": [{ "key": "Authorization", "value": "Bearer invalid_token_12345" }],
                 "url": {
                   "raw": "{{baseUrl}}/auth/me",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "me"
-                  ]
-                },
-                "description": "Generated from cURL: curl -X GET {{base_url}}/auth/me -H \"Authorization: Bearer invalid_token_12345\""
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "me"]
+                }
               },
               "response": []
             },
             {
-              "name": "Negative \u2014 Missing Fields",
+              "name": "Negative — Missing Fields",
               "request": {
                 "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
+                "header": [{ "key": "Content-Type", "value": "application/json" }],
                 "body": {
                   "mode": "raw",
                   "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/auth/register",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "register"
-                  ]
-                },
-                "description": "Generated from cURL: curl -X POST {{base_url}}/auth/register -H \"Content-Type: application/json\" -d '{}'"
+                  "host": ["{{baseUrl}}"],
+                  "path": ["auth", "register"]
+                }
               },
               "response": []
             }
@@ -2883,102 +1929,8 @@
           "description": "Tests that verify the system handles invalid inputs and unauthorized access correctly."
         },
         {
-          "name": "\ud83d\udd04 Edge Cases",
+          "name": "🔄 Edge Cases",
           "item": [
-            {
-              "name": "Duplicate Email",
-              "event": [
-                {
-                  "listen": "test",
-                  "script": {
-                    "type": "text/javascript",
-                    "exec": [
-                      "pm.test(\"Status code is 409 or 201\", () => {",
-                      "  pm.expect(pm.response.code).to.be.oneOf([409, 201]);",
-                      "});",
-                      "pm.test(\"Conflict error returned\", () => {",
-                      "  if (pm.response.code === 409) {",
-                      "    pm.expect(pm.response.json()).to.have.property('detail');",
-                      "  }",
-                      "});"
-                    ]
-                  }
-                }
-              ],
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"SecurePass123!\",\n  \"username\": \"duplicateuser\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "{{baseUrl}}/auth/register",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "auth",
-                    "register"
-                  ]
-                },
-                "description": "Edge case: Verify that registering with an already-existing email returns a 409 conflict error."
-              },
-              "response": [
-                {
-                  "name": "409 Conflict - Email Already Exists",
-                  "originalRequest": {
-                    "method": "POST",
-                    "header": [
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
-                    ],
-                    "body": {
-                      "mode": "raw",
-                      "raw": "{\n  \"email\": \"existing@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"full_name\": \"Duplicate User\"\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
-                    },
-                    "url": {
-                      "raw": "{{baseUrl}}/auth/register",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "auth",
-                        "register"
-                      ]
-                    }
-                  },
-                  "status": "Conflict",
-                  "code": 409,
-                  "_postman_previewlanguage": "json",
-                  "header": [
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
-                  ],
-                  "cookie": [],
-                  "body": "{\"detail\": \"Email already registered\"}"
-                }
-              ]
-            },
             {
               "name": "Empty Fields",
               "event": [
@@ -3001,32 +1953,18 @@
               "request": {
                 "method": "POST",
                 "header": [
-                  {
-                    "key": "Authorization",
-                    "value": "Bearer {{authToken}}"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json"
-                  }
+                  { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                  { "key": "Content-Type", "value": "application/json" }
                 ],
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"company\": \"\",\n  \"position\": \"\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2024-01-15\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                  "options": { "raw": { "language": "json" } }
                 },
                 "url": {
                   "raw": "{{baseUrl}}/jobs",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "jobs"
-                  ]
+                  "host": ["{{baseUrl}}"],
+                  "path": ["jobs"]
                 },
                 "description": "Edge case: Verify that submitting a job application with empty string values is handled correctly."
               },
@@ -3036,46 +1974,26 @@
                   "originalRequest": {
                     "method": "POST",
                     "header": [
-                      {
-                        "key": "Authorization",
-                        "value": "Bearer {{authToken}}"
-                      },
-                      {
-                        "key": "Content-Type",
-                        "value": "application/json"
-                      }
+                      { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                      { "key": "Content-Type", "value": "application/json" }
                     ],
                     "body": {
                       "mode": "raw",
                       "raw": "{\n  \"company\": \"\",\n  \"position\": \"\",\n  \"status\": \"applied\",\n  \"applied_date\": \"2024-01-15\"\n}",
-                      "options": {
-                        "raw": {
-                          "language": "json"
-                        }
-                      }
+                      "options": { "raw": { "language": "json" } }
                     },
                     "url": {
                       "raw": "{{baseUrl}}/jobs",
-                      "host": [
-                        "{{baseUrl}}"
-                      ],
-                      "path": [
-                        "jobs"
-                      ]
+                      "host": ["{{baseUrl}}"],
+                      "path": ["jobs"]
                     }
                   },
                   "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
                   "code": 422,
                   "_postman_previewlanguage": "json",
                   "header": [
-                    {
-                      "key": "Authorization",
-                      "value": "Bearer {{authToken}}"
-                    },
-                    {
-                      "key": "Content-Type",
-                      "value": "application/json"
-                    }
+                    { "key": "Authorization", "value": "Bearer {{authToken}}" },
+                    { "key": "Content-Type", "value": "application/json" }
                   ],
                   "cookie": [],
                   "body": "{\"detail\": [{\"loc\": [\"body\", \"company\"], \"msg\": \"ensure this value has at least 1 characters\", \"type\": \"value_error.any_str.min_length\"}]}"
@@ -3089,7 +2007,7 @@
       "description": "Structured test scenarios for QA automation. Covers happy path, negative tests, and edge cases. Designed for use with Playwright (web) and Appium (mobile - future)."
     },
     {
-      "name": "\u2699\ufe0f Environment Variables",
+      "name": "⚙️ Environment Variables",
       "item": [
         {
           "name": "README - Setup Guide",
@@ -3098,14 +2016,10 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/health",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "health"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
             },
-            "description": "## Setup Guide\n\nThis is a documentation request. Do not send this request directly.\n\n### Environment Variables\n\nThis collection uses the following variables:\n\n| Variable | Description | Example |\n|---|---|---|\n| `baseUrl` | API base URL | `http://localhost:8000` |\n| `authToken` | JWT access token (auto-set on login) | `eyJ...` |\n| `jobId` | Job ID (auto-set on job creation) | `1` |\n\n### Environments\n- **Local**: `http://localhost:8000` \u2014 for local FastAPI development\n- **Staging**: `https://staging.job-tracker.com` \u2014 for pre-production testing\n- **Production**: `https://job-tracker.com` \u2014 live environment\n\n### Quick Start\n1. Select the **Local** environment\n2. Run **Login** to auto-populate `authToken`\n3. Run any authenticated request\n\n### CI/CD (GitHub Actions)\nSet `baseUrl` and `authToken` as GitHub Actions secrets and pass them to Newman runs."
+            "description": "## Setup Guide\n\nThis is a documentation request. Do not send this request directly.\n\n### Environment Variables\n\nThis collection uses the following variables:\n\n| Variable | Description | Example |\n|---|---|---|\n| `baseUrl` | API base URL | `http://localhost:8000` |\n| `authToken` | JWT access token (auto-set on login) | `eyJ...` |\n| `jobId` | Job ID (auto-set on job creation) | `1` |\n\n### Environments\n- **Local**: `http://localhost:8000` — for local FastAPI development\n- **Staging**: `https://staging.job-tracker.com` — for pre-production testing\n- **Production**: `https://job-tracker.com` — live environment\n\n### Quick Start\n1. Select the **Local** environment\n2. Run **Login** to auto-populate `authToken`\n3. Run any authenticated request\n\n### CI/CD (GitHub Actions)\nSet `baseUrl` and `authToken` as GitHub Actions secrets and pass them to Newman runs."
           },
           "response": []
         }
@@ -3113,19 +2027,15 @@
       "description": "Documentation and setup guide for environment variables used in this collection."
     },
     {
-      "name": "\ud83d\udd01 E2E Test Suite",
-      "item": []
-    },
-    {
-      "name": "\ud83e\uddf9 CI Cleanup \u2014 Delete Test Job",
+      "name": "🧹 CI Cleanup — Delete Test Account",
       "event": [
         {
           "listen": "test",
           "script": {
             "type": "text/javascript",
             "exec": [
-              "pm.test(\"Cleanup: job deleted\", () => {",
-              "  pm.expect(pm.response.code).to.be.oneOf([204, 404]);",
+              "pm.test(\"Cleanup: account deleted\", () => {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 204, 404]);",
               "});"
             ]
           }
@@ -3134,41 +2044,24 @@
       "request": {
         "auth": {
           "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{authToken}}",
-              "type": "string"
-            }
-          ]
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
         "method": "DELETE",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Authorization",
-            "value": "Bearer {{authToken}}"
-          }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
         ],
         "url": {
-          "raw": "{{baseUrl}}/jobs/{{jobId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "jobs",
-            "{{jobId}}"
-          ]
+          "raw": "{{baseUrl}}/users/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "me"]
         },
-        "description": "Deletes the test job created during the CI run. Runs last to clean up ephemeral test data."
+        "description": "Deletes the test account and all associated data via cascade. Runs last to clean up ephemeral test data."
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Register User",
+      "name": "E2E — Register User",
       "event": [
         {
           "listen": "test",
@@ -3195,37 +2088,22 @@
       ],
       "request": {
         "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
         "body": {
           "mode": "raw",
           "raw": "{\"email\": \"{{e2eEmail}}\", \"username\": \"{{e2eUsername}}\", \"password\": \"{{password}}\"}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{baseUrl}}/auth/register",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "auth",
-            "register"
-          ]
-        },
-        "description": "Generated from cURL: curl -X POST {{baseUrl}}/auth/register -H \"Content-Type: application/json\" -d '{ \"email\": \"e2etest@example.com\", \"username\": \"e2etestuser\", \"password\": \"E2eTest@1234\" }'"
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "register"]
+        }
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Login User",
+      "name": "E2E — Login User",
       "event": [
         {
           "listen": "test",
@@ -3241,37 +2119,22 @@
       ],
       "request": {
         "method": "POST",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
         "body": {
           "mode": "raw",
           "raw": "{\"email\": \"{{e2eEmail}}\", \"password\": \"{{password}}\"}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{baseUrl}}/auth/login",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "auth",
-            "login"
-          ]
-        },
-        "description": "Generated from cURL: curl -X POST {{baseUrl}}/auth/login -H \"Content-Type: application/json\" -d '{ \"email\": \"e2etest@example.com\", \"password\": \"E2eTest@1234\" }'"
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "login"]
+        }
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Create Job Application",
+      "name": "E2E — Create Job Application",
       "event": [
         {
           "listen": "test",
@@ -3289,49 +2152,28 @@
       "request": {
         "auth": {
           "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{authToken}}",
-              "type": "string"
-            }
-          ]
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
         "method": "POST",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Authorization",
-            "value": "Bearer {{authToken}}"
-          }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
         ],
         "body": {
           "mode": "raw",
           "raw": "{ \"company_name\": \"E2E Test Company\", \"job_title\": \"Senior QA Engineer\", \"job_url\": \"https://e2etest.com/jobs/123\", \"status\": \"applied\", \"applied_date\": \"2026-05-21\", \"notes\": \"Applied via E2E test suite\" }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{baseUrl}}/jobs",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "jobs"
-          ]
-        },
-        "description": "Generated from cURL: curl -X POST {{baseUrl}}/jobs -H \"Content-Type: application/json\" -H \"Authorization: Bearer {{authToken}}\" -d '{ \"company_name\": \"E2E Test Company\", \"job_title\": \"Senior QA Engineer\", \"job_url\": \"https://e2etest.com/jobs/123\", \"status\": \"applied\", \"applied_date\": \"2026-05-21\", \"notes\": \"Applied via E2E test suite\" }'"
+          "host": ["{{baseUrl}}"],
+          "path": ["jobs"]
+        }
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Add Interview Round",
+      "name": "E2E — Add Interview Round",
       "event": [
         {
           "listen": "test",
@@ -3349,51 +2191,28 @@
       "request": {
         "auth": {
           "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{authToken}}",
-              "type": "string"
-            }
-          ]
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
         "method": "POST",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Authorization",
-            "value": "Bearer {{authToken}}"
-          }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
         ],
         "body": {
           "mode": "raw",
           "raw": "{ \"interview_type\": \"phone\", \"interview_date\": \"2026-05-22\", \"notes\": \"E2E test phone interview\" }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{baseUrl}}/jobs/{{jobId}}/interviews",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "jobs",
-            "{{jobId}}",
-            "interviews"
-          ]
-        },
-        "description": "Generated from cURL: curl -X POST {{baseUrl}}/jobs/{{jobId}}/interviews -H \"Content-Type: application/json\" -H \"Authorization: Bearer {{authToken}}\" -d '{ \"interview_type\": \"phone\", \"interview_date\": \"2026-05-22\", \"notes\": \"E2E test phone interview\" }'"
+          "host": ["{{baseUrl}}"],
+          "path": ["jobs", "{{jobId}}", "interviews"]
+        }
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Update Job Status",
+      "name": "E2E — Update Job Status",
       "event": [
         {
           "listen": "test",
@@ -3410,50 +2229,28 @@
       "request": {
         "auth": {
           "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{authToken}}",
-              "type": "string"
-            }
-          ]
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
         "method": "PUT",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Authorization",
-            "value": "Bearer {{authToken}}"
-          }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
         ],
         "body": {
           "mode": "raw",
           "raw": "{ \"status\": \"phone_interview\", \"notes\": \"Updated after phone interview scheduled\" }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{baseUrl}}/jobs/{{jobId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "jobs",
-            "{{jobId}}"
-          ]
-        },
-        "description": "Generated from cURL: curl -X PUT {{baseUrl}}/jobs/{{jobId}} -H \"Content-Type: application/json\" -H \"Authorization: Bearer {{authToken}}\" -d '{ \"status\": \"phone_interview\", \"notes\": \"Updated after phone interview scheduled\" }'"
+          "host": ["{{baseUrl}}"],
+          "path": ["jobs", "{{jobId}}"]
+        }
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Get All Jobs",
+      "name": "E2E — Get All Jobs",
       "event": [
         {
           "listen": "test",
@@ -3462,8 +2259,15 @@
             "exec": [
               "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
               "const res = pm.response.json();",
-              "pm.test(\"Response is an array\", () => pm.expect(res).to.be.an(\"array\"));",
-              "pm.test(\"At least one job exists\", () => pm.expect(res.length).to.be.above(0));"
+              "pm.test(\"Response has paginated shape\", () => {",
+              "  pm.expect(res).to.have.property('items');",
+              "  pm.expect(res).to.have.property('total');",
+              "  pm.expect(res).to.have.property('page');",
+              "  pm.expect(res).to.have.property('page_size');",
+              "  pm.expect(res).to.have.property('total_pages');",
+              "  pm.expect(res.items).to.be.an('array');",
+              "  pm.expect(res.items.length).to.be.above(0);",
+              "});"
             ]
           }
         }
@@ -3471,36 +2275,20 @@
       "request": {
         "auth": {
           "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{authToken}}",
-              "type": "string"
-            }
-          ]
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
         "method": "GET",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{authToken}}"
-          }
-        ],
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
         "url": {
           "raw": "{{baseUrl}}/jobs",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "jobs"
-          ]
-        },
-        "description": "Generated from cURL: curl -X GET {{baseUrl}}/jobs -H \"Authorization: Bearer {{authToken}}\""
+          "host": ["{{baseUrl}}"],
+          "path": ["jobs"]
+        }
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Update Profile",
+      "name": "E2E — Update Profile",
       "event": [
         {
           "listen": "test",
@@ -3526,50 +2314,28 @@
       "request": {
         "auth": {
           "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{authToken}}",
-              "type": "string"
-            }
-          ]
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
         "method": "PUT",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          },
-          {
-            "key": "Authorization",
-            "value": "Bearer {{authToken}}"
-          }
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{authToken}}" }
         ],
         "body": {
           "mode": "raw",
           "raw": "{ \"username\": \"{{e2eUpdatedUsername}}\" }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
+          "options": { "raw": { "language": "json" } }
         },
         "url": {
           "raw": "{{baseUrl}}/users/me",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "users",
-            "me"
-          ]
-        },
-        "description": "Generated from cURL: curl -X PUT {{baseUrl}}/users/me -H \"Content-Type: application/json\" -H \"Authorization: Bearer {{authToken}}\" -d '{ \"username\": \"e2eupdated\" }'"
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "me"]
+        }
       },
       "response": []
     },
     {
-      "name": "E2E \u2014 Delete Job Application",
+      "name": "E2E — Delete Job Application",
       "event": [
         {
           "listen": "test",
@@ -3584,32 +2350,77 @@
       "request": {
         "auth": {
           "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{authToken}}",
-              "type": "string"
-            }
-          ]
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
         "method": "DELETE",
-        "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{authToken}}"
-          }
-        ],
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
         "url": {
           "raw": "{{baseUrl}}/jobs/{{jobId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "jobs",
-            "{{jobId}}"
-          ]
+          "host": ["{{baseUrl}}"],
+          "path": ["jobs", "{{jobId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E2E — Logout",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Logout message returned\", () => {",
+              "  pm.expect(pm.response.json()).to.have.property('message');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
         },
-        "description": "Generated from cURL: curl -X DELETE {{baseUrl}}/jobs/{{jobId}} -H \"Authorization: Bearer {{authToken}}\""
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/auth/logout",
+          "host": ["{{baseUrl}}"],
+          "path": ["auth", "logout"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E2E — Delete Account",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200 or 204\", () => {",
+              "  pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [{ "key": "token", "value": "{{authToken}}", "type": "string" }]
+        },
+        "method": "DELETE",
+        "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/users/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "me"]
+        },
+        "description": "Delete the E2E test account and all associated data via cascade."
       },
       "response": []
     }
@@ -3641,21 +2452,9 @@
     }
   ],
   "variable": [
-    {
-      "key": "baseUrl",
-      "value": "{{baseUrl}}"
-    },
-    {
-      "key": "authToken",
-      "value": ""
-    },
-    {
-      "key": "note",
-      "value": ""
-    },
-    {
-      "key": "jobId",
-      "value": ""
-    }
+    { "key": "baseUrl", "value": "{{baseUrl}}" },
+    { "key": "authToken", "value": "" },
+    { "key": "note", "value": "" },
+    { "key": "jobId", "value": "" }
   ]
 }
