@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
-import { createTestUser, TestUser } from '../../../fixtures/auth';
+import { createTestUser, deleteTestUser, TestUser } from '../../../fixtures/auth';
 
 test.describe('Login', () => {
   let loginPage: LoginPage;
@@ -8,6 +8,10 @@ test.describe('Login', () => {
 
   test.beforeAll(async ({ request }) => {
     testUser = await createTestUser(request);
+  });
+
+  test.afterAll(async ({ request }) => {
+    await deleteTestUser(request, testUser.email, testUser.password, testUser.cookieHeader);
   });
 
   test.beforeEach(async ({ page }) => {

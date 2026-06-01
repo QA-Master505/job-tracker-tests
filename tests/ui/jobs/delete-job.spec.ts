@@ -2,25 +2,26 @@ import { test, expect } from '@playwright/test';
 import { LoginPage } from '../../../pages/LoginPage';
 import { DashboardPage } from '../../../pages/DashboardPage';
 import { testJob } from '../../../fixtures/test-data';
-import { createTestUser, TestUser } from '../../../fixtures/auth';
-import { getAuthToken, createJob, deleteJob } from '../../../helpers/api-helpers';
+import { createTestUser, deleteTestUser, TestUser } from '../../../fixtures/auth';
+import { createJob, deleteJob } from '../../../helpers/api-helpers';
 
 test.describe('Delete Job', () => {
   let dashboardPage: DashboardPage;
-  let token: string;
   let jobId: string;
-  let jobCompanyName: string; // unique per test run to avoid parallel-worker interference
+  let jobCompanyName: string;
   let testUser: TestUser;
 
   test.beforeAll(async ({ request }) => {
     testUser = await createTestUser(request);
   });
 
+  test.afterAll(async ({ request }) => {
+    await deleteTestUser(request, testUser.email, testUser.password, testUser.cookieHeader);
+  });
+
   test.beforeEach(async ({ page, request }) => {
-    token = await getAuthToken(request, testUser.email, testUser.password);
-    // Timestamp-based name ensures isolation even when tests run concurrently
     jobCompanyName = `Delete Job Co ${Date.now()}`;
-    const response = await createJob(request, token, { ...testJob, company_name: jobCompanyName });
+    const response = await createJob(request, testUser.cookieHeader, { ...testJob, company_name: jobCompanyName });
     const job = await response.json();
     jobId = job.id;
 
@@ -33,9 +34,8 @@ test.describe('Delete Job', () => {
   });
 
   test.afterEach(async ({ request }) => {
-    // Job may already be deleted by the test; ignore 404
-    if (jobId && token) {
-      await deleteJob(request, token, jobId).catch(() => {});
+    if (jobId) {
+      await deleteJob(request, testUser.cookieHeader, jobId).catch(() => {});
     }
   });
 
@@ -43,7 +43,7 @@ test.describe('Delete Job', () => {
     await expect(page.locator(`text=${jobCompanyName}`).first()).toBeVisible({ timeout: 10000 });
     await dashboardPage.deleteJob(jobCompanyName);
     await expect(page.locator(`text=${jobCompanyName}`)).not.toBeVisible({ timeout: 10000 });
-    jobId = ''; // already deleted
+    jobId = '';
   });
 
   test('should show confirmation dialog before deleting', async ({ page }) => {

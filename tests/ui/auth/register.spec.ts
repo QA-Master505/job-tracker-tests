@@ -27,16 +27,48 @@ test.describe('Registration', () => {
     await registerPage.expectSuccessRedirect();
   });
 
-  test('should show error for duplicate email', async ({ request }) => {
-    // Pre-register a user via API so the duplicate is guaranteed to exist
+  test('should show error for duplicate email', async ({ browser, request }) => {
     const uniqueEmail = `test-${Date.now()}@example.com`;
     const uniqueUsername = `test_${Date.now()}`;
-    await registerUser(request, { email: uniqueEmail, username: uniqueUsername, password: TEST_PASSWORD });
 
-    // Try to register again via UI with the same email
-    await registerPage.register(`${uniqueUsername}_2`, uniqueEmail, TEST_PASSWORD);
-    const error = await registerPage.getErrorMessage();
-    expect(error).toBeTruthy();
+    // Pre-register via API first
+    const res = await registerUser(request, {
+      email: uniqueEmail,
+      username: uniqueUsername,
+      password: TEST_PASSWORD,
+    });
+    expect(res.status()).toBe(201);
+
+    // Fresh context — no session cookie
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    const freshRegisterPage = new RegisterPage(page);
+
+    try {
+      await freshRegisterPage.goto();
+      await expect(page).toHaveURL(/\/register/, { timeout: 5000 });
+
+      // Submit with duplicate email — different username to avoid username conflict
+      await freshRegisterPage.register(`other_${Date.now()}`, uniqueEmail, TEST_PASSWORD);
+
+      // Wait for the submit button to leave loading state (disabled → enabled),
+      // which means the API call has resolved (either error or redirect).
+      await page.locator('button[type="submit"]:not([disabled])').waitFor({ timeout: 10000 });
+      const currentUrl = page.url();
+
+      if (currentUrl.includes('/register')) {
+        // Stayed on register — check for error message
+        const serverError = await page.locator('p.bg-red-50').count();
+        expect(serverError).toBeGreaterThan(0);
+      } else {
+        // Redirected away — this means registration succeeded, which is a bug
+        throw new Error(
+          `Duplicate email registration should have failed but redirected to: ${currentUrl}`
+        );
+      }
+    } finally {
+      await context.close();
+    }
   });
 
   test('should show error for invalid email format', async ({ page }) => {
