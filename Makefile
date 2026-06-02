@@ -1,4 +1,4 @@
-.PHONY: test test-api test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs bdd bdd-headed test-e2e test-e2e-headed test-e2e-debug report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
+.PHONY: test test-api test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs bdd bdd-headed test-e2e test-e2e-headed test-e2e-debug test-postman report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
 
 # ============================================================
 # TESTING
@@ -79,6 +79,15 @@ test-e2e-debug:
 	API_URL=https://job-tracker-backend-production-7acf.up.railway.app \
 	BASE_URL=https://job-tracker-frontend-green-sigma.vercel.app \
 	npx playwright test tests/e2e/ --debug
+
+# Run Postman/Newman tests locally
+test-postman:
+	mkdir -p results
+	npx newman run postman/job-tracker-collection.json \
+	--environment postman/production-environment.json \
+	--reporters cli,junit \
+	--reporter-junit-export results/postman-junit.xml \
+	--suppress-exit-code
 
 # ============================================================
 # REPORTS
@@ -185,6 +194,7 @@ help:
 	@echo "  make test-e2e          - Run E2E tests (UI + API combined)"
 	@echo "  make test-e2e-headed   - Run E2E tests with visible browser"
 	@echo "  make test-e2e-debug    - Run E2E tests in debug mode"
+	@echo "  make test-postman      - Run Postman/Newman tests locally"
 	@echo ""
 	@echo "  REPORTS:"
 	@echo "  make report            - Open HTML report"

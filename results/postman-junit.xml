@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Job Application Tracker" tests="54" time="13.687">
+  <testsuite name="🏥 Health &amp; Status / Health Check" id="0205dedc-21f3-42b0-8800-fcf3a551a55c" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.801">
+    <testcase name="Status code is 200" time="0.801" classname="HealthAmpStatusHealthCheck"/>
+    <testcase name="Response has status field" time="0.801" classname="HealthAmpStatusHealthCheck"/>
+  </testsuite>
+  <testsuite name="🔐 Authentication / Register" id="2b340332-7c17-444b-bc31-d712cd279ca1" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.386">
+    <testcase name="Status code is 201" time="0.386" classname="AuthenticationRegister"/>
+  </testsuite>
+  <testsuite name="🔐 Authentication / Login" id="93962ebe-5663-4277-b93a-c5ee2a52c0b5" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.465">
+    <testcase name="Status code is 200" time="0.465" classname="AuthenticationLogin"/>
+    <testcase name="Response has access_token" time="0.465" classname="AuthenticationLogin"/>
+  </testsuite>
+  <testsuite name="🔐 Authentication / Logout" id="1e145316-3f5d-4325-8219-ac62a06360ad" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.201">
+    <testcase name="Status code is 200" time="0.201" classname="AuthenticationLogout"/>
+    <testcase name="Logout successful" time="0.201" classname="AuthenticationLogout"/>
+  </testsuite>
+  <testsuite name="🔐 Authentication / Get Current User" id="b182289b-55c3-4a66-8a7b-07856a371c20" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.185">
+    <testcase name="Status code is 200" time="0.185" classname="AuthenticationGetCurrentUser"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Setup: Create Job for Interviews" id="97d485f5-ed58-45db-84e6-808ccf01175f" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.203">
+    <testcase name="Status code is 201" time="0.203" classname="JobApplicationsInterviewRoundsSetupCreateJobForInterviews"/>
+    <testcase name="Job created and jobId saved" time="0.203" classname="JobApplicationsInterviewRoundsSetupCreateJobForInterviews"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Add Interview Rounds" id="4b602147-4979-4924-9973-98117f47689a" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.196">
+    <testcase name="Status code is 201" time="0.196" classname="JobApplicationsInterviewRoundsAddInterviewRounds"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Get All Rounds" id="dfe6e2c3-66df-4651-8346-763bafeca451" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.272">
+    <testcase name="Status code is 200" time="0.272" classname="JobApplicationsInterviewRoundsGetAllRounds"/>
+    <testcase name="Response is an array" time="0.272" classname="JobApplicationsInterviewRoundsGetAllRounds"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Update Rounds" id="55e206a9-4c74-4f0a-b427-64ee84b08e64" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.193">
+    <testcase name="Status code is 200" time="0.193" classname="JobApplicationsInterviewRoundsUpdateRounds"/>
+    <testcase name="Notes property exists" time="0.193" classname="JobApplicationsInterviewRoundsUpdateRounds"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Delete Round" id="59efff61-1597-4015-af23-bac3eb65cf47" timestamp="2026-06-02T13:47:41.487Z" tests="0" failures="0" errors="1" time="0.276">
+    <system-err><![CDATA[Iteration: 0
+
+---
+testScriptError: No data, empty input at 1:1
+
+^
+---
+]]></system-err>
+  </testsuite>
+  <testsuite name="💼 Job Applications / Get All Jobs" id="4a016786-b2f9-4998-9af8-b242bb7a1167" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.184">
+    <testcase name="Status code is 200" time="0.184" classname="JobApplicationsGetAllJobs"/>
+    <testcase name="Response has paginated shape" time="0.184" classname="JobApplicationsGetAllJobs"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / Get Job by ID" id="9379493a-202b-426b-9dd4-2fbe4b1bd6c7" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.186">
+    <testcase name="Status code is 200" time="0.186" classname="JobApplicationsGetJobById"/>
+    <testcase name="Response has job id" time="0.186" classname="JobApplicationsGetJobById"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / Create Job" id="34d0939d-7479-42ab-8e2a-5f83ea3fadc0" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.268">
+    <testcase name="Status code is 201" time="0.268" classname="JobApplicationsCreateJob"/>
+    <testcase name="Job created with id" time="0.268" classname="JobApplicationsCreateJob"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / Update Job" id="c46e5a8d-c5fa-4cf5-9b14-084b403196db" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.190">
+    <testcase name="Status code is 200" time="0.190" classname="JobApplicationsUpdateJob"/>
+    <testcase name="Job status updated" time="0.190" classname="JobApplicationsUpdateJob"/>
+  </testsuite>
+  <testsuite name="💼 Job Applications / Delete Job" id="6997442c-eafb-403b-904c-45da2de7f61b" timestamp="2026-06-02T13:47:41.487Z" tests="0" failures="0" errors="1" time="0.275">
+    <system-err><![CDATA[Iteration: 0
+
+---
+testScriptError: No data, empty input at 1:1
+
+^
+---
+]]></system-err>
+  </testsuite>
+  <testsuite name="👤 User Profile / Get Current User" id="41f6abe3-735d-47f5-8a01-a8f790d73b4c" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.186">
+    <testcase name="Status code is 200" time="0.186" classname="UserProfileGetCurrentUser"/>
+    <testcase name="Response has email" time="0.186" classname="UserProfileGetCurrentUser"/>
+  </testsuite>
+  <testsuite name="👤 User Profile / Update Profile" id="9bf571ff-6e91-4a01-bd5d-751bb80eddee" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.190">
+    <testcase name="Status code is 200" time="0.190" classname="UserProfileUpdateProfile"/>
+    <testcase name="Profile updated" time="0.190" classname="UserProfileUpdateProfile"/>
+  </testsuite>
+  <testsuite name="👤 User Profile / Update Email" id="a47913e5-5c62-46be-9e97-1aa16977064b" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.189">
+    <testcase name="Status code is 200" time="0.189" classname="UserProfileUpdateEmail"/>
+    <testcase name="Email updated" time="0.189" classname="UserProfileUpdateEmail"/>
+  </testsuite>
+  <testsuite name="👤 User Profile / Update Username" id="70cffa07-aacc-4eb9-9fef-a95dc06846d5" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.206">
+    <testcase name="Status code is 200" time="0.206" classname="UserProfileUpdateUsername"/>
+    <testcase name="Username updated" time="0.206" classname="UserProfileUpdateUsername"/>
+  </testsuite>
+  <testsuite name="👤 User Profile / Change Password" id="adcb12cb-066f-4f9e-bba6-9cae896962de" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.568">
+    <testcase name="Password changed successfully" time="0.568" classname="UserProfileChangePassword"/>
+  </testsuite>
+  <testsuite name="👤 User Profile / Delete Account" id="b353ff65-af3f-433c-975f-74257e8ff0d6" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.192">
+    <testcase name="Status code is 200 or 204" time="0.192" classname="UserProfileDeleteAccount"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Register" id="75efb0ab-8d52-459c-8118-ce8ce5824248" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.380">
+    <testcase name="Status code is 201" time="0.380" classname="TestScenariosHappyPathHappyPathValidRegister"/>
+    <testcase name="Response has user data" time="0.380" classname="TestScenariosHappyPathHappyPathValidRegister"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Login" id="2c9b0423-6095-45aa-bed3-a27a3d1f352e" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="2" errors="0" time="0.186">
+    <testcase name="Status code is 200" time="0.186" classname="TestScenariosHappyPathHappyPathValidLogin">
+      <failure type="AssertionFailure" message="expected response to have status code 200 but got 422">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Login.]]>
+        <![CDATA[Test description: Status code is 200.]]>
+        <![CDATA[Error message: expected response to have status code 200 but got 422.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 200 but got 422
+   at Object.eval sandbox-script.js:1:23).]]>
+      </failure>
+    </testcase>
+    <testcase name="Response has access_token" time="0.186" classname="TestScenariosHappyPathHappyPathValidLogin">
+      <failure type="AssertionFailure" message="expected { detail: [ { …(5) } ] } to have property 'access_token'">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Login.]]>
+        <![CDATA[Test description: Response has access_token.]]>
+        <![CDATA[Error message: expected { detail: [ { …(5) } ] } to have property 'access_token'.]]>
+        <![CDATA[Stacktrace: AssertionError: expected { detail: [ { …(5) } ] } to have property 'access_token'
+   at Object.eval sandbox-script.js:2:23).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Valid Job Creation" id="9aea8c98-48a7-48cb-b3db-bbd6e1578720" timestamp="2026-06-02T13:47:41.487Z" tests="3" failures="1" errors="0" time="0.186">
+    <testcase name="Status code is 201 or 422" time="0.186" classname="TestScenariosHappyPathValidJobCreation">
+      <failure type="AssertionFailure" message="expected 401 to be one of [ 201, 422 ]">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ✅ Happy Path / Valid Job Creation.]]>
+        <![CDATA[Test description: Status code is 201 or 422.]]>
+        <![CDATA[Error message: expected 401 to be one of [ 201, 422 ].]]>
+        <![CDATA[Stacktrace: AssertionError: expected 401 to be one of [ 201, 422 ]
+   at Object.eval sandbox-script.js:1:24).]]>
+      </failure>
+    </testcase>
+    <testcase name="Job created with all required fields" time="0.186" classname="TestScenariosHappyPathValidJobCreation"/>
+    <testcase name="Response time is acceptable" time="0.186" classname="TestScenariosHappyPathValidJobCreation"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Cleanup — Delete Test User" id="e856ec8c-a8c3-4b45-97d1-b5c3e2e50c40" timestamp="2026-06-02T13:47:41.487Z" tests="0" failures="0" errors="0" time="0.207"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Access Other User Job - Interview" id="c5b7568c-2690-4b3c-bdcd-044d365c33ea" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="1" errors="0" time="0.220">
+    <testcase name="Status code is 403 or 404" time="0.220" classname="TestScenariosNegativeTestsAccessOtherUserJobInterview">
+      <failure type="AssertionFailure" message="expected 401 to be one of [ 403, 404 ]">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ❌ Negative Tests / Access Other User Job - Interview.]]>
+        <![CDATA[Test description: Status code is 403 or 404.]]>
+        <![CDATA[Error message: expected 401 to be one of [ 403, 404 ].]]>
+        <![CDATA[Stacktrace: AssertionError: expected 401 to be one of [ 403, 404 ]
+   at Object.eval sandbox-script.js:1:26).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Invalid Interview Type" id="dabec335-4fab-4329-9ca8-2c0d18a2a326" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="1" errors="0" time="0.186">
+    <testcase name="Status code is 422" time="0.186" classname="TestScenariosNegativeTestsInvalidInterviewType">
+      <failure type="AssertionFailure" message="expected response to have status code 422 but got 401">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ❌ Negative Tests / Invalid Interview Type.]]>
+        <![CDATA[Test description: Status code is 422.]]>
+        <![CDATA[Error message: expected response to have status code 422 but got 401.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 422 but got 401
+   at Object.eval sandbox-script.js:1:27).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token - Interview" id="4a5f4120-54ee-4ab7-a7d0-28872efe2352" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.183">
+    <testcase name="Status code is 401" time="0.183" classname="TestScenariosNegativeTestsNoAuthTokenInterview"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Wrong Job ID - Interview" id="4455f9bf-808b-48de-80cb-4799361751e3" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="1" errors="0" time="0.273">
+    <testcase name="Status code is 404" time="0.273" classname="TestScenariosNegativeTestsWrongJobIdInterview">
+      <failure type="AssertionFailure" message="expected response to have status code 404 but got 401">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ❌ Negative Tests / Wrong Job ID - Interview.]]>
+        <![CDATA[Test description: Status code is 404.]]>
+        <![CDATA[Error message: expected response to have status code 404 but got 401.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 404 but got 401
+   at Object.eval sandbox-script.js:1:29).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token — Get Jobs" id="f3d78d61-49d5-4afc-b0cd-5a8bbd08fa1e" timestamp="2026-06-02T13:47:41.487Z" tests="0" failures="0" errors="0" time="0.186"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token — Get Profile" id="34a4d4c5-fdd6-4f1e-9285-b91fa8f57613" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.181">
+    <testcase name="Status code is 401" time="0.181" classname="TestScenariosNegativeTestsNoAuthTokenGetProfile"/>
+    <testcase name="Unauthorized error returned" time="0.181" classname="TestScenariosNegativeTestsNoAuthTokenGetProfile"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Duplicate Email" id="1da7c086-f6f5-443f-8b65-07d5c80023c0" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.472">
+    <testcase name="Status code is 409 or 201" time="0.472" classname="TestScenariosNegativeTestsDuplicateEmail"/>
+    <testcase name="Conflict error returned" time="0.472" classname="TestScenariosNegativeTestsDuplicateEmail"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Duplicate Username" id="86eb1b64-2f51-43bf-bdcc-bfc429a828c0" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.490">
+    <testcase name="Status code is 409 or 201" time="0.490" classname="TestScenariosNegativeTestsDuplicateUsername"/>
+    <testcase name="Conflict error returned" time="0.490" classname="TestScenariosNegativeTestsDuplicateUsername"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Wrong Current Password" id="cef54308-beef-4183-b6ff-7f3b4fbdad4b" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="1" errors="0" time="0.186">
+    <testcase name="Status code is 400" time="0.186" classname="TestScenariosNegativeTestsWrongCurrentPassword">
+      <failure type="AssertionFailure" message="expected response to have status code 400 but got 401">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ❌ Negative Tests / Wrong Current Password.]]>
+        <![CDATA[Test description: Status code is 400.]]>
+        <![CDATA[Error message: expected response to have status code 400 but got 401.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 400 but got 401
+   at Object.eval sandbox-script.js:1:34).]]>
+      </failure>
+    </testcase>
+    <testcase name="Error message returned" time="0.186" classname="TestScenariosNegativeTestsWrongCurrentPassword"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Invalid Token" id="84299773-5e0f-4d82-ab16-c9ef9b55c0d8" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.184">
+    <testcase name="Status code is 401" time="0.184" classname="TestScenariosNegativeTestsInvalidToken"/>
+    <testcase name="Error message is returned" time="0.184" classname="TestScenariosNegativeTestsInvalidToken"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Missing Fields" id="e9d03bf8-5cca-4090-959f-33b095d8a1c0" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="1" errors="0" time="0.260">
+    <testcase name="Status code is 422" time="0.260" classname="TestScenariosNegativeTestsMissingFields">
+      <failure type="AssertionFailure" message="expected response to have status code 422 but got 401">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ❌ Negative Tests / Missing Fields.]]>
+        <![CDATA[Test description: Status code is 422.]]>
+        <![CDATA[Error message: expected response to have status code 422 but got 401.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 422 but got 401
+   at Object.eval sandbox-script.js:1:36).]]>
+      </failure>
+    </testcase>
+    <testcase name="Validation error returned" time="0.260" classname="TestScenariosNegativeTestsMissingFields"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Not Found 404" id="0115189a-e791-4191-b4bd-cb709045f7de" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="1" errors="0" time="0.189">
+    <testcase name="Status code is 404" time="0.189" classname="TestScenariosNegativeTestsNotFound404">
+      <failure type="AssertionFailure" message="expected response to have status code 404 but got 401">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / ❌ Negative Tests / Not Found 404.]]>
+        <![CDATA[Test description: Status code is 404.]]>
+        <![CDATA[Error message: expected response to have status code 404 but got 401.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 404 but got 401
+   at Object.eval sandbox-script.js:1:37).]]>
+      </failure>
+    </testcase>
+    <testcase name="Not found message returned" time="0.189" classname="TestScenariosNegativeTestsNotFound404"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Wrong Password" id="c5f1c6c0-4a6b-4a9c-9b93-9f079d890826" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.378">
+    <testcase name="Status code is 401" time="0.378" classname="TestScenariosNegativeTestsNegativeWrongPassword"/>
+    <testcase name="Response indicates unauthorized" time="0.378" classname="TestScenariosNegativeTestsNegativeWrongPassword"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Duplicate Email" id="c67f4ba1-e303-4ab2-b21d-3be41ec9e6a8" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.235">
+    <testcase name="Status code is 409" time="0.235" classname="TestScenariosNegativeTestsNegativeDuplicateEmail"/>
+    <testcase name="Response indicates conflict" time="0.235" classname="TestScenariosNegativeTestsNegativeDuplicateEmail"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Invalid Token" id="d1899212-5c0e-4410-969d-7c35b84587ac" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.181">
+    <testcase name="Status code is 401" time="0.181" classname="TestScenariosNegativeTestsNegativeInvalidToken"/>
+    <testcase name="Response indicates unauthorized" time="0.181" classname="TestScenariosNegativeTestsNegativeInvalidToken"/>
+  </testsuite>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Missing Fields" id="f0bfff9a-ff86-470a-baae-a97f12c51dc1" timestamp="2026-06-02T13:47:41.487Z" tests="0" failures="0" errors="0" time="0.179"/>
+  <testsuite name="🧪 Test Scenarios / 🔄 Edge Cases / Empty Fields" id="4c79e85f-ff64-477e-bdbc-600da1f73a74" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="1" errors="0" time="0.187">
+    <testcase name="Status code is 422" time="0.187" classname="TestScenariosEdgeCasesEmptyFields">
+      <failure type="AssertionFailure" message="expected response to have status code 422 but got 401">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: 🧪 Test Scenarios / 🔄 Edge Cases / Empty Fields.]]>
+        <![CDATA[Test description: Status code is 422.]]>
+        <![CDATA[Error message: expected response to have status code 422 but got 401.]]>
+        <![CDATA[Stacktrace: AssertionError: expected response to have status code 422 but got 401
+   at Object.eval sandbox-script.js:1:42).]]>
+      </failure>
+    </testcase>
+    <testcase name="Validation error for empty fields" time="0.187" classname="TestScenariosEdgeCasesEmptyFields"/>
+  </testsuite>
+  <testsuite name="⚙️ Environment Variables / README - Setup Guide" id="6caac6db-b20d-4b5a-9cb0-201546157626" timestamp="2026-06-02T13:47:41.487Z" tests="0" failures="0" errors="0" time="0.184"/>
+  <testsuite name="E2E Test Suite / E2E — Register User" id="13df7cf0-aa2d-4c4f-976b-aa8dda09712f" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.384">
+    <testcase name="Status is 201" time="0.384" classname="E2ETestSuiteE2ERegisterUser"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Login User" id="c94f2357-49f4-46e7-8787-0a2e990ab0a7" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.371">
+    <testcase name="Status is 200" time="0.371" classname="E2ETestSuiteE2ELoginUser"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Create Job Application" id="88c7e0e8-9796-4925-bf4c-6bc2ab0cec59" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.188">
+    <testcase name="Status is 201" time="0.188" classname="E2ETestSuiteE2ECreateJobApplication"/>
+    <testcase name="company_name is correct" time="0.188" classname="E2ETestSuiteE2ECreateJobApplication"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Add Interview Round" id="950a8ee2-c579-42fe-a044-1b4996a232fe" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.192">
+    <testcase name="Status is 201" time="0.192" classname="E2ETestSuiteE2EAddInterviewRound"/>
+    <testcase name="round_number is 1" time="0.192" classname="E2ETestSuiteE2EAddInterviewRound"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Update Job Status" id="55cf1e76-25a8-4e22-ba98-0b4873e6721d" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.265">
+    <testcase name="Status is 200" time="0.265" classname="E2ETestSuiteE2EUpdateJobStatus"/>
+    <testcase name="status is phone_interview" time="0.265" classname="E2ETestSuiteE2EUpdateJobStatus"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Get All Jobs" id="57ca7418-9822-4437-a463-30b4e76077b1" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.191">
+    <testcase name="Status is 200" time="0.191" classname="E2ETestSuiteE2EGetAllJobs"/>
+    <testcase name="Response has paginated shape" time="0.191" classname="E2ETestSuiteE2EGetAllJobs"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Update Profile" id="db4b9496-34ed-4773-98e5-bb792208ae42" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.189">
+    <testcase name="Status is 200" time="0.189" classname="E2ETestSuiteE2EUpdateProfile"/>
+    <testcase name="username is updated" time="0.189" classname="E2ETestSuiteE2EUpdateProfile"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Delete Job Application" id="c50dc049-218b-4dff-8139-af6ad887ac51" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.187">
+    <testcase name="Status is 204" time="0.187" classname="E2ETestSuiteE2EDeleteJobApplication"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Logout" id="055da607-fd74-4718-9229-11dfa5adf1cf" timestamp="2026-06-02T13:47:41.487Z" tests="2" failures="0" errors="0" time="0.220">
+    <testcase name="Status is 200" time="0.220" classname="E2ETestSuiteE2ELogout"/>
+    <testcase name="Logout message returned" time="0.220" classname="E2ETestSuiteE2ELogout"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / E2E — Delete Account" id="1b5c2e39-326a-46e2-93fc-98d1ff5a2b6b" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="0" errors="0" time="0.189">
+    <testcase name="Status is 200 or 204" time="0.189" classname="E2ETestSuiteE2EDeleteAccount"/>
+  </testsuite>
+  <testsuite name="E2E Test Suite / 🧹 CI Cleanup — Delete Test Account" id="e624e392-bc42-49a2-8644-bcf3f25915f4" timestamp="2026-06-02T13:47:41.487Z" tests="1" failures="1" errors="0" time="0.186">
+    <testcase name="Cleanup: account deleted" time="0.186" classname="E2ETestSuiteCiCleanupDeleteTestAccount">
+      <failure type="AssertionFailure" message="expected 401 to be one of [ 200, 204, 404 ]">
+        <![CDATA[Failed 1 times.]]>
+        <![CDATA[Collection JSON ID: 6d434d2a-4559-49b8-879d-45079e936094.]]>
+        <![CDATA[Collection name: Job Application Tracker.]]>
+        <![CDATA[Request name: E2E Test Suite / 🧹 CI Cleanup — Delete Test Account.]]>
+        <![CDATA[Test description: Cleanup: account deleted.]]>
+        <![CDATA[Error message: expected 401 to be one of [ 200, 204, 404 ].]]>
+        <![CDATA[Stacktrace: AssertionError: expected 401 to be one of [ 200, 204, 404 ]
+   at Object.eval sandbox-script.js:1:54).]]>
+      </failure>
+    </testcase>
+  </testsuite>
+</testsuites>

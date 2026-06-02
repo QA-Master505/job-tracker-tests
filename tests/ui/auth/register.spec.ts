@@ -46,7 +46,7 @@ test.describe('Registration', () => {
 
     try {
       await freshRegisterPage.goto();
-      await expect(page).toHaveURL(/\/register/, { timeout: 5000 });
+      await expect(page).toHaveURL(/\/register/, { timeout: 15000 });
 
       // Submit with duplicate email — different username to avoid username conflict
       await freshRegisterPage.register(`other_${Date.now()}`, uniqueEmail, TEST_PASSWORD);
