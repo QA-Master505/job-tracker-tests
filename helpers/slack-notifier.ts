@@ -13,6 +13,7 @@ export interface SlackNotificationPayload {
   actor: string;
   runUrl: string;
   failures: FailureDetail[];
+  suiteName?: string;
 }
 
 function formatDuration(ms: number): string {
@@ -32,9 +33,10 @@ export async function sendSlackNotification(payload: SlackNotificationPayload): 
   const hasFailed = payload.failed > 0;
   const color = hasFailed ? '#e01e5a' : '#2eb886';
   const statusEmoji = hasFailed ? '❌' : '✅';
+  const suite = payload.suiteName ?? 'Playwright Tests';
   const statusText = hasFailed
-    ? `API Tests Failed — ${payload.failed} failure${payload.failed !== 1 ? 's' : ''}`
-    : 'API Tests Passed';
+    ? `${suite} Failed — ${payload.failed} failure${payload.failed !== 1 ? 's' : ''}`
+    : `${suite} Passed`;
 
   const statsFields = [
     { type: 'mrkdwn', text: `*Passed:* ${payload.passed}` },

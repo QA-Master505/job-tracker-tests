@@ -17,9 +17,14 @@ class SlackReporter implements Reporter {
   private skipped = 0;
   private failures: FailureDetail[] = [];
   private startTime = 0;
+  private suiteName = 'Playwright Tests';
 
-  onBegin(_config: FullConfig, _suite: Suite): void {
+  onBegin(_config: FullConfig, suite: Suite): void {
     this.startTime = Date.now();
+    const projectNames = suite.suites
+      .map(s => s.title)
+      .filter(t => t !== 'setup');
+    if (projectNames.length > 0) this.suiteName = projectNames.join(', ');
   }
 
   onTestEnd(test: TestCase, result: TestResult): void {
@@ -63,10 +68,11 @@ class SlackReporter implements Reporter {
       actor,
       runUrl,
       failures: this.failures,
+      suiteName: this.suiteName,
     });
 
     await sendCiCdNotification({
-      workflowName: process.env.GITHUB_WORKFLOW ?? 'Playwright Tests',
+      workflowName: process.env.GITHUB_WORKFLOW ?? this.suiteName,
       status: this.failed > 0 ? 'failure' : 'success',
       branch,
       actor,
