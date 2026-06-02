@@ -150,3 +150,6 @@ vite.config.ts.timestamp-*
 # Allure reporting
 allure-results/
 allure-report/
+playwright-report/
+test-results/
+results/
