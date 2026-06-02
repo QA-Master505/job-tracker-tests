@@ -2,7 +2,7 @@ name: Allure Report CI
 
 on:
   workflow_run:
-    workflows: ["API Tests", "Full Test Suite"]
+    workflows: ["API Tests", "Full Test Suite", "E2E Tests", "UI Spec Tests"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
@@ -16,7 +16,9 @@ jobs:
     if: >
       (github.event.workflow_run.conclusion == 'success' &&
        (github.event.workflow_run.name == 'API Tests' ||
-        github.event.workflow_run.name == 'Full Test Suite')) ||
+        github.event.workflow_run.name == 'Full Test Suite' ||
+        github.event.workflow_run.name == 'E2E Tests' ||
+        github.event.workflow_run.name == 'UI Spec Tests')) ||
       github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -196,6 +198,44 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: node scripts/notify-bdd-slack.mjs
+
+      - name: Run E2E Tests
+        if: always()
+        env:
+          BASE_URL: https://job-tracker-frontend-green-sigma.vercel.app
+          API_URL: https://job-tracker-backend-production-7acf.up.railway.app
+          CI: true
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_CICD_WEBHOOK_URL: ${{ secrets.SLACK_CICD_WEBHOOK_URL }}
+          SLACK_BUGS_WEBHOOK_URL: ${{ secrets.SLACK_BUGS_WEBHOOK_URL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+        run: npx playwright test tests/e2e/
+
+      - name: Run UI Spec Tests
+        if: always()
+        env:
+          BASE_URL: https://job-tracker-frontend-green-sigma.vercel.app
+          API_URL: https://job-tracker-backend-production-7acf.up.railway.app
+          CI: true
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SLACK_CICD_WEBHOOK_URL: ${{ secrets.SLACK_CICD_WEBHOOK_URL }}
+          SLACK_BUGS_WEBHOOK_URL: ${{ secrets.SLACK_BUGS_WEBHOOK_URL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+        run: npx playwright test tests/ui/
 
       - name: Add Postman suite label and categories
         if: always()

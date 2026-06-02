@@ -35,7 +35,6 @@ export default defineConfig({
       detail: true,
       outputFolder: 'allure-results',
       suiteTitle: true,
-      labels: [{ name: 'parentSuite', value: 'API Tests' }],
     }],
   ],
 
@@ -64,24 +63,28 @@ export default defineConfig({
   },
 
   projects: [
-    /* Setup project — runs first */
     {
       name: 'setup',
       testMatch: '**/setup/*.ts',
     },
-
-    /* Chromium — main browser */
     {
       name: 'API Tests',
+      testMatch: '**/api/**/*.ts',
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['setup'],
     },
-
-    /* Firefox — optional, run manually */
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'E2E Tests',
+      testMatch: '**/e2e/**/*.ts',
+      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'UI Spec Tests',
+      testMatch: '**/ui/**/*.ts',
+      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['setup'],
+    },
   ],
 
   /* Output folder for test artifacts */
