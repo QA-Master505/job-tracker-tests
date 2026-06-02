@@ -1,68 +1,144 @@
-<testsuites id="" name="" tests="26" failures="0" skipped="0" errors="0" time="40.339686">
-<testsuite name="ui/auth/login.spec.ts" timestamp="2026-06-02T13:57:35.131Z" hostname="API Tests" tests="6" failures="0" skipped="0" time="7.077" errors="0">
-<testcase name="Login › should display the login form" classname="ui/auth/login.spec.ts" time="0.768">
+<testsuites id="" name="" tests="6" failures="0" skipped="4" errors="2" time="2.1284849999999995">
+<testsuite name="e2e/job-journey.spec.ts" timestamp="2026-06-02T18:59:37.377Z" hostname="E2E Tests" tests="3" failures="0" skipped="2" time="0" errors="1">
+<testcase name="Job Journey E2E › should create a job via UI and verify via API" classname="e2e/job-journey.spec.ts" time="0">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests-retry1/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests-retry1/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests-retry1/trace.zip]]
+]]>
+</system-out>
+<error message="apiRequestContext.post: connect ECONNREFUSED ::1:8000" type="Error">
+<![CDATA[  [E2E Tests] › e2e/job-journey.spec.ts:44:7 › Job Journey E2E › should create a job via UI and verify via API 
+
+    Error: apiRequestContext.post: connect ECONNREFUSED ::1:8000
+    Call log:
+      - → POST http://localhost:8000/auth/register
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.7778.96 Safari/537.36
+        - accept: application/json
+        - accept-encoding: gzip,deflate,br
+        - content-type: application/json
+        - content-length: 95
+
+        at apiRequestContext.post: connect ECONNREFUSED ::1:8000
+        at /Users/mm/Job-Tracker-Project/job-tracker-tests/tests/e2e/job-journey.spec.ts:21:19
+
+    Error Context: ../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests/error-context.md
+
+    Error Context: ../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: apiRequestContext.post: connect ECONNREFUSED ::1:8000
+    Call log:
+      - → POST http://localhost:8000/auth/register
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.7778.96 Safari/537.36
+        - accept: application/json
+        - accept-encoding: gzip,deflate,br
+        - content-type: application/json
+        - content-length: 95
+
+        at apiRequestContext.post: connect ECONNREFUSED ::1:8000
+        at /Users/mm/Job-Tracker-Project/job-tracker-tests/tests/e2e/job-journey.spec.ts:21:19
+
+    Error Context: ../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests-retry1/error-context.md
+
+    Error Context: ../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests-retry1/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/e2e-job-journey-Job-Journe-1e84c-b-via-UI-and-verify-via-API-E2E-Tests-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
 </testcase>
-<testcase name="Login › should login with valid credentials" classname="ui/auth/login.spec.ts" time="1.899">
+<testcase name="Job Journey E2E › should update job status via UI and verify via API" classname="e2e/job-journey.spec.ts">
+<skipped>
+</skipped>
 </testcase>
-<testcase name="Login › should show error for invalid credentials" classname="ui/auth/login.spec.ts" time="1.439">
-</testcase>
-<testcase name="Login › should show error for empty email" classname="ui/auth/login.spec.ts" time="0.696">
-</testcase>
-<testcase name="Login › should show error for empty password" classname="ui/auth/login.spec.ts" time="0.707">
-</testcase>
-<testcase name="Login › should redirect to login when accessing protected route while logged out" classname="ui/auth/login.spec.ts" time="1.568">
+<testcase name="Job Journey E2E › should delete job via UI and verify via API" classname="e2e/job-journey.spec.ts">
+<skipped>
+</skipped>
 </testcase>
 </testsuite>
-<testsuite name="ui/auth/register.spec.ts" timestamp="2026-06-02T13:57:35.131Z" hostname="API Tests" tests="5" failures="0" skipped="0" time="6.922" errors="0">
-<testcase name="Registration › should display the registration form" classname="ui/auth/register.spec.ts" time="1.032">
+<testsuite name="e2e/user-journey.spec.ts" timestamp="2026-06-02T18:59:37.377Z" hostname="E2E Tests" tests="3" failures="0" skipped="2" time="0" errors="1">
+<testcase name="User Journey E2E › should register a new user and login successfully" classname="e2e/user-journey.spec.ts" time="0">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests-retry1/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests-retry1/error-context.md]]
+
+[[ATTACHMENT|../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests-retry1/trace.zip]]
+]]>
+</system-out>
+<error message="apiRequestContext.post: connect ECONNREFUSED ::1:8000" type="Error">
+<![CDATA[  [E2E Tests] › e2e/user-journey.spec.ts:35:7 › User Journey E2E › should register a new user and login successfully 
+
+    Error: apiRequestContext.post: connect ECONNREFUSED ::1:8000
+    Call log:
+      - → POST http://localhost:8000/auth/register
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.7778.96 Safari/537.36
+        - accept: application/json
+        - accept-encoding: gzip,deflate,br
+        - content-type: application/json
+        - content-length: 100
+
+        at apiRequestContext.post: connect ECONNREFUSED ::1:8000
+        at /Users/mm/Job-Tracker-Project/job-tracker-tests/tests/e2e/user-journey.spec.ts:22:19
+
+    Error Context: ../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests/error-context.md
+
+    Error Context: ../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests/error-context.md
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Error: apiRequestContext.post: connect ECONNREFUSED ::1:8000
+    Call log:
+      - → POST http://localhost:8000/auth/register
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.7778.96 Safari/537.36
+        - accept: application/json
+        - accept-encoding: gzip,deflate,br
+        - content-type: application/json
+        - content-length: 100
+
+        at apiRequestContext.post: connect ECONNREFUSED ::1:8000
+        at /Users/mm/Job-Tracker-Project/job-tracker-tests/tests/e2e/user-journey.spec.ts:22:19
+
+    Error Context: ../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests-retry1/error-context.md
+
+    Error Context: ../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests-retry1/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests-retry1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/e2e-user-journey-User-Jour-3f802-user-and-login-successfully-E2E-Tests-retry1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
 </testcase>
-<testcase name="Registration › should register a new user successfully" classname="ui/auth/register.spec.ts" time="1.957">
+<testcase name="User Journey E2E › should update user profile and verify via API" classname="e2e/user-journey.spec.ts">
+<skipped>
+</skipped>
 </testcase>
-<testcase name="Registration › should show error for duplicate email" classname="ui/auth/register.spec.ts" time="2.765">
-</testcase>
-<testcase name="Registration › should show error for invalid email format" classname="ui/auth/register.spec.ts" time="0.585">
-</testcase>
-<testcase name="Registration › should show error when required fields are empty" classname="ui/auth/register.spec.ts" time="0.583">
-</testcase>
-</testsuite>
-<testsuite name="ui/interview-rounds/interview-rounds.spec.ts" timestamp="2026-06-02T13:57:35.131Z" hostname="API Tests" tests="3" failures="0" skipped="0" time="12.832" errors="0">
-<testcase name="Interview Rounds › should display the Interview Rounds section for non-applied jobs" classname="ui/interview-rounds/interview-rounds.spec.ts" time="3.397">
-</testcase>
-<testcase name="Interview Rounds › should add an interview round to a job" classname="ui/interview-rounds/interview-rounds.spec.ts" time="4.159">
-</testcase>
-<testcase name="Interview Rounds › should delete an interview round" classname="ui/interview-rounds/interview-rounds.spec.ts" time="5.276">
-</testcase>
-</testsuite>
-<testsuite name="ui/jobs/create-job.spec.ts" timestamp="2026-06-02T13:57:35.131Z" hostname="API Tests" tests="4" failures="0" skipped="0" time="10.318" errors="0">
-<testcase name="Create Job › should display the Add Application button on the dashboard" classname="ui/jobs/create-job.spec.ts" time="2.603">
-</testcase>
-<testcase name="Create Job › should open the add job modal" classname="ui/jobs/create-job.spec.ts" time="2.173">
-</testcase>
-<testcase name="Create Job › should create a new job application" classname="ui/jobs/create-job.spec.ts" time="3.329">
-</testcase>
-<testcase name="Create Job › should show error when required fields are missing" classname="ui/jobs/create-job.spec.ts" time="2.213">
-</testcase>
-</testsuite>
-<testsuite name="ui/jobs/delete-job.spec.ts" timestamp="2026-06-02T13:57:35.131Z" hostname="API Tests" tests="2" failures="0" skipped="0" time="7.196" errors="0">
-<testcase name="Delete Job › should delete a job application" classname="ui/jobs/delete-job.spec.ts" time="3.864">
-</testcase>
-<testcase name="Delete Job › should show confirmation dialog before deleting" classname="ui/jobs/delete-job.spec.ts" time="3.332">
-</testcase>
-</testsuite>
-<testsuite name="ui/jobs/update-job.spec.ts" timestamp="2026-06-02T13:57:35.131Z" hostname="API Tests" tests="2" failures="0" skipped="0" time="7.508" errors="0">
-<testcase name="Update Job › should update job status" classname="ui/jobs/update-job.spec.ts" time="4.168">
-</testcase>
-<testcase name="Update Job › should update job notes" classname="ui/jobs/update-job.spec.ts" time="3.34">
-</testcase>
-</testsuite>
-<testsuite name="ui/profile/profile.spec.ts" timestamp="2026-06-02T13:57:35.131Z" hostname="API Tests" tests="4" failures="0" skipped="0" time="10.149" errors="0">
-<testcase name="Profile › should display the profile page" classname="ui/profile/profile.spec.ts" time="2.119">
-</testcase>
-<testcase name="Profile › should display current user information in Account Details" classname="ui/profile/profile.spec.ts" time="2.389">
-</testcase>
-<testcase name="Profile › should update username successfully" classname="ui/profile/profile.spec.ts" time="3.228">
-</testcase>
-<testcase name="Profile › should show browser validation for invalid email on profile update" classname="ui/profile/profile.spec.ts" time="2.413">
+<testcase name="User Journey E2E › should logout successfully and return to login page" classname="e2e/user-journey.spec.ts">
+<skipped>
+</skipped>
 </testcase>
 </testsuite>
 </testsuites>

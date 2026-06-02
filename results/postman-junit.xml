@@ -1,190 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Job Application Tracker" tests="53" time="13.476">
-  <testsuite name="🏥 Health &amp; Status / Health Check" id="358e0991-940a-443b-bf03-d13bf3024c98" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.565">
-    <testcase name="Status code is 200" time="0.565" classname="HealthAmpStatusHealthCheck"/>
-    <testcase name="Response has status field" time="0.565" classname="HealthAmpStatusHealthCheck"/>
+<testsuites name="Job Application Tracker" tests="53" time="13.614">
+  <testsuite name="🏥 Health &amp; Status / Health Check" id="2b8e205f-a858-439b-bae0-ca2d0499dc3e" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.648">
+    <testcase name="Status code is 200" time="0.648" classname="HealthAmpStatusHealthCheck"/>
+    <testcase name="Response has status field" time="0.648" classname="HealthAmpStatusHealthCheck"/>
   </testsuite>
-  <testsuite name="🔐 Authentication / Register" id="6c63d0fc-284d-444f-85ed-358b33b3d43e" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.450">
-    <testcase name="Status code is 201" time="0.450" classname="AuthenticationRegister"/>
+  <testsuite name="🔐 Authentication / Register" id="f7e5c74c-ea52-49eb-b187-e1994de74c84" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.460">
+    <testcase name="Status code is 201" time="0.460" classname="AuthenticationRegister"/>
   </testsuite>
-  <testsuite name="🔐 Authentication / Login" id="ecf1c877-cacf-4fe6-b5ca-1cd28ae8de56" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.378">
-    <testcase name="Status code is 200" time="0.378" classname="AuthenticationLogin"/>
-    <testcase name="Response has access_token" time="0.378" classname="AuthenticationLogin"/>
+  <testsuite name="🔐 Authentication / Login" id="d53714fb-5b2c-437e-a9d3-36d73b1cb1eb" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.374">
+    <testcase name="Status code is 200" time="0.374" classname="AuthenticationLogin"/>
+    <testcase name="Response has access_token" time="0.374" classname="AuthenticationLogin"/>
   </testsuite>
-  <testsuite name="🔐 Authentication / Get Current User" id="47a152fc-6970-4705-b8ec-6971189feccb" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.186">
-    <testcase name="Status code is 200" time="0.186" classname="AuthenticationGetCurrentUser"/>
+  <testsuite name="🔐 Authentication / Get Current User" id="487a7855-4bf7-4772-8c83-1b6b0f7f07e0" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.182">
+    <testcase name="Status code is 200" time="0.182" classname="AuthenticationGetCurrentUser"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Setup: Create Job for Interviews" id="5b3c90bc-ec70-4633-8777-6fea8b5d3e32" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.189">
-    <testcase name="Status code is 201" time="0.189" classname="JobApplicationsInterviewRoundsSetupCreateJobForInterviews"/>
-    <testcase name="Job created and jobId saved" time="0.189" classname="JobApplicationsInterviewRoundsSetupCreateJobForInterviews"/>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Setup: Create Job for Interviews" id="13e9b449-30ff-46d1-aaad-822b3093bfd6" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.246">
+    <testcase name="Status code is 201" time="0.246" classname="JobApplicationsInterviewRoundsSetupCreateJobForInterviews"/>
+    <testcase name="Job created and jobId saved" time="0.246" classname="JobApplicationsInterviewRoundsSetupCreateJobForInterviews"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Add Interview Rounds" id="d19aabf3-f9b0-461b-92cc-e7f47690486e" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.196">
-    <testcase name="Status code is 201" time="0.196" classname="JobApplicationsInterviewRoundsAddInterviewRounds"/>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Add Interview Rounds" id="f7cecc2e-94bc-463b-92ed-70d86d95c1ab" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.192">
+    <testcase name="Status code is 201" time="0.192" classname="JobApplicationsInterviewRoundsAddInterviewRounds"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Get All Rounds" id="6f332097-4dd5-4463-b33c-4b7fcca98e69" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.184">
-    <testcase name="Status code is 200" time="0.184" classname="JobApplicationsInterviewRoundsGetAllRounds"/>
-    <testcase name="Response is an array" time="0.184" classname="JobApplicationsInterviewRoundsGetAllRounds"/>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Get All Rounds" id="09f63cee-e230-4e8d-9a4e-82a0b3679374" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.261">
+    <testcase name="Status code is 200" time="0.261" classname="JobApplicationsInterviewRoundsGetAllRounds"/>
+    <testcase name="Response is an array" time="0.261" classname="JobApplicationsInterviewRoundsGetAllRounds"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Update Rounds" id="6a8367cc-f25c-4ba9-b6d7-97c8ee85e9d5" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.187">
-    <testcase name="Status code is 200" time="0.187" classname="JobApplicationsInterviewRoundsUpdateRounds"/>
-    <testcase name="Notes property exists" time="0.187" classname="JobApplicationsInterviewRoundsUpdateRounds"/>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Update Rounds" id="3a240d54-44f8-45aa-8646-b39fa98f0ee8" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.183">
+    <testcase name="Status code is 200" time="0.183" classname="JobApplicationsInterviewRoundsUpdateRounds"/>
+    <testcase name="Notes property exists" time="0.183" classname="JobApplicationsInterviewRoundsUpdateRounds"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Delete Round" id="5c7a10a2-299f-45f4-bc88-d093d6753bc0" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.253">
-    <testcase name="Status code is 204" time="0.253" classname="JobApplicationsInterviewRoundsDeleteRound"/>
+  <testsuite name="💼 Job Applications / 📋 Interview Rounds / Delete Round" id="9f9cac95-3d1c-4b6d-8a37-07d53a679905" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.183">
+    <testcase name="Status code is 204" time="0.183" classname="JobApplicationsInterviewRoundsDeleteRound"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / Get All Jobs" id="392b8bc8-881e-4fd2-bd02-1c045bfd9917" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.185">
-    <testcase name="Status code is 200" time="0.185" classname="JobApplicationsGetAllJobs"/>
-    <testcase name="Response has paginated shape" time="0.185" classname="JobApplicationsGetAllJobs"/>
+  <testsuite name="💼 Job Applications / Get All Jobs" id="3cef32a4-47fa-41c5-84b5-aea580642d80" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.182">
+    <testcase name="Status code is 200" time="0.182" classname="JobApplicationsGetAllJobs"/>
+    <testcase name="Response has paginated shape" time="0.182" classname="JobApplicationsGetAllJobs"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / Get Job by ID" id="abeea886-98ba-4b25-8690-2dac6083e2cb" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.185">
-    <testcase name="Status code is 200" time="0.185" classname="JobApplicationsGetJobById"/>
-    <testcase name="Response has job id" time="0.185" classname="JobApplicationsGetJobById"/>
+  <testsuite name="💼 Job Applications / Get Job by ID" id="752ed0c3-e70d-4111-9b3e-7d6b073860f3" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.210">
+    <testcase name="Status code is 200" time="0.210" classname="JobApplicationsGetJobById"/>
+    <testcase name="Response has job id" time="0.210" classname="JobApplicationsGetJobById"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / Create Job" id="e5887a26-48fb-4356-abe8-1e8aeeed6228" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.186">
-    <testcase name="Status code is 201" time="0.186" classname="JobApplicationsCreateJob"/>
-    <testcase name="Job created with id" time="0.186" classname="JobApplicationsCreateJob"/>
+  <testsuite name="💼 Job Applications / Create Job" id="be0aadd1-623d-43cb-8107-d4486e093e8f" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.188">
+    <testcase name="Status code is 201" time="0.188" classname="JobApplicationsCreateJob"/>
+    <testcase name="Job created with id" time="0.188" classname="JobApplicationsCreateJob"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / Update Job" id="3f78f9e5-cefc-4b59-bdcd-51e4502e24e8" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.206">
-    <testcase name="Status code is 200" time="0.206" classname="JobApplicationsUpdateJob"/>
-    <testcase name="Job status updated" time="0.206" classname="JobApplicationsUpdateJob"/>
+  <testsuite name="💼 Job Applications / Update Job" id="6ca3ac53-488d-4343-a5df-47c3493ef518" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.183">
+    <testcase name="Status code is 200" time="0.183" classname="JobApplicationsUpdateJob"/>
+    <testcase name="Job status updated" time="0.183" classname="JobApplicationsUpdateJob"/>
   </testsuite>
-  <testsuite name="💼 Job Applications / Delete Job" id="b926b729-ed84-42e6-8f96-efc00c290c8b" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.188">
-    <testcase name="Status code is 204" time="0.188" classname="JobApplicationsDeleteJob"/>
+  <testsuite name="💼 Job Applications / Delete Job" id="bfa7f460-ea02-4927-98c5-94bca671ab50" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.246">
+    <testcase name="Status code is 204" time="0.246" classname="JobApplicationsDeleteJob"/>
   </testsuite>
-  <testsuite name="👤 User Profile / Get Current User" id="be9b7e75-41be-4738-89e1-f2bf99ecf1d7" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.182">
-    <testcase name="Status code is 200" time="0.182" classname="UserProfileGetCurrentUser"/>
-    <testcase name="Response has email" time="0.182" classname="UserProfileGetCurrentUser"/>
+  <testsuite name="👤 User Profile / Get Current User" id="c3047c5d-2347-4f16-8079-e8af1130158f" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.179">
+    <testcase name="Status code is 200" time="0.179" classname="UserProfileGetCurrentUser"/>
+    <testcase name="Response has email" time="0.179" classname="UserProfileGetCurrentUser"/>
   </testsuite>
-  <testsuite name="👤 User Profile / Update Profile" id="6a88134f-f5f7-4c9d-907c-972526fd8a71" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.262">
-    <testcase name="Status code is 200" time="0.262" classname="UserProfileUpdateProfile"/>
-    <testcase name="Profile updated" time="0.262" classname="UserProfileUpdateProfile"/>
+  <testsuite name="👤 User Profile / Update Profile" id="14f525ff-32fb-4186-b51c-ed2d66bc1ab7" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.183">
+    <testcase name="Status code is 200" time="0.183" classname="UserProfileUpdateProfile"/>
+    <testcase name="Profile updated" time="0.183" classname="UserProfileUpdateProfile"/>
   </testsuite>
-  <testsuite name="👤 User Profile / Update Email" id="9ef21a95-1d54-4a54-bba1-204a7b6453a0" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.187">
-    <testcase name="Status code is 200" time="0.187" classname="UserProfileUpdateEmail"/>
-    <testcase name="Email updated" time="0.187" classname="UserProfileUpdateEmail"/>
+  <testsuite name="👤 User Profile / Update Email" id="a854b02a-c8dd-4671-a0e1-90b474002f73" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.182">
+    <testcase name="Status code is 200" time="0.182" classname="UserProfileUpdateEmail"/>
+    <testcase name="Email updated" time="0.182" classname="UserProfileUpdateEmail"/>
   </testsuite>
-  <testsuite name="👤 User Profile / Update Username" id="c567f597-1eb3-46ec-a9d9-9ceb17c9abb2" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.186">
-    <testcase name="Status code is 200" time="0.186" classname="UserProfileUpdateUsername"/>
-    <testcase name="Username updated" time="0.186" classname="UserProfileUpdateUsername"/>
+  <testsuite name="👤 User Profile / Update Username" id="5c1b721f-575f-4942-8058-33438679b02f" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.233">
+    <testcase name="Status code is 200" time="0.233" classname="UserProfileUpdateUsername"/>
+    <testcase name="Username updated" time="0.233" classname="UserProfileUpdateUsername"/>
   </testsuite>
-  <testsuite name="👤 User Profile / Change Password" id="fccc7886-f15c-4265-8b90-5666f9aea404" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.564">
-    <testcase name="Password changed successfully" time="0.564" classname="UserProfileChangePassword"/>
+  <testsuite name="👤 User Profile / Change Password" id="dfaa11c7-3319-46ab-b524-021af7851568" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.602">
+    <testcase name="Password changed successfully" time="0.602" classname="UserProfileChangePassword"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Register" id="c9e9e53f-9050-4550-8527-cd27ce874d73" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.375">
-    <testcase name="Status code is 201" time="0.375" classname="TestScenariosHappyPathHappyPathValidRegister"/>
-    <testcase name="Response has user data" time="0.375" classname="TestScenariosHappyPathHappyPathValidRegister"/>
+  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Register" id="ef9f7d7a-a790-4947-bbcf-bf1f039b2c74" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.485">
+    <testcase name="Status code is 201" time="0.485" classname="TestScenariosHappyPathHappyPathValidRegister"/>
+    <testcase name="Response has user data" time="0.485" classname="TestScenariosHappyPathHappyPathValidRegister"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Login" id="5360e378-1ecc-47ef-9ae3-60b544325b6b" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.370">
-    <testcase name="Login attempted" time="0.370" classname="TestScenariosHappyPathHappyPathValidLogin"/>
+  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Happy Path — Valid Login" id="5916828b-df89-4c0e-ba25-78ee72fc23ef" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.489">
+    <testcase name="Login attempted" time="0.489" classname="TestScenariosHappyPathHappyPathValidLogin"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Valid Job Creation" id="2fe01ab3-65eb-4779-a9af-07e0da766c63" timestamp="2026-06-02T18:46:09.375Z" tests="3" failures="0" errors="0" time="0.260">
-    <testcase name="Status code is 201 or 422" time="0.260" classname="TestScenariosHappyPathValidJobCreation"/>
-    <testcase name="Job created with all required fields" time="0.260" classname="TestScenariosHappyPathValidJobCreation"/>
-    <testcase name="Response time is acceptable" time="0.260" classname="TestScenariosHappyPathValidJobCreation"/>
+  <testsuite name="🧪 Test Scenarios / ✅ Happy Path / Valid Job Creation" id="db23c434-a360-4475-9239-1769de76527c" timestamp="2026-06-02T18:49:02.137Z" tests="3" failures="0" errors="0" time="0.178">
+    <testcase name="Status code is 201 or 422" time="0.178" classname="TestScenariosHappyPathValidJobCreation"/>
+    <testcase name="Job created with all required fields" time="0.178" classname="TestScenariosHappyPathValidJobCreation"/>
+    <testcase name="Response time is acceptable" time="0.178" classname="TestScenariosHappyPathValidJobCreation"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Access Other User Job - Interview" id="5cacb2ee-ad96-4b0c-a9dc-3cda46165f98" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.183">
-    <testcase name="Status code is 403 or 404" time="0.183" classname="TestScenariosNegativeTestsAccessOtherUserJobInterview"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Access Other User Job - Interview" id="e892b4b5-240a-42fd-87e5-5d74421af588" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.231">
+    <testcase name="Status code is 403 or 404" time="0.231" classname="TestScenariosNegativeTestsAccessOtherUserJobInterview"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Invalid Interview Type" id="27c5a365-09e7-4465-a2d7-aec74040c743" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.182">
-    <testcase name="Status code is 422" time="0.182" classname="TestScenariosNegativeTestsInvalidInterviewType"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Invalid Interview Type" id="4aef0770-11e1-4451-817e-c90199464f25" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.179">
+    <testcase name="Status code is 422" time="0.179" classname="TestScenariosNegativeTestsInvalidInterviewType"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token - Interview" id="2b6c374d-975f-4265-93e1-e78c13029359" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.183">
-    <testcase name="Status code is 401 or 404" time="0.183" classname="TestScenariosNegativeTestsNoAuthTokenInterview"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token - Interview" id="df309ee9-a7c6-4c63-a73f-6814d7aae4c0" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.179">
+    <testcase name="Status code is 401 or 404" time="0.179" classname="TestScenariosNegativeTestsNoAuthTokenInterview"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Wrong Job ID - Interview" id="1e899dd9-0026-453b-a45c-007f4479714b" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.232">
-    <testcase name="Status code is 404" time="0.232" classname="TestScenariosNegativeTestsWrongJobIdInterview"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Wrong Job ID - Interview" id="4cbcb38a-6428-46c9-86b7-09a93b3d6897" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.180">
+    <testcase name="Status code is 404" time="0.180" classname="TestScenariosNegativeTestsWrongJobIdInterview"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token — Get Jobs" id="098c0acd-b127-4753-a43e-7b382e8b26b9" timestamp="2026-06-02T18:46:09.375Z" tests="0" failures="0" errors="0" time="0.184"/>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token — Get Profile" id="959f38f9-c1cd-4b87-b31f-2b6fb709d9ad" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.181">
-    <testcase name="Status code is 401 or 200" time="0.181" classname="TestScenariosNegativeTestsNoAuthTokenGetProfile"/>
-    <testcase name="Response returned" time="0.181" classname="TestScenariosNegativeTestsNoAuthTokenGetProfile"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token — Get Jobs" id="0da0c978-82ff-4a86-9d4c-6ff9e7c01f42" timestamp="2026-06-02T18:49:02.137Z" tests="0" failures="0" errors="0" time="0.177"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / No Auth Token — Get Profile" id="42321e31-5a5f-4502-a887-07286880096f" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.225">
+    <testcase name="Status code is 401 or 200" time="0.225" classname="TestScenariosNegativeTestsNoAuthTokenGetProfile"/>
+    <testcase name="Response returned" time="0.225" classname="TestScenariosNegativeTestsNoAuthTokenGetProfile"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Duplicate Email" id="461abd87-3148-4fb8-bbf8-546294ac33ba" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.376">
-    <testcase name="Status code is 409 or 201" time="0.376" classname="TestScenariosNegativeTestsDuplicateEmail"/>
-    <testcase name="Conflict error returned" time="0.376" classname="TestScenariosNegativeTestsDuplicateEmail"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Duplicate Email" id="f35f9547-8b69-4bd9-baf4-24119cf360fd" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.406">
+    <testcase name="Status code is 409 or 201" time="0.406" classname="TestScenariosNegativeTestsDuplicateEmail"/>
+    <testcase name="Conflict error returned" time="0.406" classname="TestScenariosNegativeTestsDuplicateEmail"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Duplicate Username" id="5f013aaa-c451-465c-b587-c9dccbb4acae" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.375">
-    <testcase name="Status code is 409 or 201" time="0.375" classname="TestScenariosNegativeTestsDuplicateUsername"/>
-    <testcase name="Conflict error returned" time="0.375" classname="TestScenariosNegativeTestsDuplicateUsername"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Duplicate Username" id="fd1ce474-4d2e-4d48-a81b-7cd18e6cac51" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.435">
+    <testcase name="Status code is 409 or 201" time="0.435" classname="TestScenariosNegativeTestsDuplicateUsername"/>
+    <testcase name="Conflict error returned" time="0.435" classname="TestScenariosNegativeTestsDuplicateUsername"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Wrong Current Password" id="dd5d84d3-5c60-4377-ac01-40070f4df362" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.370">
-    <testcase name="Status code is 400" time="0.370" classname="TestScenariosNegativeTestsWrongCurrentPassword"/>
-    <testcase name="Error message returned" time="0.370" classname="TestScenariosNegativeTestsWrongCurrentPassword"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Wrong Current Password" id="f89812ec-f94d-4ffd-87e7-9da5ac4dc9c0" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.457">
+    <testcase name="Status code is 400" time="0.457" classname="TestScenariosNegativeTestsWrongCurrentPassword"/>
+    <testcase name="Error message returned" time="0.457" classname="TestScenariosNegativeTestsWrongCurrentPassword"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Invalid Token" id="80ca066d-16a4-4757-87ae-0d59cc96473d" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.182">
-    <testcase name="Status code is 401 or 200" time="0.182" classname="TestScenariosNegativeTestsInvalidToken"/>
-    <testcase name="Response returned" time="0.182" classname="TestScenariosNegativeTestsInvalidToken"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Invalid Token" id="65b9c789-20b8-44ba-a290-be4f5111ec3c" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.183">
+    <testcase name="Status code is 401 or 200" time="0.183" classname="TestScenariosNegativeTestsInvalidToken"/>
+    <testcase name="Response returned" time="0.183" classname="TestScenariosNegativeTestsInvalidToken"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Missing Fields" id="1f9030b4-e2b7-42b8-a03b-a785ffb5cb31" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.188">
-    <testcase name="Status code is 422" time="0.188" classname="TestScenariosNegativeTestsMissingFields"/>
-    <testcase name="Validation error returned" time="0.188" classname="TestScenariosNegativeTestsMissingFields"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Missing Fields" id="1e61f70d-7caf-4959-95a7-28241890cfa3" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.178">
+    <testcase name="Status code is 422" time="0.178" classname="TestScenariosNegativeTestsMissingFields"/>
+    <testcase name="Validation error returned" time="0.178" classname="TestScenariosNegativeTestsMissingFields"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Not Found 404" id="69b56351-6382-433a-95f3-b7729c816135" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.251">
-    <testcase name="Status code is 404" time="0.251" classname="TestScenariosNegativeTestsNotFound404"/>
-    <testcase name="Not found message returned" time="0.251" classname="TestScenariosNegativeTestsNotFound404"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Not Found 404" id="8fa31cb4-c1ce-4717-8edb-8e1913e9ec08" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.181">
+    <testcase name="Status code is 404" time="0.181" classname="TestScenariosNegativeTestsNotFound404"/>
+    <testcase name="Not found message returned" time="0.181" classname="TestScenariosNegativeTestsNotFound404"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Wrong Password" id="c0864e8f-8c3e-4ee5-9d4a-9aee9e9d8ac4" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.370">
-    <testcase name="Status code is 401" time="0.370" classname="TestScenariosNegativeTestsNegativeWrongPassword"/>
-    <testcase name="Response indicates unauthorized" time="0.370" classname="TestScenariosNegativeTestsNegativeWrongPassword"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Wrong Password" id="dfa2a97e-fb87-4245-8ee4-5e2d8d425897" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.368">
+    <testcase name="Status code is 401" time="0.368" classname="TestScenariosNegativeTestsNegativeWrongPassword"/>
+    <testcase name="Response indicates unauthorized" time="0.368" classname="TestScenariosNegativeTestsNegativeWrongPassword"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Duplicate Email" id="5608a2eb-1ade-418b-ae4e-c2052627bf1d" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.182">
-    <testcase name="Status code is 409" time="0.182" classname="TestScenariosNegativeTestsNegativeDuplicateEmail"/>
-    <testcase name="Response indicates conflict" time="0.182" classname="TestScenariosNegativeTestsNegativeDuplicateEmail"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Duplicate Email" id="42e0a168-668e-4a91-bf14-271c4df89530" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.234">
+    <testcase name="Status code is 409" time="0.234" classname="TestScenariosNegativeTestsNegativeDuplicateEmail"/>
+    <testcase name="Response indicates conflict" time="0.234" classname="TestScenariosNegativeTestsNegativeDuplicateEmail"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Invalid Token" id="37f5f588-8c1e-4d51-ad83-df6bb86b6233" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.249">
-    <testcase name="Status code is 401" time="0.249" classname="TestScenariosNegativeTestsNegativeInvalidToken"/>
-    <testcase name="Response indicates unauthorized" time="0.249" classname="TestScenariosNegativeTestsNegativeInvalidToken"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Invalid Token" id="05b696a1-483a-4409-a1d1-f75302f841cf" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.174">
+    <testcase name="Status code is 401" time="0.174" classname="TestScenariosNegativeTestsNegativeInvalidToken"/>
+    <testcase name="Response indicates unauthorized" time="0.174" classname="TestScenariosNegativeTestsNegativeInvalidToken"/>
   </testsuite>
-  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Missing Fields" id="1d5f0d1c-0f08-4b55-9720-b2adcab71e00" timestamp="2026-06-02T18:46:09.375Z" tests="0" failures="0" errors="0" time="0.181"/>
-  <testsuite name="🧪 Test Scenarios / 🔄 Edge Cases / Empty Fields" id="7c0bc3b2-626d-4839-9e34-f99663b4972d" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.304">
-    <testcase name="Status code is 422" time="0.304" classname="TestScenariosEdgeCasesEmptyFields"/>
-    <testcase name="Validation error for empty fields" time="0.304" classname="TestScenariosEdgeCasesEmptyFields"/>
+  <testsuite name="🧪 Test Scenarios / ❌ Negative Tests / Negative — Missing Fields" id="b031b8e6-3cfa-4dd1-a34b-c7cd824cac45" timestamp="2026-06-02T18:49:02.137Z" tests="0" failures="0" errors="0" time="0.184"/>
+  <testsuite name="🧪 Test Scenarios / 🔄 Edge Cases / Empty Fields" id="f5339c57-a408-4e04-9418-9c19d03c4b13" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.178">
+    <testcase name="Status code is 422" time="0.178" classname="TestScenariosEdgeCasesEmptyFields"/>
+    <testcase name="Validation error for empty fields" time="0.178" classname="TestScenariosEdgeCasesEmptyFields"/>
   </testsuite>
-  <testsuite name="Logout" id="d6d7b1ed-a4ca-4143-9318-95e47b7aee61" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.185">
-    <testcase name="Status code is 200" time="0.185" classname="Logout"/>
-    <testcase name="Logout successful" time="0.185" classname="Logout"/>
+  <testsuite name="Logout" id="169461ae-45ca-4232-b244-9a40977e1099" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.181">
+    <testcase name="Status code is 200" time="0.181" classname="Logout"/>
+    <testcase name="Logout successful" time="0.181" classname="Logout"/>
   </testsuite>
-  <testsuite name="Delete Account" id="7625013d-25cf-4eff-9ba8-01ae9e8e72fc" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.180">
-    <testcase name="Account deleted or already gone" time="0.180" classname="DeleteAccount"/>
+  <testsuite name="Delete Account" id="6a354d35-b6f7-4c65-a8de-28614664a10f" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.243">
+    <testcase name="Account deleted or already gone" time="0.243" classname="DeleteAccount"/>
   </testsuite>
-  <testsuite name="⚙️ Environment Variables / README - Setup Guide" id="e1430d14-9a3a-4859-809b-278f7cc466c4" timestamp="2026-06-02T18:46:09.375Z" tests="0" failures="0" errors="0" time="0.181"/>
-  <testsuite name="E2E Test Suite / E2E — Register User" id="5f39498c-e164-4d14-98c5-afb3d78f0fb3" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.523">
-    <testcase name="Status is 201" time="0.523" classname="E2ETestSuiteE2ERegisterUser"/>
+  <testsuite name="⚙️ Environment Variables / README - Setup Guide" id="468fbc26-27be-4db4-a43d-8ea6da1fcd9a" timestamp="2026-06-02T18:49:02.137Z" tests="0" failures="0" errors="0" time="0.176"/>
+  <testsuite name="E2E Test Suite / E2E — Register User" id="60da37fd-e1e9-41b8-9159-c698a9a2ffa9" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.376">
+    <testcase name="Status is 201" time="0.376" classname="E2ETestSuiteE2ERegisterUser"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Login User" id="8d883a72-f131-4bf7-90e9-b1be9f09c5be" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.470">
-    <testcase name="Status is 200" time="0.470" classname="E2ETestSuiteE2ELoginUser"/>
+  <testsuite name="E2E Test Suite / E2E — Login User" id="ed1ef95d-ed4a-43c2-ba4c-0bc04e904375" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.438">
+    <testcase name="Status is 200" time="0.438" classname="E2ETestSuiteE2ELoginUser"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Create Job Application" id="d246b691-2776-4bc6-b9b4-729b9e5132f5" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.186">
-    <testcase name="Status is 201" time="0.186" classname="E2ETestSuiteE2ECreateJobApplication"/>
-    <testcase name="company_name is correct" time="0.186" classname="E2ETestSuiteE2ECreateJobApplication"/>
+  <testsuite name="E2E Test Suite / E2E — Create Job Application" id="7d5f0f78-aeaf-4765-a17a-df97e40cdfed" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.182">
+    <testcase name="Status is 201" time="0.182" classname="E2ETestSuiteE2ECreateJobApplication"/>
+    <testcase name="company_name is correct" time="0.182" classname="E2ETestSuiteE2ECreateJobApplication"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Add Interview Round" id="2b709e8d-57c7-48e3-87dc-787de8df9a05" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.230">
-    <testcase name="Status is 201" time="0.230" classname="E2ETestSuiteE2EAddInterviewRound"/>
-    <testcase name="round_number is 1" time="0.230" classname="E2ETestSuiteE2EAddInterviewRound"/>
+  <testsuite name="E2E Test Suite / E2E — Add Interview Round" id="29d19a88-2b37-46a8-b3b2-5a3d508f1825" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.186">
+    <testcase name="Status is 201" time="0.186" classname="E2ETestSuiteE2EAddInterviewRound"/>
+    <testcase name="round_number is 1" time="0.186" classname="E2ETestSuiteE2EAddInterviewRound"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Update Job Status" id="6b712630-65fb-4a9b-84d0-9253dc46eab0" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.187">
-    <testcase name="Status is 200" time="0.187" classname="E2ETestSuiteE2EUpdateJobStatus"/>
-    <testcase name="status is phone_interview" time="0.187" classname="E2ETestSuiteE2EUpdateJobStatus"/>
+  <testsuite name="E2E Test Suite / E2E — Update Job Status" id="a9c48245-8f7f-4fa1-858c-68db0b9369b7" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.268">
+    <testcase name="Status is 200" time="0.268" classname="E2ETestSuiteE2EUpdateJobStatus"/>
+    <testcase name="status is phone_interview" time="0.268" classname="E2ETestSuiteE2EUpdateJobStatus"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Get All Jobs" id="938c1638-5b0d-4039-8af8-8f5d8b54475f" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.183">
+  <testsuite name="E2E Test Suite / E2E — Get All Jobs" id="c20eed86-0ea4-4b5a-8ded-6deaf97b4f75" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.183">
     <testcase name="Status is 200" time="0.183" classname="E2ETestSuiteE2EGetAllJobs"/>
     <testcase name="Response has paginated shape" time="0.183" classname="E2ETestSuiteE2EGetAllJobs"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Update Profile" id="fac572ca-cb5b-4b0c-81da-987b93fb16d9" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.263">
-    <testcase name="Status is 200" time="0.263" classname="E2ETestSuiteE2EUpdateProfile"/>
-    <testcase name="username is updated" time="0.263" classname="E2ETestSuiteE2EUpdateProfile"/>
+  <testsuite name="E2E Test Suite / E2E — Update Profile" id="9c051429-fb23-44ce-9427-bbf63a31989c" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.181">
+    <testcase name="Status is 200" time="0.181" classname="E2ETestSuiteE2EUpdateProfile"/>
+    <testcase name="username is updated" time="0.181" classname="E2ETestSuiteE2EUpdateProfile"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Delete Job Application" id="ccef5f38-f32d-4997-a0b8-b4f9ad3a6849" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.187">
-    <testcase name="Status is 204" time="0.187" classname="E2ETestSuiteE2EDeleteJobApplication"/>
+  <testsuite name="E2E Test Suite / E2E — Delete Job Application" id="72606619-64a6-4e16-ae5e-fb67e08449ec" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.179">
+    <testcase name="Status is 204" time="0.179" classname="E2ETestSuiteE2EDeleteJobApplication"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Logout" id="4d8dea4c-4cdc-4ec6-990a-fd09e28e5d84" timestamp="2026-06-02T18:46:09.375Z" tests="2" failures="0" errors="0" time="0.181">
-    <testcase name="Status is 200" time="0.181" classname="E2ETestSuiteE2ELogout"/>
-    <testcase name="Logout message returned" time="0.181" classname="E2ETestSuiteE2ELogout"/>
+  <testsuite name="E2E Test Suite / E2E — Logout" id="dad76272-1512-4f97-a897-530712c8cee0" timestamp="2026-06-02T18:49:02.137Z" tests="2" failures="0" errors="0" time="0.247">
+    <testcase name="Status is 200" time="0.247" classname="E2ETestSuiteE2ELogout"/>
+    <testcase name="Logout message returned" time="0.247" classname="E2ETestSuiteE2ELogout"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / E2E — Delete Account" id="e8016115-1d0c-4ea8-bc46-6ec5fc73f765" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.182">
-    <testcase name="Status is 200 or 204" time="0.182" classname="E2ETestSuiteE2EDeleteAccount"/>
+  <testsuite name="E2E Test Suite / E2E — Delete Account" id="470cd155-0e17-45d7-8535-20e0024efb8f" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.179">
+    <testcase name="Status is 200 or 204" time="0.179" classname="E2ETestSuiteE2EDeleteAccount"/>
   </testsuite>
-  <testsuite name="E2E Test Suite / 🧹 CI Cleanup — Delete Test Account" id="77dd6c12-019d-4652-b019-f4c65a313f2e" timestamp="2026-06-02T18:46:09.375Z" tests="1" failures="0" errors="0" time="0.241">
-    <testcase name="Status code is 200, 204, 401, or 404" time="0.241" classname="E2ETestSuiteCiCleanupDeleteTestAccount"/>
+  <testsuite name="E2E Test Suite / 🧹 CI Cleanup — Delete Test Account" id="240df907-04cb-4552-8d2b-e873e8e95293" timestamp="2026-06-02T18:49:02.137Z" tests="1" failures="0" errors="0" time="0.177">
+    <testcase name="Status code is 200, 204, 401, or 404" time="0.177" classname="E2ETestSuiteCiCleanupDeleteTestAccount"/>
   </testsuite>
 </testsuites>
