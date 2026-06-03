@@ -1,4 +1,4 @@
-.PHONY: test test-api test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs bdd bdd-headed test-e2e test-e2e-headed test-e2e-debug test-postman report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
+.PHONY: test test-api test-admin test-ui test-headed test-debug test-chrome test-firefox test-file test-fast test-auth test-jobs bdd bdd-headed test-e2e test-e2e-headed test-e2e-debug test-postman report report-junit codegen codegen-auth codegen-jobs cli-open cli-show cli-snapshot cli-screenshot debug-login debug-dashboard debug-jobs install install-browsers install-skills help
 
 # ============================================================
 # TESTING
@@ -12,6 +12,10 @@ test:
 test-api:
 	API_URL=https://job-tracker-backend-production-7acf.up.railway.app \
 	npx playwright test tests/api/
+
+# Run Admin API tests only
+test-admin:
+	npx playwright test tests/api/admin.spec.ts --reporter=list
 
 # Run UI tests only
 test-ui:
@@ -182,6 +186,7 @@ help:
 	@echo "  TESTING:"
 	@echo "  make test              - Run all tests (2 workers)"
 	@echo "  make test-api          - Run API tests only"
+	@echo "  make test-admin        - Run Admin API tests only"
 	@echo "  make test-ui           - Run UI tests only"
 	@echo "  make test-headed       - Run with visible browser"
 	@echo "  make test-debug        - Run in debug mode"
