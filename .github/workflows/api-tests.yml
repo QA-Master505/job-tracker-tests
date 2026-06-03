@@ -93,6 +93,13 @@ jobs:
           restore-keys: |
             jira-tickets-${{ github.ref_name }}-
 
+      - name: Debug superadmin login
+        run: |
+          curl -s -o /dev/null -w "%{http_code}" \
+            -X POST https://job-tracker-backend-production-7acf.up.railway.app/auth/login \
+            -H "Content-Type: application/json" \
+            -d '{"email":"${{ secrets.SUPERADMIN_EMAIL }}","password":"${{ secrets.SUPERADMIN_PASSWORD }}"}'
+
       - name: Run API tests
         run: npx playwright test tests/api/
         env:
