@@ -16,6 +16,7 @@ const SHARED_USER = {
 };
 
 let authToken = '';
+let ephemeralUser: { email: string; password: string } | null = null;
 
 test.describe('User Journey E2E', () => {
   test.beforeAll(async ({ request }) => {
@@ -28,7 +29,7 @@ test.describe('User Journey E2E', () => {
   });
 
   test.afterAll(async ({ request }) => {
-    // newUser created in test 1 cannot be cleaned up — its token was not stored at suite level
+    if (ephemeralUser) await deleteTestUser(request, ephemeralUser.email, ephemeralUser.password);
     await deleteTestUser(request, SHARED_USER.email, SHARED_USER.password);
   });
 
@@ -39,6 +40,7 @@ test.describe('User Journey E2E', () => {
       username: `e2ereg_${ts}`,
       password: 'Test123!',
     };
+    ephemeralUser = { email: newUser.email, password: newUser.password };
 
     // Register via UI
     const registerPage = new RegisterPage(page);

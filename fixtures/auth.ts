@@ -75,37 +75,60 @@ export async function createTestUser(request: APIRequestContext): Promise<TestUs
   );
 }
 
-/**
- * Deletes the test user via DELETE /users/me.
- *
- * Auth priority:
- *   1. Cookie header  — uses cookieHeader if provided (preferred)
- *   2. Bearer token   — falls back to a fresh login + access_token from body
- *
- * Always silent — errors are swallowed so afterAll hooks never mask real failures.
- */
 export async function deleteTestUser(
   request: APIRequestContext,
   email: string,
   password: string,
   cookieHeader?: string,
 ): Promise<void> {
-  try {
-    let authHeaders: Record<string, string>;
+  const MAX_ATTEMPTS = 3;
+  const RETRY_DELAY_MS = 2000;
+  const TIMEOUT_MS = 10000;
 
-    if (cookieHeader) {
-      authHeaders = { Cookie: cookieHeader };
-    } else {
-      const loginRes = await request.post(`${API_URL}/auth/login`, {
-        data: { email, password },
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      let authHeaders: Record<string, string>;
+
+      if (cookieHeader) {
+        authHeaders = { Cookie: cookieHeader };
+      } else {
+        const loginRes = await request.post(`${API_URL}/auth/login`, {
+          data: { email, password },
+          timeout: TIMEOUT_MS,
+        });
+        if (!loginRes.ok()) {
+          console.warn(`[cleanup] login failed (${loginRes.status()}) for ${email} — attempt ${attempt}/${MAX_ATTEMPTS}`);
+          if (attempt < MAX_ATTEMPTS) await new Promise(r => setTimeout(r, RETRY_DELAY_MS));
+          continue;
+        }
+        const { access_token } = await loginRes.json();
+        authHeaders = { Authorization: `Bearer ${access_token}` };
+      }
+
+      const deleteRes = await request.delete(`${API_URL}/users/me`, {
+        headers: authHeaders,
+        timeout: TIMEOUT_MS,
       });
-      if (!loginRes.ok()) return;
-      const { access_token } = await loginRes.json();
-      authHeaders = { Authorization: `Bearer ${access_token}` };
-    }
 
-    await request.delete(`${API_URL}/users/me`, { headers: authHeaders });
-  } catch {
-    // silently ignore — user may not exist or test failed before creation
+      if (deleteRes.status() === 204 || deleteRes.status() === 200) {
+        const verifyRes = await request.get(`${API_URL}/auth/me`, {
+          headers: authHeaders,
+          timeout: TIMEOUT_MS,
+        });
+        if (verifyRes.status() !== 200) return; // confirmed gone ✓
+        console.warn(`[cleanup] DELETE returned ${deleteRes.status()} but ${email} still responds to GET /auth/me — retrying`);
+      } else if (deleteRes.status() === 404) {
+        return; // already gone ✓
+      } else {
+        console.warn(`[cleanup] DELETE /users/me returned ${deleteRes.status()} for ${email} — attempt ${attempt}/${MAX_ATTEMPTS}`);
+      }
+
+      if (attempt < MAX_ATTEMPTS) await new Promise(r => setTimeout(r, RETRY_DELAY_MS));
+    } catch (err) {
+      console.warn(`[cleanup] ⚠️  attempt ${attempt}/${MAX_ATTEMPTS} threw for ${email}: ${(err as Error).message}`);
+      if (attempt < MAX_ATTEMPTS) await new Promise(r => setTimeout(r, RETRY_DELAY_MS));
+    }
   }
+
+  console.warn(`[cleanup] ⚠️  could not delete test user ${email} after ${MAX_ATTEMPTS} attempts — manual cleanup may be required`);
 }

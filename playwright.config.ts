@@ -40,7 +40,7 @@ export default defineConfig({
 
   use: {
     /* Base URL */
-    baseURL: process.env.BASE_URL || 'http://localhost:5173',
+    baseURL: process.env.BASE_URL || 'https://job-tracker-frontend-green-sigma.vercel.app',
 
     extraHTTPHeaders: {
       'Accept': 'application/json',
