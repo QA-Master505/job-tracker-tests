@@ -75,6 +75,16 @@ jobs:
           source .venv/bin/activate
           alembic upgrade head
 
+      - name: Seed CI superadmin
+        working-directory: ../job-tracker-backend
+        env:
+          DATABASE_URL: postgresql://postgres:password@localhost:5432/job_tracker_db
+          CI_SUPERADMIN_EMAIL: ${{ secrets.CI_SUPERADMIN_EMAIL }}
+          CI_SUPERADMIN_PASSWORD: ${{ secrets.CI_SUPERADMIN_PASSWORD }}
+        run: |
+          source .venv/bin/activate
+          python scripts/seed_ci_superadmin.py
+
       - name: Start backend server
         working-directory: ../job-tracker-backend
         env:
@@ -109,7 +119,7 @@ jobs:
             jira-tickets-${{ github.ref_name }}-
 
       - name: Run API tests
-        run: npx playwright test tests/api/
+        run: npx playwright test tests/api/auth.api.spec.ts tests/api/jobs.api.spec.ts tests/api/interview-rounds.api.spec.ts tests/api/admin.spec.ts
         env:
           CI: true
           API_URL: http://localhost:8000
@@ -126,6 +136,8 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
           JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+          SUPERADMIN_EMAIL: ${{ secrets.CI_SUPERADMIN_EMAIL }}
+          SUPERADMIN_PASSWORD: ${{ secrets.CI_SUPERADMIN_PASSWORD }}
 
       - name: Save Jira ticket cache
         if: always()
