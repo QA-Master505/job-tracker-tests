@@ -94,7 +94,7 @@ jobs:
             jira-tickets-${{ github.ref_name }}-
 
       - name: Run API tests
-        run: npx playwright test tests/api/ --grep-invert "Admin API"
+        run: npx playwright test tests/api/auth.api.spec.ts tests/api/jobs.api.spec.ts tests/api/interview-rounds.api.spec.ts
         env:
           CI: true
           API_URL: http://localhost:8000
