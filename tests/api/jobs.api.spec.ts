@@ -93,6 +93,6 @@ test.describe('Jobs API', () => {
 
   test('DELETE /jobs/:id — should return 404 for non-existent job', async ({ request }) => {
     const response = await deleteJob(request, token, '999999');
-    expect(response.status()).toBe(200);
+    expect(response.status()).toBe(404);
   });
 });
