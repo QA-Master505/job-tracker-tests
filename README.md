@@ -95,16 +95,16 @@ management, and a live Allure report.
 
 ## 🧪 Test Suites
 
-| Suite            | Framework                    | Tests          | Location                        |
-|------------------|------------------------------|----------------|---------------------------------|
-| API Tests        | Playwright APIRequestContext  | 21             | `tests/api/`                    |
-| Admin API Tests  | Playwright APIRequestContext  | 23             | `tests/api/admin.spec.ts`       |
-| BDD Tests        | Cucumber + Playwright         | 9              | `tests/bdd/`                    |
-| E2E Tests        | Playwright Chromium           | 6              | `tests/e2e/`                    |
-| UI Spec Tests    | Playwright Chromium           | 25 (1 skipped) | `tests/ui/`                     |
-| Postman / Newman | Newman CLI                   | 52             | `postman/`                      |
-| Database Tests   | pytest + SQLAlchemy           | TBD            | `job-tracker-backend/tests/db/` |
-| **Total**        |                              | **136+**       |                                 |
+| Suite            | Framework                    | Tests                       | Location                        |
+|------------------|------------------------------|-----------------------------|---------------------------------|
+| API Tests        | Playwright APIRequestContext  | 25                          | `tests/api/`                    |
+| Admin API Tests  | Playwright APIRequestContext  | 23                          | `tests/api/admin.spec.ts`       |
+| BDD Tests        | Cucumber + Playwright         | 9 scenarios (48 steps)      | `tests/bdd/`                    |
+| E2E Tests        | Playwright Chromium           | 6                           | `tests/e2e/`                    |
+| UI Spec Tests    | Playwright Chromium           | 26                          | `tests/ui/`                     |
+| Postman / Newman | Newman CLI                   | 53 requests · 84 assertions | `postman/`                      |
+| Database Tests   | pytest + SQLAlchemy           | TBD                         | `job-tracker-backend/tests/db/` |
+| **Total**        |                              | **136+**                    |                                 |
 
 > ⚠️ Database automation tests live in the `job-tracker-backend` repository
 > under `tests/db/` and are not executed from this repo. The count will be
@@ -112,6 +112,10 @@ management, and a live Allure report.
 >
 > Admin API Tests run separately from the main API suite via their own CI
 > workflow (`admin-tests.yml`) because they require a seeded superadmin account.
+>
+> BDD count shows 9 scenarios (the Gherkin-level test count). Allure reports 48
+> because it counts individual Gherkin steps. Postman count shows 53 requests
+> executed with 84 assertions verified.
 
 ---
 
