@@ -121,6 +121,14 @@ or deletes made during the test.
 
 ---
 
+### Exception — `test_admin_service.py`
+
+Admin service functions (`update_user_role`, `toggle_user_status`, `delete_user_by_id`)
+call `db.commit()` internally. The rollback fixture cannot undo a committed transaction,
+so `test_admin_service.py` uses **explicit cleanup** instead — a `try/finally` block
+that deletes inserted rows and commits the deletion after each test. A shared
+`admin_test_users` fixture manages actor and target user lifecycle across all four tests.
+
 ## Test Plan — File by File
 
 ### `tests/db/test_user_model.py`
@@ -171,10 +179,12 @@ Verifies query correctness: pagination, aggregation, and filtering logic.
 
 | Test ID | Test Name | What It Verifies |
 |---------|-----------|------------------|
-| DB-A-Q-01 | Pagination offset/limit | `get_jobs_paginated` returns the correct slice of results |
-| DB-A-Q-02 | `round_number` MAX+1 | Second interview round gets `round_number = 2` automatically |
-| DB-A-Q-03 | Job count aggregation | `job_count` matches actual row count per user |
-| DB-A-Q-04 | Filter by `user_id` | Jobs returned belong only to the requesting user |
+| DB-A-Q-01 | Insert and retrieve user | Basic ORM write/read path works end to end |
+| DB-A-Q-02 | Filter user by field | `.filter_by()` returns correct record, None for no match |
+| DB-A-Q-03 | Deleted user is not retrievable | ORM delete propagates correctly through session |
+| DB-A-Q-04 | Pagination offset/limit | `get_jobs_paginated` returns correct slice, total, and metadata |
+| DB-A-Q-05 | Job count aggregation | `func.count` result matches actual row count per user |
+| DB-A-Q-06 | Filter jobs by user_id | Jobs returned belong only to the requesting user |
 
 ---
 
@@ -236,3 +246,20 @@ was first discovered during manual database testing (`DB-M-06` in
 It is now formally automated in `test_job_model.py` to prevent regression —
 ensuring that if a future migration ever adds a `CHECK` constraint or native
 enum, the test suite detects the change rather than silently passing.
+
+---
+
+## Test Results
+
+All 23 DB automation tests pass against Docker PostgreSQL (port 5433).
+
+| File | Tests | Status |
+|------|-------|--------|
+| `test_user_model.py` | 5 | ✅ Complete |
+| `test_job_model.py` | 5 | ✅ Complete |
+| `test_migrations.py` | 3 | ✅ Complete |
+| `test_queries.py` | 6 | ✅ Complete |
+| `test_admin_service.py` | 4 | ✅ Complete |
+| **Total** | **23** | ✅ All passing |
+
+Last verified: June 2026 against PostgreSQL 15 via Docker on port 5433.
