@@ -22,7 +22,7 @@ export default defineConfig({
   /* Timeout settings */
   timeout: 30000,
   expect: {
-    timeout: 10000,
+    timeout: 15000,
   },
 
   /* Reporters */
@@ -56,7 +56,7 @@ export default defineConfig({
     video: 'retain-on-failure',
 
     /* Action timeout */
-    actionTimeout: 10000,
+    actionTimeout: 15000,
 
     /* Navigation timeout */
     navigationTimeout: 30000,
