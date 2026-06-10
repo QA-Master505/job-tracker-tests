@@ -136,7 +136,7 @@ execution commands for that specific suite.
 | Postman / Newman          | ✅ Complete    | [README-postman-newman-tests.md](docs/README-postman-newman-tests.md)           |
 | Database Manual Tests     | ✅ Complete    | [README-database-manual-tests.md](docs/README-database-manual-tests.md)         |
 | Database Automation Tests | ✅ Complete    | [README-database-automation-tests.md](docs/README-database-automation-tests.md) |
-| Security Defence & Pen Testing | ✅ Complete | [README-security-defence-testing.md](docs/README-security-defence-testing.md) |
+| Security Defence Testing  | 🚧 In progress | [README-security-defence-testing.md](docs/README-security-defence-testing.md) |
 
 > All links above are relative — they resolve correctly on GitHub without absolute URLs.
 
@@ -187,6 +187,14 @@ query correctness — things SQLite cannot test accurately. Uses a
 rollback-after-every-test fixture for full isolation. Lives in the backend repo
 because it imports directly from `app/`.
 
+### Security Defence Testing — `docs/README-security-defence-testing.md`
+Manual and automated security verification covering XSS defence (input sanitisation,
+React JSX auto-escaping, `javascript:` and `data:` protocol blocklist), HTTP security
+headers deployed via `vercel.json` (CSP, X-Frame-Options, X-Content-Type-Options,
+Referrer-Policy, Permissions-Policy), and the two-layer validation model (Pydantic at
+HTTP layer, PostgreSQL at DB layer). Documents the security audit methodology and
+findings.
+
 ---
 
 ## 🗂️ docs/ File Index
@@ -198,6 +206,7 @@ because it imports directly from `app/`.
 | `README-e2e-tests.md`                 | ✅ Complete    | Playwright E2E suite — 6 tests across 2 spec files, POM walkthrough, UI + API cross-validation |
 | `README-ui-spec-tests.md`             | ✅ Complete    | Playwright UI spec suite — 26 tests across 7 spec files, selector strategy, testid reference |
 | `README-postman-newman-tests.md`      | ✅ Complete    | Postman collection and Newman CLI — 53 requests, 84 assertions, 4-phase build narrative, CI/CD integration |
+| `README-security-defence-testing.md`  | 🚧 In progress | XSS defence audit, HTTP security headers, input validation layer verification |
 | `README-database-manual-tests.md`     | ✅ Complete    | TablePlus manual DB tests — 8 test cases, SQL queries, findings                   |
 | `README-database-automation-tests.md` | ✅ Complete    | pytest + SQLAlchemy DB automation — Docker setup, rollback pattern, 20 test cases |
 
