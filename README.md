@@ -29,6 +29,7 @@ management, and a live Allure report.
 | See the live Allure report         | [qa-master505.github.io/job-tracker-tests](https://qa-master505.github.io/job-tracker-tests/)  |
 | Find the backend or frontend repos | [`## 🔗 Related Repositories`](#-related-repositories)                                          |
 | Read database test documentation   | [README-database-automation-tests.md](docs/README-database-automation-tests.md)                 |
+| Understand the security defence mechanisms | [`docs/README-security-defence-testing.md`](docs/README-security-defence-testing.md) |
 
 ---
 
@@ -135,6 +136,7 @@ execution commands for that specific suite.
 | Postman / Newman          | 🚧 In progress | [README-postman-newman-tests.md](docs/README-postman-newman-tests.md)           |
 | Database Manual Tests     | ✅ Complete    | [README-database-manual-tests.md](docs/README-database-manual-tests.md)         |
 | Database Automation Tests | ✅ Complete    | [README-database-automation-tests.md](docs/README-database-automation-tests.md) |
+| Security Defence & Pen Testing | ✅ Complete | [README-security-defence-testing.md](docs/README-security-defence-testing.md) |
 
 > All links above are relative — they resolve correctly on GitHub without absolute URLs.
 
