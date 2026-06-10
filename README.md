@@ -131,7 +131,7 @@ execution commands for that specific suite.
 | API Tests                 | ✅ Complete    | [README-api-tests.md](docs/README-api-tests.md)                                 |
 | Admin API Tests           | ✅ Complete    | [README-api-tests.md](docs/README-api-tests.md)                                 |
 | BDD Tests                 | ✅ Complete    | [README-bdd-tests.md](docs/README-bdd-tests.md)                                 |
-| E2E Tests                 | 🚧 In progress | [README-e2e-tests.md](docs/README-e2e-tests.md)                                 |
+| E2E Tests                 | ✅ Complete    | [README-e2e-tests.md](docs/README-e2e-tests.md)                                 |
 | UI Spec Tests             | 🚧 In progress | [README-ui-spec-tests.md](docs/README-ui-spec-tests.md)                         |
 | Postman / Newman          | 🚧 In progress | [README-postman-newman-tests.md](docs/README-postman-newman-tests.md)           |
 | Database Manual Tests     | ✅ Complete    | [README-database-manual-tests.md](docs/README-database-manual-tests.md)         |
@@ -195,7 +195,7 @@ because it imports directly from `app/`.
 |---------------------------------------|----------------|-----------------------------------------------------------------------------------|
 | `README-api-tests.md`                 | ✅ Complete    | Playwright API + Admin test suite documentation — 25 API tests + 23 Admin tests   |
 | `README-bdd-tests.md`                 | ✅ Complete    | Cucumber BDD suite — 9 Gherkin scenarios, 3 feature files, infrastructure walkthrough |
-| `README-e2e-tests.md`                 | 🚧 In progress | E2E journey test documentation                                                    |
+| `README-e2e-tests.md`                 | ✅ Complete    | Playwright E2E suite — 6 tests across 2 spec files, POM walkthrough, UI + API cross-validation |
 | `README-ui-spec-tests.md`             | 🚧 In progress | UI spec test documentation                                                        |
 | `README-postman-newman-tests.md`      | 🚧 In progress | Postman collection and Newman execution documentation                             |
 | `README-database-manual-tests.md`     | ✅ Complete    | TablePlus manual DB tests — 8 test cases, SQL queries, findings                   |
@@ -504,7 +504,7 @@ job-tracker-tests/
 ├── docs/
 │   ├── README-api-tests.md                  # 🚧 API + Admin test documentation
 │   ├── README-bdd-tests.md                  # ✅ BDD suite documentation
-│   ├── README-e2e-tests.md                  # 🚧 E2E test documentation
+│   ├── README-e2e-tests.md                  # ✅ E2E test documentation
 │   ├── README-ui-spec-tests.md              # 🚧 UI spec test documentation
 │   ├── README-postman-newman-tests.md       # 🚧 Postman/Newman documentation
 │   ├── README-database-manual-tests.md      # ✅ Manual DB tests (TablePlus)
