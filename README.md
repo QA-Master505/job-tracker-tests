@@ -1,5 +1,10 @@
 # Job Tracker — QA Automation Platform
 
+[![CI](https://github.com/QA-Master505/job-tracker-tests/actions/workflows/api-tests.yml/badge.svg)](https://github.com/QA-Master505/job-tracker-tests/actions/workflows/api-tests.yml)
+[![Allure Report](https://img.shields.io/badge/Allure-Report-brightgreen?logo=github)](https://qa-master505.github.io/job-tracker-tests/)
+[![GitHub last commit](https://img.shields.io/github/last-commit/QA-Master505/job-tracker-tests)](https://github.com/QA-Master505/job-tracker-tests/commits/main)
+[![GitHub repo size](https://img.shields.io/github/repo-size/QA-Master505/job-tracker-tests)](https://github.com/QA-Master505/job-tracker-tests)
+
 A full-stack QA automation platform for the
 [Job Tracker](https://job-tracker-frontend-green-sigma.vercel.app)
 application, built with Playwright, Cucumber BDD, Newman/Postman,
