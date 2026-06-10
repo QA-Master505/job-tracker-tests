@@ -222,23 +222,67 @@ npx playwright install --with-deps chromium
 
 ## 🏃 Running Tests
 
-| Command                | Description                                                          |
-|------------------------|----------------------------------------------------------------------|
-| `make test`            | Run all Playwright tests                                             |
-| `make test-api`        | Run API tests against production backend                             |
-| `make test-admin`      | Run Admin API tests (requires superadmin credentials in `.env.test`) |
-| `make test-ui-spec`    | Run UI spec tests against production                                 |
-| `make test-e2e`        | Run E2E tests against production                                     |
-| `make test-e2e-headed` | Run E2E with visible browser                                         |
-| `make test-e2e-debug`  | Run E2E in debug mode                                                |
-| `make bdd`             | Run BDD Cucumber tests                                               |
-| `make bdd-headed`      | Run BDD with visible browser                                         |
-| `make test-postman`    | Run Newman / Postman collection against production                   |
+All test commands are available via `make`. Run `make help` to see the full reference.
 
-> Run `make help` to see all available commands.
+### Test Suite Commands
 
-All `test-api`, `test-ui-spec`, and `test-e2e*` targets load `API_URL` and
-`BASE_URL` from `.env.test` automatically.
+| Command | What It Runs | Target |
+|---------|-------------|--------|
+| `make test` | All Playwright tests | Production |
+| `make test-api` | API tests (auth + jobs + interviews) | Local backend required |
+| `make test-admin` | Admin API tests | Local backend + superadmin seed required |
+| `make test-ui` | UI spec tests | Production |
+| `make test-e2e` | E2E tests | Production |
+| `make test-e2e-headed` | E2E tests with visible browser | Production |
+| `make test-e2e-debug` | E2E tests in debug mode | Production |
+| `make test-postman` | Newman / Postman collection | Production |
+| `make bdd` | Cucumber BDD tests | Production |
+| `make bdd-headed` | BDD tests with visible browser | Production |
+| `make test-auth` | Auth tests only | Local backend required |
+| `make test-jobs` | Jobs tests only | Local backend required |
+
+### Reporting Commands
+
+| Command | Description |
+|---------|-------------|
+| `make report` | Open the last Playwright HTML report |
+
+### Debug & Tooling Commands
+
+| Command | Description |
+|---------|-------------|
+| `make codegen` | Launch Playwright codegen against production |
+| `make test-debug` | Run all tests in Playwright debug mode |
+| `make install-browsers` | Install Playwright browser binaries |
+
+### Setup
+
+```bash
+npm install
+make install-browsers
+```
+
+Environment variables are loaded from `.env.test` for local runs. Copy the example and fill in values:
+
+```bash
+cp .env.test.example .env.test
+```
+
+See ⚙️ Environment Variables for the full variable reference.
+
+### Docker Note
+
+The tests repo itself does not require Docker. However, `make test-api` and `make test-admin`
+require the backend to be running locally. The fastest way to spin up the backend with its
+database is via Docker Compose in the `job-tracker-backend` repo:
+
+```bash
+# In job-tracker-backend/
+make docker-up
+```
+
+This starts PostgreSQL and the FastAPI server together. Once running, `make test-api` and
+`make test-admin` will connect to `http://localhost:8000`.
 
 ---
 
