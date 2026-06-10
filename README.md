@@ -104,8 +104,8 @@ management, and a live Allure report.
 | E2E Tests        | Playwright Chromium           | 6                           | `tests/e2e/`                    |
 | UI Spec Tests    | Playwright Chromium           | 26                          | `tests/ui/`                     |
 | Postman / Newman | Newman CLI                   | 53 requests · 84 assertions | `postman/`                      |
-| Database Tests   | pytest + SQLAlchemy           | TBD                         | `job-tracker-backend/tests/db/` |
-| **Total**        |                              | **136+**                    |                                 |
+| Database Tests   | pytest + SQLAlchemy           | 23                          | `job-tracker-backend/tests/db/` |
+| **Total**        |                              | **171+**                    |                                 |
 
 > ⚠️ Database automation tests live in the `job-tracker-backend` repository
 > under `tests/db/` and are not executed from this repo. The count will be
@@ -128,8 +128,8 @@ execution commands for that specific suite.
 
 | Suite                     | Status         | Documentation                                                                   |
 |---------------------------|----------------|---------------------------------------------------------------------------------|
-| API Tests                 | 🚧 In progress | [README-api-tests.md](docs/README-api-tests.md)                                 |
-| Admin API Tests           | 🚧 In progress | [README-api-tests.md](docs/README-api-tests.md)                                 |
+| API Tests                 | ✅ Complete    | [README-api-tests.md](docs/README-api-tests.md)                                 |
+| Admin API Tests           | ✅ Complete    | [README-api-tests.md](docs/README-api-tests.md)                                 |
 | BDD Tests                 | 🚧 In progress | [README-bdd-tests.md](docs/README-bdd-tests.md)                                 |
 | E2E Tests                 | 🚧 In progress | [README-e2e-tests.md](docs/README-e2e-tests.md)                                 |
 | UI Spec Tests             | 🚧 In progress | [README-ui-spec-tests.md](docs/README-ui-spec-tests.md)                         |
@@ -193,7 +193,7 @@ because it imports directly from `app/`.
 
 | File                                  | Status         | Contents                                                                          |
 |---------------------------------------|----------------|-----------------------------------------------------------------------------------|
-| `README-api-tests.md`                 | 🚧 In progress | Playwright API + Admin test suite documentation                                   |
+| `README-api-tests.md`                 | ✅ Complete    | Playwright API + Admin test suite documentation — 25 API tests + 23 Admin tests   |
 | `README-bdd-tests.md`                 | 🚧 In progress | Cucumber BDD suite documentation                                                  |
 | `README-e2e-tests.md`                 | 🚧 In progress | E2E journey test documentation                                                    |
 | `README-ui-spec-tests.md`             | 🚧 In progress | UI spec test documentation                                                        |
