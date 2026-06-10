@@ -133,7 +133,7 @@ execution commands for that specific suite.
 | BDD Tests                 | ✅ Complete    | [README-bdd-tests.md](docs/README-bdd-tests.md)                                 |
 | E2E Tests                 | ✅ Complete    | [README-e2e-tests.md](docs/README-e2e-tests.md)                                 |
 | UI Spec Tests             | ✅ Complete    | [README-ui-spec-tests.md](docs/README-ui-spec-tests.md)                         |
-| Postman / Newman          | 🚧 In progress | [README-postman-newman-tests.md](docs/README-postman-newman-tests.md)           |
+| Postman / Newman          | ✅ Complete    | [README-postman-newman-tests.md](docs/README-postman-newman-tests.md)           |
 | Database Manual Tests     | ✅ Complete    | [README-database-manual-tests.md](docs/README-database-manual-tests.md)         |
 | Database Automation Tests | ✅ Complete    | [README-database-automation-tests.md](docs/README-database-automation-tests.md) |
 | Security Defence & Pen Testing | ✅ Complete | [README-security-defence-testing.md](docs/README-security-defence-testing.md) |
@@ -197,7 +197,7 @@ because it imports directly from `app/`.
 | `README-bdd-tests.md`                 | ✅ Complete    | Cucumber BDD suite — 9 Gherkin scenarios, 3 feature files, infrastructure walkthrough |
 | `README-e2e-tests.md`                 | ✅ Complete    | Playwright E2E suite — 6 tests across 2 spec files, POM walkthrough, UI + API cross-validation |
 | `README-ui-spec-tests.md`             | ✅ Complete    | Playwright UI spec suite — 26 tests across 7 spec files, selector strategy, testid reference |
-| `README-postman-newman-tests.md`      | 🚧 In progress | Postman collection and Newman execution documentation                             |
+| `README-postman-newman-tests.md`      | ✅ Complete    | Postman collection and Newman CLI — 53 requests, 84 assertions, 4-phase build narrative, CI/CD integration |
 | `README-database-manual-tests.md`     | ✅ Complete    | TablePlus manual DB tests — 8 test cases, SQL queries, findings                   |
 | `README-database-automation-tests.md` | ✅ Complete    | pytest + SQLAlchemy DB automation — Docker setup, rollback pattern, 20 test cases |
 
@@ -506,7 +506,7 @@ job-tracker-tests/
 │   ├── README-bdd-tests.md                  # ✅ BDD suite documentation
 │   ├── README-e2e-tests.md                  # ✅ E2E test documentation
 │   ├── README-ui-spec-tests.md              # ✅ UI spec test documentation
-│   ├── README-postman-newman-tests.md       # 🚧 Postman/Newman documentation
+│   ├── README-postman-newman-tests.md       # ✅ Postman/Newman documentation
 │   ├── README-database-manual-tests.md      # ✅ Manual DB tests (TablePlus)
 │   └── README-database-automation-tests.md  # ✅ DB automation (pytest + SQLAlchemy)
 │
