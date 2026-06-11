@@ -555,6 +555,169 @@ mean failures are visible immediately, not discovered days later.
 
 ---
 
+## 🐳 Why Docker for Database Testing
+
+### The Problem: "Works on My Machine"
+
+Database testing has a fundamental challenge. You need to verify that data is stored
+correctly and that the database itself enforces its constraints — NOT NULL, UNIQUE,
+foreign keys, CASCADE delete chains. This is critical testing that cannot be done with
+mocks or in-memory SQLite.
+
+But here is the catch: PostgreSQL running on your local machine might be a different
+version than PostgreSQL in production. The configuration might be different. The system
+libraries might be different. A test that passes locally could fail in production for
+reasons that have nothing to do with your code — they are environmental differences.
+
+This is the classic problem: "works on my machine but fails in CI."
+
+---
+
+### Why Not Just Use Local PostgreSQL?
+
+You might ask — why not install PostgreSQL locally and connect to it for testing?
+Technically, you could. But there are practical problems.
+
+**Problem 1: Version Management**
+If you install PostgreSQL 14 locally but production runs PostgreSQL 15, you are testing
+against a different database. Some constraint behaviours, performance characteristics,
+and features differ between versions. A test that passes against PostgreSQL 14 might
+fail against PostgreSQL 15. You would not know until CI runs.
+
+**Problem 2: Configuration Drift**
+Your local PostgreSQL instance has your personal configuration. A teammate's installation
+has theirs. The CI environment has yet another. Three different configurations, three
+different test results. Debugging which environment caused a failure becomes a guessing
+game.
+
+**Problem 3: Test Isolation**
+Running tests against a local PostgreSQL instance means data from one test run can leak
+into the next. You have to manually clean up. Or you risk one test failing because of
+leftover data from a previous test. With multiple people running tests against the same
+local instance, test interference becomes inevitable.
+
+**Problem 4: Reproducibility**
+If a test fails in CI but passes locally, the only way to debug is to recreate the exact
+CI environment on your machine. That is hard with a locally installed database. With
+Docker, you run the exact same container locally and in CI — no guessing.
+
+---
+
+### The Docker Solution
+
+Docker solves all four problems at once.
+
+A Docker container is a self-contained environment — it includes PostgreSQL, system
+libraries, configuration, and everything else needed to run the database. You build the
+image once. That same image runs identically on your machine, a teammate's machine, and
+the CI server. No version drift. No configuration drift. No surprises.
+
+For database testing specifically, the workflow is:
+
+1. Start Docker container with PostgreSQL on port 5433 (isolated from any local PostgreSQL on 5432)
+2. Run pytest database tests against that container
+3. Tests connect to the same environment everywhere — local, CI, any machine
+4. Container stops, database is gone, next test run starts fresh
+
+No test data pollution, no state leakage, no manual cleanup.
+
+---
+
+### Why This Project Uses Docker — The Specific Decision
+
+In the Job Tracker project, database testing is non-negotiable. You need to verify:
+
+- NOT NULL and UNIQUE constraints are enforced
+- Foreign key relationships cascade correctly
+- Invalid data cannot be inserted if the API is bypassed
+- The varchar schema gap (status column as text instead of enum) is caught and regressed against
+
+**These constraints are PostgreSQL-specific.** SQLite enforces them differently — in
+fact, SQLite is much more permissive and would not catch many of these gaps at all.
+
+Testing against SQLite locally and PostgreSQL in production would give false confidence.
+You would think you tested the constraint behaviour, but actually you only tested
+SQLite's permissive behaviour. Real PostgreSQL constraint violations would not surface
+until production.
+
+**The decision: Docker PostgreSQL for all database tests, everywhere — local and CI.**
+
+This means:
+
+- Database tests run against real PostgreSQL, not an in-memory mock
+- The exact same PostgreSQL version and configuration runs locally and in CI
+- Test failures are caught immediately, locally, where they are cheapest to fix
+- There is no environment surprise when code moves from local to CI to production
+- Every developer and CI machine runs tests against identical infrastructure
+
+| | SQLite (in-memory) | Local PostgreSQL | Docker PostgreSQL |
+|---|---|---|---|
+| FK constraints enforced by default | No | Yes | Yes |
+| Matches production engine exactly | No | Version-dependent | Yes — pinned to `postgres:15` |
+| Consistent across all machines | No | No | Yes |
+| Zero manual cleanup between runs | Yes | No | Yes |
+| CI-compatible without extra setup | Yes | No | Yes |
+
+---
+
+### How It Works in This Project
+
+**First-time setup** — create the container once:
+
+```bash
+docker run --name job-tracker-db-test \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=job_tracker_test \
+  -p 5433:5432 \
+  -d postgres:15
+```
+
+> Port 5433 is used deliberately — it avoids conflicts with any local PostgreSQL
+> instance already running on the default port 5432.
+
+**Local workflow** — start, test, stop:
+
+```bash
+# Start the isolated test database container
+docker start job-tracker-db-test
+
+# Run database tests against it
+DATABASE_URL=postgresql://postgres:postgres@localhost:5433/job_tracker_test pytest tests/db/ -v
+
+# Container stays running until you stop it
+docker stop job-tracker-db-test
+```
+
+**CI setup (GitHub Actions):**
+
+GitHub Actions runs the PostgreSQL container as a [service container](https://docs.github.com/en/actions/using-containerized-services/about-service-containers) — the database starts automatically before the test job runs, connects on port 5433, and is torn down after the workflow completes. No manual start or stop required.
+
+```bash
+# Tests connect to the same port 5433, same configuration, same image
+pytest tests/db/ -v
+```
+
+Same tests. Same database. Same results everywhere.
+
+---
+
+### The Key Insight
+
+Docker is not about convenience or looking sophisticated. It is about **correctness and
+confidence**.
+
+Without Docker, you are testing against a moving target — your environment might differ
+from CI, which might differ from production. Tests pass locally, fail in CI, and you
+spend hours debugging environmental differences instead of actual bugs.
+
+With Docker, you test against a locked, identical environment everywhere. Failures are
+real failures in your code, not environmental surprises.
+
+That is why Docker belongs in this project.
+
+---
+
 ## 🗂️ docs/ File Index
 
 | File                                  | Status         | Contents                                                                          |
