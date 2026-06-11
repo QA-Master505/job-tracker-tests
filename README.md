@@ -718,6 +718,59 @@ That is why Docker belongs in this project.
 
 ---
 
+## 📸 Project Screenshots
+
+---
+
+### Live Application — Dashboard
+
+The production frontend deployed on Vercel. Tracks job applications 
+with status filters, interview rounds, and pagination.
+
+![Live App Dashboard](docs/images/live-app-dashboard.png)
+
+---
+
+### CI Pipeline — Full Test Suite Passing
+
+GitHub Actions running all five test suites in a single workflow. 
+All jobs green. Total duration under 2 minutes.
+
+![CI Full Suite Passing](docs/images/ci-full-suite-passing.png)
+
+---
+
+### Allure Report + Slack Notifications
+
+173 test cases at 100% pass rate. Slack notifications delivered 
+automatically to the qa-automation channel after every CI run — 
+with per-suite results and a direct link to the Allure report.
+
+![Allure Report and Slack Notifications](docs/images/allure-report-slack-notifications.png)
+
+---
+
+### Jira Auto-Ticket + Auto-Close
+
+When a test fails, a Jira ticket is created automatically with the 
+error details and a link to the GitHub Actions run. When the test 
+passes again, the ticket is closed automatically. Full bug lifecycle 
+without any manual intervention.
+
+![Jira Auto Ticket and Slack Auto Close](docs/images/jira-auto-ticket-slack-auto-close.png)
+
+---
+
+### Security Headers — vercel.json
+
+Five HTTP security headers deployed at the CDN layer via vercel.json. 
+CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, and 
+Permissions-Policy — all verified live in production.
+
+![Security Headers VS Code](docs/images/security-headers-vscode.png)
+
+---
+
 ## 🗂️ docs/ File Index
 
 | File                                  | Status         | Contents                                                                          |
