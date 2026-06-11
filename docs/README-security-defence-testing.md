@@ -135,7 +135,65 @@ requiring any per-field sanitisation.
 
 **Key file:** all JSX render files in `src/`
 
-**Status:** TODO — not yet tested this session
+**Tests conducted:**
+
+#### Test 1 — Stored XSS payload via form fields
+
+Malicious input was submitted through each text field in the application: job title,
+company name, notes, and email. The XSS payload used:
+
+```
+<script>alert(1)</script>
+```
+
+The value was stored in the database exactly as entered (see Layer 3 — no server-side
+sanitisation). On re-render, the job card displayed the raw string as visible text. The
+`<` and `>` characters were converted to `&lt;` and `&gt;` by React's `react-dom`
+renderer before reaching the DOM. No alert dialog appeared. The script tag was never
+executed.
+
+| Field tested | Payload | Rendered as | Script executed |
+|-------------|---------|-------------|----------------|
+| Job title | `<script>alert(1)</script>` | Plain text string | No |
+| Company name | `<script>alert(1)</script>` | Plain text string | No |
+| Notes | `<script>alert(1)</script>` | Plain text string | No |
+| Email | `<script>alert(1)</script>` | Plain text string | No |
+
+#### Test 2 — grep for dangerouslySetInnerHTML
+
+`dangerouslySetInnerHTML` is React's escape hatch that bypasses auto-escaping and injects
+raw HTML directly into the DOM. Its presence anywhere in the codebase would void Layer 2's
+protection for affected components.
+
+```bash
+grep -r "dangerouslySetInnerHTML" src/
+```
+
+Result: no output — `dangerouslySetInnerHTML` is not used anywhere in the codebase. React
+auto-escaping is unbroken across all files in `src/`.
+
+#### Test 3 — Semgrep static analysis (p/react ruleset)
+
+Semgrep was run against the full `src/` directory using the official React security ruleset
+to detect known React security anti-patterns, including unsafe HTML injection, unvalidated
+redirects, and prop drilling of dangerous values.
+
+```bash
+semgrep --config "p/react" src/
+```
+
+| Metric | Value |
+|--------|-------|
+| Semgrep version | 1.165.0 |
+| Ruleset | `p/react` |
+| Rules run | 4 |
+| Files scanned | 23 |
+| Findings | 0 |
+
+Result: zero findings across all rules and all files. No known React security anti-patterns
+are present in the codebase.
+
+**Status:** tested and verified in production
 
 ---
 
@@ -152,7 +210,58 @@ replaced with `'#'` before the value ever reaches the `href` attribute. Only
 
 **Key file:** `src/components/jobs/JobCard.jsx`
 
-**Status:** TODO — not yet tested this session
+**Tests conducted:**
+
+#### Test 1 — Attack surface mapping
+
+Before payload testing, all input fields and all rendering contexts were enumerated
+systematically. For each input field, the rendering destination was identified:
+
+| Input field | Rendering context | Sink type |
+|------------|------------------|-----------|
+| Job title | JSX `{variable}` | Text node — auto-escaped by React |
+| Company name | JSX `{variable}` | Text node — auto-escaped by React |
+| Notes | JSX `{variable}` | Text node — auto-escaped by React |
+| Job URL | `<a href={...}>` attribute | **Attribute sink — not text-escaped** |
+
+The job URL field was identified as a distinct attack surface: unlike text nodes, `href`
+attributes accept executable protocols (`javascript:`, `data:`). React auto-escaping
+converts `<` and `>` but does not strip dangerous URI schemes from attribute values. The
+`href` attribute is a DOM sink — the browser interprets it directly when the user clicks
+the link, with no further sanitisation.
+
+#### Test 2 — Stored `javascript:` payload
+
+A `javascript:` URI was submitted as the job URL field and saved to the database:
+
+```
+javascript:alert(1)
+```
+
+The database stored the value as a plain string — no rejection, no sanitisation. The threat
+only manifests at render time in the browser. Without the `getAbsoluteUrl()` fix, clicking
+the job link would execute `alert(1)`.
+
+**XSS classification:** stored + DOM-based — the payload is persisted to the database
+(stored), and execution occurs in the DOM when the link is clicked (DOM-based). The server
+is uninvolved in the execution path.
+
+#### Test 3 — Fix verification (`getAbsoluteUrl()` blocklist)
+
+The `getAbsoluteUrl()` function in `src/components/jobs/JobCard.jsx` intercepts the value
+before it reaches the `href` attribute:
+
+| Input URL | Matched rule | Output |
+|----------|-------------|--------|
+| `javascript:alert(1)` | `/^javascript:/i` | `#` (harmless anchor) |
+| `data:text/html,<script>...` | `/^data:/i` | `#` (harmless anchor) |
+| `https://example.com` | `/^https?:\/\//i` | `https://example.com` (unchanged) |
+| `example.com` | fallback | `https://example.com` (prefix added) |
+
+After the fix, clicking a job card link with a `javascript:` URL navigates to `#` — no
+script execution, no alert dialog.
+
+**Status:** tested and verified in production
 
 ---
 
@@ -220,6 +329,6 @@ entirely.
 
 ## Last Verified
 
-Last verified: 2026-06-10
+Last verified: 2026-06-11
 Environment: production — `job-tracker-frontend-green-sigma.vercel.app`
 Tested by: Mustafa (QA-Master505)
