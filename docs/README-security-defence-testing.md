@@ -268,16 +268,92 @@ script execution, no alert dialog.
 ### Layer 3 — Database Raw Storage
 
 The database stores user-supplied content exactly as submitted — no escaping,
-no sanitisation at the persistence layer. This is intentional: the database is
-not the place to enforce display-layer security. The risk this creates is that
-if any future code path renders stored content outside of React (e.g. a
-server-side template, an email renderer, or an admin panel built with a
-different framework), that path would need its own escaping layer. The defence
-here is therefore a constraint: all rendering paths must go through React JSX.
+no sanitisation, no content filtering at the persistence layer. This is
+intentional: the database is not the place to enforce display-layer security.
+The risk this creates is that if any future code path renders stored content
+outside of React (e.g. a server-side template, an email renderer, or an admin
+panel built with a different framework), that path would need its own
+escaping layer. The defence here is therefore a constraint: all rendering
+paths must go through React JSX.
 
-**Key file:** `job-tracker-backend/models/`
+**Key file:** `job-tracker-backend/models/` (SQLAlchemy models), PostgreSQL schema
 
-**Status:** TODO — not yet tested this session
+**Tests conducted:**
+
+#### Test 1 — Stored payload round-trip verification
+
+An XSS payload was submitted through the Add Application form and saved.
+
+| Field | Submitted payload |
+|-------|-------------------|
+| Job Title | `<script>alert(1)</script>` |
+| Job URL | `javascript:alert(1)` |
+| Notes | `<script>alert(1)</script>` |
+
+The Edit Application form — populated from the database on load — displays
+the payload exactly as submitted, confirming the value round-trips through
+storage and retrieval unmodified.
+
+![Edit Application form showing raw payload retrieved from database](images/layer3-db-raw-storage-edit-form.png)
+
+A direct SQL query against `job_applications` confirms the same value is
+sitting raw in the database:
+
+```sql
+SELECT id, company_name, job_title, job_url, notes
+FROM job_applications
+WHERE job_title ILIKE '%script%'
+   OR job_url ILIKE '%javascript%'
+ORDER BY id DESC
+LIMIT 5;
+```
+
+![TablePlus query result showing raw stored values](images/layer3-db-raw-storage-query-result.png)
+
+| Field | Stored value | Matches submitted payload |
+|-------|-------------|---------------------------|
+| job_title | `<script>alert(1)</script>` | Yes |
+| job_url | `javascript:alert(1)` | Yes |
+| notes | `<script>alert(1)</script>` | Yes |
+
+No escaping, encoding, or rejection occurred at any point between submission
+and storage.
+
+> For reference, this is the same payload from Layer 2 / Layer 2b testing.
+> The database stores it raw (above); React and `getAbsoluteUrl()` neutralise
+> it only at render time:
+>
+> ![Rendered job card showing payload displayed as safe text](images/layer2-2b-xss-payload-rendered-safe.png)
+
+#### Test 2 — Schema constraint inspection
+
+To confirm the absence of content filtering is a deliberate design choice
+rather than an oversight, the column definitions for the affected fields were
+inspected directly:
+
+```sql
+SELECT column_name, data_type, character_maximum_length
+FROM information_schema.columns
+WHERE table_name = 'job_applications'
+  AND column_name IN ('job_title', 'job_url', 'notes', 'company_name');
+```
+
+![Schema query result showing column types and length constraints](images/layer3-db-schema-constraints.png)
+
+| Column | Data type | Max length | Content validation |
+|--------|-----------|-----------|---------------------|
+| company_name | character varying | 255 | None |
+| job_title | character varying | 255 | None |
+| job_url | character varying | 500 | None |
+| notes | text | unlimited | None |
+
+The only constraint present is length. There is no `CHECK` constraint,
+trigger, or other database-level mechanism filtering content. This confirms
+the database layer is intentionally unopinionated about content —
+sanitisation is the render layer's responsibility (Layer 2 / 2b), not the
+storage layer's.
+
+**Status:** tested and verified in production
 
 ---
 
