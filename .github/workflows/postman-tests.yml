@@ -2,7 +2,7 @@ name: Postman Tests
 
 on:
   schedule:
-    - cron: '0 22 * * 0'  # Sunday midnight Vienna (UTC+2)
+    - cron: '0 4 * * 1'  # 06:00 AM Vienna (CEST), Monday only - runs alongside API Tests
   workflow_dispatch:
 
 env:
