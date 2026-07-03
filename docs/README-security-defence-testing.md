@@ -31,7 +31,7 @@ them, and which areas remain to be tested.
 | `vercel.json` | job-tracker-frontend | Layer 1 | HTTP security headers deployed on every response |
 | `src/components/jobs/JobCard.jsx` | job-tracker-frontend | Layer 2b | Explicit `javascript:` and `data:` protocol blocklist in `getAbsoluteUrl()` |
 | All JSX render files | job-tracker-frontend | Layer 2 | React auto-escaping of all `{variable}` interpolations |
-| Backend cookie config | job-tracker-backend | Layer 4 | `httpOnly`, `Secure`, `SameSite=Lax` session cookie flags |
+| `app/config.py`, `app/routers/auth.py` | job-tracker-backend | Layer 4 | `httpOnly`, `Secure`, `SameSite=None` session cookie flags |
 
 ---
 
@@ -362,17 +362,154 @@ storage layer's.
 Authentication tokens are stored in cookies rather than `localStorage` or
 `sessionStorage`. Three cookie flags are critical to this defence:
 
-- `httpOnly` — prevents JavaScript from reading the cookie via `document.cookie`, blocking token theft by injected scripts
-- `Secure` — prevents the cookie from being transmitted over plain HTTP connections
-- `SameSite=Lax` — blocks the cookie from being sent in cross-site POST requests, mitigating CSRF
+- `httpOnly`, prevents JavaScript from reading the cookie via `document.cookie`, blocking token theft by injected scripts
+- `Secure`, prevents the cookie from being transmitted over plain HTTP connections
+- `SameSite`, controls whether the cookie is sent on cross site requests, central to CSRF mitigation
 
-An attacker who successfully injects a script into the page cannot exfiltrate
-the session token because `httpOnly` makes the cookie invisible to JavaScript
-entirely.
+Testing this session revealed that the `SameSite` flag is actually `None` in
+production, not `Lax` as originally assumed and documented. This is
+architecturally necessary: the frontend is hosted on Vercel and the backend on
+Railway, two different domains, so every fetch/XHR call from the SPA to the
+API is cross site by definition. `SameSite=Lax` would block the cookie from
+being attached to any of those calls, breaking authentication entirely.
+However, `SameSite=None` combined with the backend accepting the cookie as a
+standalone credential creates a CSRF exposure on GET endpoints, which this
+session investigated and proved.
 
-**Key file:** backend authentication config
+**Key file:** `app/config.py`, `app/routers/auth.py`
 
-**Status:** TODO — not yet tested this session
+**Tests conducted:**
+
+#### Test 1 — Cookie flag verification (DevTools)
+
+Cookie attributes were inspected directly in the browser via Application >
+Cookies on the live frontend.
+
+| Flag | Documented (assumed) | Actual in production | Matches |
+|------|----------------------|----------------------|---------|
+| HttpOnly | true | true | Yes |
+| Secure | true | true | Yes |
+| SameSite | Lax | None | No |
+| Domain | (unspecified) | `job-tracker-backend-production-7acf.up.railway.app` | Scoped to the Railway host that issues it |
+| Expires / Max-Age | ~30 minutes | Consistent with `access_token_expire_minutes` | Yes |
+
+![DevTools Application panel showing cookie flags, SameSite=None confirmed](images/layer4-cookie-flags-devtools.png)
+
+The `SameSite=None` value was cross referenced against Railway's actual
+service variable, `COOKIE_SAME_SITE=none`, confirming this is a deliberate
+production override of the code default (`cookie_same_site: str = "lax"` in
+`app/config.py`), not an oversight.
+
+![Railway service variables panel showing COOKIE_SAME_SITE override](images/layer4-railway-cookie-samesite-config.png)
+
+#### Test 2 — JavaScript inaccessibility verification
+
+`document.cookie` was run in the DevTools console on the live, authenticated
+frontend:
+
+```javascript
+document.cookie
+```
+
+Result: empty string. Despite an active, valid session cookie, JavaScript
+running on the page cannot read the token at all, confirming `HttpOnly` fully
+blocks token exfiltration via any injected script (e.g. a payload that
+bypassed Layer 2 / 2b).
+
+![DevTools console showing document.cookie returning an empty string](images/layer4-cookie-document-cookie-console.png)
+
+#### Test 3 — CSRF investigation: blind cross site cookie authentication (finding, not a pass)
+
+Unlike Tests 1 and 2, this test produced a finding rather than a confirmed
+pass. The root cause was traced through the backend code:
+
+- `app/config.py`: `cookie_same_site` defaults to `lax`, but the Railway environment variable overrides it to `none` in production (confirmed in Test 1 above)
+- `app/dependencies/auth.py`, `get_current_user()`: accepts the cookie as a fully standalone credential, no `Authorization` header required: `raw = token or request.cookies.get("access_token")`
+- `app/config.py`: `cookie_domain` defaults to `""` (empty), confirmed empty in Railway production too, so no explicit `Domain` attribute is set on the cookie at all
+- `app/main.py`: `CORSMiddleware`'s `allow_origins` is a strict allowlist (only the real Vercel frontend domain and local dev ports)
+
+Proof of concept methodology: a scratch HTML page (kept outside all three
+repos, at `~/Desktop/csrf-poc-scratch`, to avoid any risk of accidental
+commit) was built to simulate an attacker controlled site. It performed:
+
+```javascript
+fetch('https://job-tracker-backend-production-7acf.up.railway.app/auth/me', { credentials: 'include' })
+```
+
+served via `python3 -m http.server 8001`, giving a genuine cross origin
+context (`http://localhost:8001`) distinct from both the Vercel frontend and
+the Railway backend. The page was loaded while authenticated on the real
+frontend in a separate tab of the same browser (cookies are browser scoped,
+not tab scoped).
+
+Result: the request returned `200 OK`. DevTools' Network > Cookies tab (not
+the raw Headers list, which can show incomplete "provisional" data on cross
+origin requests) confirmed the `access_token` cookie was genuinely attached
+and sent, despite originating from a completely unrelated origin. The backend
+authenticated the request and returned real user data.
+
+Separately, the attacker page's own JavaScript could not read that response;
+it hit a CORS error, since `localhost:8001` is not in the `allow_origins`
+allowlist. This is a "blind" CSRF: the request executes fully authenticated
+server side, but the response body stays confidential from the attacker's
+script.
+
+![CSRF PoC page showing CORS block message alongside Network tab 200 OK with cookie header attached](images/layer4-csrf-poc-cookie-attached-200ok.png)
+
+Severity scope, what is and is not affected:
+
+| Endpoint type | Example | Affected | Why |
+|--------------|---------|----------|-----|
+| GET | `/auth/me` | Yes, blind CSRF | Cookie attaches cross site; response unreadable by attacker script, but the request still executes server side |
+| POST / PUT / DELETE | `/jobs` | No | CORS preflight rejection plus strict JSON body parsing |
+
+State changing endpoints are protected by two independent mechanisms: CORS
+preflight rejection, since these require `Content-Type: application/json`,
+which triggers a preflight `OPTIONS` request that fails against the origin
+allowlist; and FastAPI's strict JSON body parsing (endpoints take Pydantic
+models such as `JobApplicationCreate` as the request body), which a classic
+HTML `<form>` based CSRF attack cannot satisfy (forms can only send
+urlencoded/multipart data, causing a 422 before any business logic runs).
+
+> Both mechanisms are accidental mitigations, not designed as CSRF defences.
+> This is the same pattern already documented in Layer 2b, where
+> `getAbsoluteUrl()` originally neutralised `javascript:` URIs by accident
+> before being hardened explicitly.
+
+#### Secondary finding — logout() does not mirror login()'s domain handling (code level observation, not live tested)
+
+In `app/routers/auth.py`, `login()` conditionally sets the cookie's `domain`
+attribute:
+
+```python
+if settings.cookie_domain:
+    cookie_kwargs["domain"] = settings.cookie_domain
+```
+
+`logout()` has no equivalent conditional; it always clears the cookie without
+ever setting `domain`:
+
+```python
+response.set_cookie(
+    key="access_token",
+    value="",
+    httponly=True,
+    max_age=0,
+    samesite=settings.cookie_same_site,
+    secure=settings.cookie_secure,
+)
+```
+
+Currently harmless: `COOKIE_DOMAIN` is empty in production, so both functions
+behave identically today. But if `COOKIE_DOMAIN` is ever set in the future
+(e.g. for subdomain wide cookies), `logout()` would fail to clear the session
+cookie: the browser would treat the login issued cookie (scoped to that
+domain) and the logout issued cookie (no domain, implicitly scoped to the
+exact host) as different cookies, leaving the original valid and active after
+"logout." Flagged as a latent bug, not proven live; no test environment was
+set up to reproduce it this session.
+
+**Status:** tested and documented, findings recorded, not yet remediated (see Backlog)
 
 ---
 
@@ -386,7 +523,8 @@ entirely.
 | Embedding app in attacker iframe | Clickjacking | Layer 1 | `X-Frame-Options: DENY` |
 | MIME type confusion attack | Content sniffing | Layer 1 | `X-Content-Type-Options: nosniff` |
 | Token theft via injected script | Session hijacking | Layer 4 | `httpOnly` cookie flag |
-| Cross-site form submission | CSRF | Layer 4 | `SameSite=Lax` cookie flag |
+| Cross-site state changing request (POST/PUT/DELETE) | CSRF | Layer 4 | CORS preflight rejection plus Pydantic JSON body parsing (accidental, not `SameSite`) |
+| Cross-site GET request using cookie | Blind CSRF | Layer 4 | None yet. `SameSite=None` is required for cross origin auth; exposure documented, not remediated |
 | Sensitive URL leaking to third parties | Referrer leaking | Layer 1 | `Referrer-Policy` header |
 | Downgrade to HTTP connection | SSL stripping | Layer 1 (HSTS) | `Strict-Transport-Security` |
 
@@ -400,11 +538,13 @@ entirely.
 | JT-60 | Cross-user 403 forbidden tests for interview round endpoints | High |
 | Future | Replace `status` varchar with PostgreSQL native enum to enforce valid values at DB layer | Medium |
 | Future | Add Pydantic validators — `company_name` and `job_title` must start with a letter, `job_url` explicit protocol blocklist at API layer | Medium |
+| Future | Add CSRF protection (e.g. double submit token or Origin header validation) for cookie based GET requests, given `SameSite=None` is architecturally required | High |
+| Future | Add `domain=` parameter to `logout()`'s cookie clearing call in `auth.py` to match `login()`'s conditional, preventing a latent cookie clearing bug if `COOKIE_DOMAIN` is ever set | Medium |
 
 ---
 
 ## Last Verified
 
-Last verified: 2026-06-11
+Last verified: 2026-07-03
 Environment: production — `job-tracker-frontend-green-sigma.vercel.app`
 Tested by: Mustafa (QA-Master505)
