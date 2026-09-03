@@ -2,37 +2,15 @@ name: UI Tests (BDD)
 
 on:
   schedule:
-    - cron: '0 22 * * 0'  # Sunday midnight Vienna - biweekly, gated by check-schedule job below
+    - cron: '0 22 1 */3 *'  # Quarterly: 1st of Jan/Apr/Jul/Oct, 22:00 UTC
   workflow_dispatch:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  check-schedule:
-    name: Check Biweekly Schedule
-    runs-on: ubuntu-latest
-    outputs:
-      should_run: ${{ steps.check.outputs.should_run }}
-    steps:
-      - name: Determine if this is a scheduled run week
-        id: check
-        run: |
-          if [ "${{ github.event_name }}" != "schedule" ]; then
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          week=$(date +%V)
-          if [ $(( 10#$week % 2 )) -eq 0 ]; then
-            echo "should_run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "should_run=false" >> "$GITHUB_OUTPUT"
-          fi
-
   bdd-tests:
     name: BDD UI Tests
-    needs: check-schedule
-    if: needs.check-schedule.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
