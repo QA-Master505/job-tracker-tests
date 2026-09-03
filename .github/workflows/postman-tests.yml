@@ -86,6 +86,7 @@ jobs:
           mkdir -p results
           newman run postman/job-tracker-collection.json \
             --environment postman/production-environment.json \
+            --env-var "baseUrl=http://localhost:8000" \
             --reporters cli,htmlextra,junit \
             --reporter-htmlextra-export results/postman-report.html \
             --reporter-junit-export results/postman-junit.xml \
